@@ -1,40 +1,30 @@
 let mongoose = require('mongoose');
-let db = require('../mongoConnect');
+let db = require('./mongoConnect');
 let uuid = require('uuid');
-// let async = require('async');
+let async = require('async');
 let config = require('../../config')
 let Schema = mongoose.Schema;
+let recipientModel = require('./recipient');
+const projectionsDefaults = { _id: 0, __v: 0 };
 
 let volunteerSchema = Schema({
-    id: {
-        type: String,
-        unique: true,
-        trim: true
-    },
     contact: {
         type: Number,
-        validate: {
-            validator: function(v) {
-                return /d{10}/.test(v);
-            },
-            message: '{VALUE} is not a valid 10 digit number!'
-        }
+        match: /^\d{10}$/,
+        unique: true,
+        required: [true, "required"]
     },
     firstName: {
         type: String,
-        unique: true,
-        trim: true
-
+        trim: true,
+        required: [true, "required"]
     },
     familyName: {
         type: String,
-        unique: true,
         trim: true
-
     },
     gothram: {
         type: String,
-        unique: true,
         trim: true
     }
 }, {
@@ -52,5 +42,68 @@ volunteerSchema.pre(['save', 'findOneAndUpdate'], function (next) {
 
     next();
 });
+
+volunteerSchema.method('transform', function () {
+    let obj = this.toObject();
+
+    delete obj._id;
+    delete obj.__v;
+
+    return obj;
+});
+
+volunteerSchema.statics.getAllVolunteers = function (callback) {
+    try {
+        this.find({ }, projectionsDefaults).lean().exec(function (err, allVolunteers) {
+        if (err) {;
+            return callback(err);
+        }
+        let volunteers = [];
+
+        async.each(
+            allVolunteers,
+            function (doc, cb) {
+                doc.recipients = [];
+                recipients = [];
+                recipientModel.getAllRecipients( function (err, recipients) {
+                    if (err) {
+                        return callback(err);
+                    }
+                    async.each(recipients,
+                        function (recipient, fcb) {
+                            if (doc.contact === recipient.volunteerNo) {
+                                doc.recipients.push(recipient);
+                                fcb();
+                            }
+                        }, function (err) {
+                            if (err) {
+                                return callback(err);
+                            }
+                            volunteers.push(doc);
+                            console.log(volunteers, "bbbbbbbbbb")
+                        });
+                    });
+            }, function (err) {
+                if (err) {
+                    return callback(err);
+                }
+                console.log(volunteers, "aaaaaaaaaa")
+                return callback(null, volunteers);
+            });
+        })
+    } catch (err) {
+        return callback(err);
+    }
+
+
+    this.find({ }, projectionsDefaults).lean().exec(function (err, allVolunteers) {
+        if (err) {;
+            return callback(err);
+        }
+        if (allVolunteers) {
+            return callback(null, allVolunteers);
+        }
+    })
+};
 
 module.exports = db.model('volunteers', volunteerSchema);

@@ -1,70 +1,62 @@
 let mongoose = require('mongoose');
-let db = require('../mongoConnect');
+let db = require('./mongoConnect');
 let uuid = require('uuid');
 // let async = require('async');
 let config = require('../../config')
 let Schema = mongoose.Schema;
+const projectionsDefaults = { _id: 0, __v: 0 };
 
 let recipientSchema = Schema({
     contact: {
         type: Number,
-        validate: {
-            validator: function(v) {
-                return /d{10}/.test(v);
-            },
-            message: '{VALUE} is not a valid 10 digit number!'
-        }
+        match: /^\d{10}$/,
+        unique: true,
+        required: [true, "required"],
     },
     firstName: {
         type: String,
-        unique: true,
-        trim: true
+        trim: true,
+        required: [true, "required"],
     },
     familyName: {
         type: String,
-        unique: true,
         trim: true
-
     },
     gothram: {
         type: String,
-        unique: true,
         trim: true
     },
     bankAccountNumber: {
         type: Number,
-        validate: {
-            validator: function(v) {
-                return /d{11}/.test(v);
-            },
-            unique: true,
-            trim: true,
-            message: '{VALUE} is not a valid 11 digit number!'
-        }
+        match: /^\d{11}$/,
+        unique: true,
+        trim: true,
+        required: [true, "required"],
     },
     IFSC: {
         type: String,
-        match: /^[A-Za-z]{4}[a-zA-Z0-9]{7}$/
+        // match: /^[A-Za-z]{4}[a-zA-Z0-9]{7}$/,
+        required: [true, "required"],
     },
     state: {
         type: String,
-        unique: true,
         trim: true
     },
     district: {
         type: String,
-        unique: true,
         trim: true
     },
-    taluk: { type: String,
+    taluk: {
         type: String,
-        unique: true,
         trim: true
     },
     village: {
         type: String,
-        unique: true,
         trim: true
+    },
+    volunteerNo: {
+        type: Number,
+        match: /^\d{10}$/
     }
 }, {
     collection: config.collections.recipients
@@ -81,5 +73,25 @@ recipientSchema.pre(['save', 'findOneAndUpdate'], function (next) {
 
     next();
 });
+
+recipientSchema.method('transform', function () {
+    let obj = this.toObject();
+
+    delete obj._id;
+    delete obj.__v;
+
+    return obj;
+});
+
+recipientSchema.statics.getAllRecipients = function (callback) {
+    this.find({ }, projectionsDefaults).lean().exec(function (err, allRecipients) {
+        if (err) {;
+            return callback(err);
+        }
+        if (allRecipients) {
+            return callback(null, allRecipients);
+        }
+    })
+};
 
 module.exports = db.model('recipients', recipientSchema);

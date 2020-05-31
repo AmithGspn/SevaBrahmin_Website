@@ -1,29 +1,36 @@
 let express = require('express');
 let router = express.Router();
+let volunteerModel = require('../db/models/volunteer');
 
 router.post('/', async function (req, res, next) {
-    let switchId = util.getSwitchId(req);
-
     data = {
-        type: req.body.type,
-        size: req.body.size,
-        name: req.body.name,
-        switchId: switchId
+        contact: req.body.contact,
+        firstName: req.body.firstName,
+        familyName: req.body.familyName,
+        gothram: req.body.gothram
     };
 
     try {
-        let newDoc = await typedefSchema.create(data);
-
+        let newDoc = await volunteerModel.create(data);
         res.status(200).json(newDoc.transform())
     }
     catch (err) {
-        if (err.name === 'MongoError' && err.code === 11000) {
+        if (err.contact === 'MongoError' && err.code === 11000) {
             e = new Error();
             e.status = 409;
-            e.message = "name already in use, choose a different one";
+            e.message = "Contact details already exists";
             return next(e);
         }
 
         return next(err);
     }
 });
+
+router.get('/', async function (req, res, next) {
+    let volunteers = await new Promise((resolve, reject) =>
+    volunteerModel.getAllVolunteers( (err, docs) => err ? reject(err) : resolve(docs)));
+    console.log(volunteers, "manager")
+    return res.status(200).json(volunteers);
+});
+
+module.exports = router;

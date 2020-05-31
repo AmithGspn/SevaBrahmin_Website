@@ -12,6 +12,8 @@ let config = require('./config');
 
 // Define Routes
 let registerationRouter = require('./routes/userRegisterationManager');
+let volunteerRouter = require('./routes/volunteerManager');
+let recipientRouter = require('./routes/recipientManager');
 
 // Initialize the Express App and Configure
 let app = express();
@@ -58,6 +60,8 @@ if (process.env.NODE_ENV !== 'simulate') {
 // Authenticated URLs
 
 app.use('/userRegisterationManager', registerationRouter);
+app.use('/volunteerManager', volunteerRouter);
+app.use('/recipientManager', recipientRouter);
 
 //catch 404 and forward to error handler
 app.use(function (req, res, next) {

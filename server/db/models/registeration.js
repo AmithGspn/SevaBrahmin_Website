@@ -7,27 +7,25 @@ let Schema = mongoose.Schema;
 const projectionsDefaults = { _id: 0, __v: 0 };
 
 const UserSchema = Schema({
-    id: {
-        type: String,
-        unique: true,
-        trim: true
-    },
     userName: {
         type: String,
-        required: true
+        required: true,
+        required: [true, "required"]
     },
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        required: [true, "required"]
     },
     userType: {
         type: String,
-        enum: ['volunteer', 'recipient', 'donor']
+        enum: ['volunteer', 'recipient', 'donor'],
+        required: [true, "required"]
     },
     password: {
         type: String,
-        required: true
+        required: [true, "required"],
     }
 }, {
     collection: config.collections.registerations

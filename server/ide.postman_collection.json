@@ -19,7 +19,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"userName\": \"amith\",\n\t\"email\": \"amithgspn23@gmail.com\",\n\t\"userType\": \"volunteer\"\n,\n\t\"password\": \"315lalitha\"\n}",
+					"raw": "{\n    \"userName\": \"amith\",\n\t\"email\": \"amithgspn23@gmail.com\",\n\t\"userType\": \"volunteer\",\n\t\"password\": \"315lalitha\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -59,6 +59,124 @@
 					"port": "3001",
 					"path": [
 						"userRegisterationManager"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create volunteer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"contact\": \"contact\",\n\t\"firstName\": \"firstName\",\n\t\"familyName\": \"familyName\",\n\t\"gothram\": \"gothram\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/volunteerManager",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"volunteerManager"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get volunteers",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3001/volunteerManager",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"volunteerManager"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create recipient",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"contact\": \"contact\",\n\t\"firstName\": \"firstName\",\n\t\"familyName\": \"familyName\",\n\t\"gothram\": \"gothram\",\n\t\"bankAccountNumber\": \"bankAccountNumber\",\n\t\"IFSC\": \"IFSC\",\n\t\"state\": \"state\",\n\t\"district\": \"district\",\n\t\"taluk\": \"taluk\",\n\t\"village\": \"village\",\n\t\"volunteerNo\": \"volunteerPhoneNo\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/recipientManager",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"recipientManager"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get recipients",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3001/recipientManager",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"recipientManager"
 					]
 				}
 			},
