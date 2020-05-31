@@ -1,0 +1,69 @@
+{
+	"info": {
+		"_postman_id": "e069ac4a-69f1-4e9a-a044-6a5f0dec63d2",
+		"name": "sevaBrahmin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userName\": \"amith\",\n\t\"email\": \"amithgspn23@gmail.com\",\n\t\"userType\": \"volunteer\"\n,\n\t\"password\": \"315lalitha\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3001/userRegisterationManager",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"userRegisterationManager"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get users",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3001/userRegisterationManager",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"userRegisterationManager"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
