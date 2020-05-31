@@ -1,34 +1,48 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  emailAddress: any = "";
-  password: any = "";
+    emailAddress: any = "";
+    password: any = "";
+    checkedValue: any = "";
 
-  constructor() { }
+    constructor(private router: Router) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 
-  onEmailNameChange(value) {
-    this.emailAddress = value;
-    console.log(this.emailAddress)
-  }
+    onEmailNameChange(value) {
+        this.emailAddress = value;
+        console.log(this.emailAddress)
+    }
 
-  onPasswordChange(value) {
-    this.password = value;
-    console.log(this.password)
-  }
+    onPasswordChange(value) {
+        this.password = value;
+        console.log(this.password)
+    }
 
-  login() {
-    let formData = {
-        emailAddress: this.emailAddress,
-        password: this.password
-    };
-    console.log(formData)
-}
+    selectCheckBox(event) {
+        if (event === "recipient") {
+            this.checkedValue = "recipient"
+        } else if (event === "volunteer") {
+            this.checkedValue = "volunteer"
+        } else {
+            this.checkedValue = "donor"
+        }
+    }
+
+    login() {
+        console.log(this.checkedValue)
+        this.router.navigateByUrl(`/${this.checkedValue}`);
+        let formData = {
+            emailAddress: this.emailAddress,
+            password: this.password
+        };
+        console.log(formData)
+    }
 }

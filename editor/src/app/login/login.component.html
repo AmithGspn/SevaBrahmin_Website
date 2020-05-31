@@ -18,13 +18,13 @@
                         <div class="row px-3 mb-4">
                             <div class="custom-control custom-checkbox custom-control-inline" data-toggle="buttons">
                                 <label>
-                                  <input type="radio" name="options" id="option3"> Recipient
+                                  <input type="radio" value="recipient" (click)="selectCheckBox($event.target.value)" name="options" id="option3"> Recipient
                                 </label>
                                 <label>
-                                  <input type="radio" name="options" id="option1"> Volunteer
+                                  <input type="radio" value="volunteer" (click)="selectCheckBox($event.target.value)" name="options" id="option1"> Volunteer
                                 </label>
                                 <label>
-                                  <input type="radio"  name="options" id="option2"> Donor
+                                  <input type="radio" value="donor" (click)="selectCheckBox($event.target.value)" name="options" id="option2"> Donor
                                 </label>
                           </div>
                             <a href="#" class="ml-auto mb-0 text-sm">Forgot Password?</a>
