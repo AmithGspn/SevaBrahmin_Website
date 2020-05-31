@@ -47,23 +47,10 @@ UserSchema.statics.getAllUsers = function (callback) {
         if (err) {;
             return callback(err);
         }
-        async.each(allUsers,
-            function (user, cb) {
-                allUsersArray = []
-                allUsersArray.push(user)
-                console.log(allUsersArray)
-                }, function (err){
-                    if (err){
-                        return callback(err);
-                    }
-                    cb();
-                })
-            }, function (err) {
-                if (err) {
-                    return callback(err);
-                }
-                return callback(null, allUsers);
-            })
-    };
+        if (allUsers) {
+            return callback(null, allUsers);
+        }
+    })
+};
 
 module.exports = db.model('user', UserSchema);

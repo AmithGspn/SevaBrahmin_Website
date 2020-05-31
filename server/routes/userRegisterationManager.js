@@ -26,12 +26,9 @@ router.post('/', async function (req, res, next) {
 });
 
 router.get('/', async function (req, res, next) {
-    registerationModel.getAllUsers( function (err, allDocs) {
-        if (err) {
-            return next(err);
-        }
-        return res.status(200).json(allDocs);
-    });
+    let users = await new Promise((resolve, reject) =>
+    registerationModel.getAllUsers( (err, docs) => err ? reject(err) : resolve(docs)));
+    return res.status(200).json(users);
 });
 
 module.exports = router;
