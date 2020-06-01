@@ -19,7 +19,7 @@ const UserSchema = Schema({
     },
     userType: {
         type: String,
-        enum: ['volunteer', 'recipient', 'donor'],
+        enum: ['volunteer', 'recipient', 'donor', 'admin'],
         required: [true, "required"]
     },
     contact: {
@@ -31,6 +31,9 @@ const UserSchema = Schema({
     password: {
         type: String,
         required: [true, "required"],
+    },
+    approved: {
+        type: Boolean,
     }
 }, {
     collection: config.collections.registerations
@@ -55,5 +58,17 @@ UserSchema.statics.getAllUsers = function (callback) {
         }
     })
 };
+
+UserSchema.pre(['save', 'findOneAndUpdate'], function (next) {
+    let obj = this;
+
+    if (this._update && this._update['$set']) {
+        obj = this._update['$set'];
+    }
+
+    obj.id = obj.id;
+
+    next();
+});
 
 module.exports = db.model('user', UserSchema);

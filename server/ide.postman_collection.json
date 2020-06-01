@@ -51,6 +51,15 @@
 						"type": "text"
 					}
 				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userName\": \"amith\",\n\t\"email\": \"amithgspn23@gmail.com\",\n\t\"userType\": \"volunteer\",\n\t\"password\": \"315lalitha\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "localhost:3001/userRegisterationManager",
 					"host": [
@@ -61,6 +70,31 @@
 						"userRegisterationManager"
 					]
 				}
+			},
+			"response": []
+		},
+		{
+			"name": "put users",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3001/userRegisterationManager",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"userRegisterationManager"
+					]
+				} 
 			},
 			"response": []
 		},
