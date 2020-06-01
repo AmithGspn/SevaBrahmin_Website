@@ -7,7 +7,8 @@ router.post('/', async function (req, res, next) {
         userName: req.body.userName,
         email: req.body.email,
         userType: req.body.userType,
-        password: req.body.password
+        password: req.body.password,
+        contact: req.body.contact
     };
 
     try {

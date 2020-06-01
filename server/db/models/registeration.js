@@ -9,18 +9,23 @@ const projectionsDefaults = { _id: 0, __v: 0 };
 const UserSchema = Schema({
     userName: {
         type: String,
-        required: true,
         required: [true, "required"]
     },
     email: {
         type: String,
-        required: true,
         unique: true,
+        sparse:true,
         required: [true, "required"]
     },
     userType: {
         type: String,
         enum: ['volunteer', 'recipient', 'donor'],
+        required: [true, "required"]
+    },
+    contact: {
+        type: Number,
+        match: /^\+(?:[0-9] ?){6,14}[0-9]$/,
+        unique: true,
         required: [true, "required"]
     },
     password: {

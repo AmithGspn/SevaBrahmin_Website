@@ -9,7 +9,7 @@ const projectionsDefaults = { _id: 0, __v: 0 };
 let recipientSchema = Schema({
     contact: {
         type: Number,
-        match: /^\d{10}$/,
+        match: /^\+(?:[0-9] ?){6,14}[0-9]$/,
         unique: true,
         required: [true, "required"],
     },

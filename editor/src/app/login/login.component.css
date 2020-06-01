@@ -181,8 +181,14 @@ input[type=radio] {
   
   input[type=radio]:focus {
     outline-color: transparent;
-  }
+}
   
+.alertClass {
+    margin-top: 20px;
+    padding-left: 15px;
+    width: 555px;
+}
+
 /* #l1{
     height:30px;
 } */

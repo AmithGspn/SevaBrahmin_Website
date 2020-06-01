@@ -1,50 +1,81 @@
 import { Component, OnInit } from '@angular/core';
+import { AppService } from '../app.service'
 
 @Component({
-  selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.css']
+    selector: 'app-sign-up',
+    templateUrl: './sign-up.component.html',
+    styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
-  name: any = "";
-  emailAddress: any = "";
-  contact: any = "";
-  password: any = "";
-  rePassword: any = "";
+    name: any = "";
+    emailAddress: any = "";
+    contact: any = "";
+    password: any = "";
+    rePassword: any = "";
+    countrycode: any = "";
+    checkedValue: any = "";
+    statusMessage: any = {
+        success: false,
+        error: false,
+        message: ''
+    };
 
-  constructor() { }
+    constructor(private appService: AppService) { }
 
-  ngOnInit() {
-  }
-
-  onNameChange(event) {
-    this.name = event
-  }
-
-  onEmailChange(event) {
-    this.emailAddress = event
-  }
-
-  onContactChange(event) {
-    this.contact = event
-  }
-
-  onPasswordChange(event) {
-    this.password = event
-  }
-
-  onRePasswordChange(event) {
-    this.rePassword = event
-  }
-
-  signup() {
-    let formData = {
-      name: this.name,
-      emailaddress: this.emailAddress,
-      contact: this.contact,
-      password: this.password
+    ngOnInit() {
     }
-    console.log(formData)
-  }
-  
+
+    updateList(event) {
+        console.log(event)
+        this.countrycode = event
+    }
+
+    onNameChange(event) {
+        this.name = event
+    }
+
+    onEmailChange(event) {
+        this.emailAddress = event
+    }
+
+    onContactChange(event) {
+        this.contact = event
+    }
+
+    onPasswordChange(event) {
+        this.password = event
+    }
+
+    onRePasswordChange(event) {
+        this.rePassword = event
+    }
+
+    selectCheckBox(event) {
+        if (event === "recipient") {
+            this.checkedValue = "recipient"
+        } else if (event === "volunteer") {
+            this.checkedValue = "volunteer"
+        } else {
+            this.checkedValue = "donor"
+        }
+    }
+
+    signup() {
+        let formData = {
+            userName: this.name,
+            email: this.emailAddress,
+            contact: this.countrycode + this.contact,
+            password: this.password,
+            userType: this.checkedValue
+        }
+        this.appService.postUser(formData).subscribe((data) => {
+            console.log(data)
+        }, (error) => {
+            this.statusMessage = {
+                success: false,
+                error: true,
+                message: error
+            };
+        });
+    }
 }

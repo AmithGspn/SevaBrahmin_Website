@@ -1,38 +1,86 @@
-<div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
-    <div class="card card0 border-0">
-        <div class="row d-flex">
-            <div class="col-lg-6">
-                <div class="card1 pb-5">
-                    <div class="row"> <img src="https://jonkuhrt.files.wordpress.com/2018/05/helping-hands.jpg?w=339&h=240" class="logo"> </div>
-                    <div class="row px-3 justify-content-center mt-4 mb-5 border-line"> <img src="" class="image"> </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="card2 card border-0 px-4 py-5">
-                    <div class="row px-3"> <label class="mb-1">
-                            <h6 class="mb-0 text-sm">Email Address</h6>
-                        </label> <input class="mb-4" type="text" name="email" (blur)="onEmailNameChange($event.target.value)" placeholder="Enter a valid email address"> </div>
-                    <div class="row px-3"> <label class="mb-1">
-                            <h6 class="mb-0 text-sm">Password</h6>
-                        </label> <input type="password" name="password" (blur)="onPasswordChange($event.target.value)" placeholder="Enter password"> </div>
-                        <div class="row px-3 mb-4">
-                            <div class="custom-control custom-checkbox custom-control-inline" data-toggle="buttons">
-                                <label>
-                                  <input type="radio" value="recipient" (click)="selectCheckBox($event.target.value)" name="options" id="option3"> Recipient
-                                </label>
-                                <label>
-                                  <input type="radio" value="volunteer" (click)="selectCheckBox($event.target.value)" name="options" id="option1"> Volunteer
-                                </label>
-                                <label>
-                                  <input type="radio" value="donor" (click)="selectCheckBox($event.target.value)" name="options" id="option2"> Donor
-                                </label>
-                          </div>
-                            <a href="#" class="ml-auto mb-0 text-sm">Forgot Password?</a>
+<!-- Navbar-->
+<header class="header">
+    <nav class="navbar navbar-expand-lg navbar-light py-3">
+        <div class="container">
+            <!-- Navbar Brand -->
+            <a href="#" class="navbar-brand">
+                <!-- <img src="https://res.cloudinary.com/mhmd/image/upload/v1571398888/Group_1514_tjekh3_zkts1c.svg" alt="logo" width="150"> -->
+            </a>
+        </div>
+    </nav>
+</header>
+
+
+<div class="container">
+    <div class="row py-5 mt-4 align-items-center">
+        <!-- For Demo Purpose -->
+        <div class="col-md-5 pr-lg-5 mb-5 mb-md-0">
+            <!-- <img src="https://res.cloudinary.com/mhmd/image/upload/v1569543678/form_d9sh6m.svg" alt="" class="img-fluid mb-3 d-none d-md-block"> -->
+            <!-- <h1>Create an Account</h1>
+            <p class="font-italic text-muted mb-0">Create a minimal registeration page using Bootstrap 4 HTML form elements.</p>
+            <p class="font-italic text-muted">Snippet By <a href="https://bootstrapious.com" class="text-muted">
+                <u>Bootstrapious</u></a>
+            </p> -->
+        </div>
+
+        <!-- Login Form -->
+        <div class="col-md-7 col-lg-6 ml-auto">
+            <form action="#">
+                <div class="row">
+                    <div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
+                        <div class="border-bottom w-100 ml-5"></div>
+                        <span class="px-2 large text-muted font-weight-bold text-muted">Login_Form</span>
+                        <div class="border-bottom w-100 mr-5"></div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-user text-muted"></i>
+                            </span>
                         </div>
-                    <div class="row mb-3 px-3"> <button type="submit" class="btn btn-blue text-center" routerLink="/volunteer" (click)="login()">Login</button> </div>
-                    <div class="row mb-4 px-3"> <small class="font-weight-bold">Don't have an account? <a routerLink="/signUp" class="text-danger ">Register</a></small> </div>
+                        <input id="email" type="text" name="email" (blur)="onEmailNameChange($event.target.value)" placeholder="Email" class="form-control bg-white border-left-0 border-md">
+                    </div>
+
+                    <!-- Password -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-user text-muted"></i>
+                            </span>
+                        </div>
+                        <input id="password" type="text" name="password" (blur)="onPasswordChange($event.target.value)" placeholder="Password" class="form-control bg-white border-left-0 border-md">
+                    </div>
+
+                    
+                    <div class="custom-control custom-checkbox custom-control-inline" style="width:600px" data-toggle="buttons">
+                        <label style="margin-right: 20px;">
+                            <input type="radio" value="recipient" (click)="selectCheckBox($event.target.value)" name="options" id="option3"> Recipient
+                        </label>
+                        <label style="margin-right: 20px;">
+                            <input type="radio" value="volunteer" (click)="selectCheckBox($event.target.value)" name="options" id="option1"> Volunteer
+                        </label>
+                        <label style="margin-right: 20px;">
+                            <input type="radio" value="donor" (click)="selectCheckBox($event.target.value)" name="options" id="option2"> Donor
+                        </label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-group col-lg-12 mx-auto mb-0">
+                        <span class="btn btn-primary btn-block py-2 font-weight-bold" (click)="login()">Login</span>
+                    </div>
+            
+                    <span class="alert-container alertClass">
+                        <alert type="success" *ngIf="statusMessage.success">
+                          <strong>Success</strong> {{statusMessage.message}}
+                        </alert>
+                        <alert type="danger" *ngIf="statusMessage.error">
+                          <strong>Error</strong> {{statusMessage.message}}
+                        </alert>
+                    </span>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
