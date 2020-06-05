@@ -1,6 +1,5 @@
 module.exports = {
     database: {
-        // Database credentials for the course.
         default: {
             name: 'SevaBrahmin',
             host: 'localhost',
@@ -24,6 +23,5 @@ module.exports = {
     },
     indentation: 4,
     PORT: '3001',
-    SWITCH_HEADER: 'X-SWITCH-ID',
     name: /^(_)?[A-Za-z][A-Za-z0-9_]{0,}$/
 };

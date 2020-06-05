@@ -47,24 +47,12 @@
                     <div class="input-group col-lg-12 mb-4">
                         <div class="input-group-prepend">
                             <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-user text-muted"></i>
+                                <i class="fa fa-lock text-muted"></i>
                             </span>
                         </div>
-                        <input id="password" type="text" name="password" (blur)="onPasswordChange($event.target.value)" placeholder="Password" class="form-control bg-white border-left-0 border-md">
+                        <input id="password" type="password" name="password" placeholder="Password" (blur)="onPasswordChange($event.target.value)" class="form-control bg-white border-left-0 border-md">
                     </div>
-
                     
-                    <div class="custom-control custom-checkbox custom-control-inline" style="width:600px" data-toggle="buttons">
-                        <label style="margin-right: 20px;">
-                            <input type="radio" value="recipient" (click)="selectCheckBox($event.target.value)" name="options" id="option3"> Recipient
-                        </label>
-                        <label style="margin-right: 20px;">
-                            <input type="radio" value="volunteer" (click)="selectCheckBox($event.target.value)" name="options" id="option1"> Volunteer
-                        </label>
-                        <label style="margin-right: 20px;">
-                            <input type="radio" value="donor" (click)="selectCheckBox($event.target.value)" name="options" id="option2"> Donor
-                        </label>
-                    </div>
 
                     <!-- Submit Button -->
                     <div class="form-group col-lg-12 mx-auto mb-0">
@@ -85,4 +73,3 @@
     </div>
 </div>
 
-<router-outlet></router-outlet>

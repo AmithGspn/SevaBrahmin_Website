@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppService } from '../app.service'
+import { AppService } from '../app.service';
+import { NavbarService } from '../services/navbar.service';
 
 @Component({
     selector: 'app-login',
@@ -8,6 +9,8 @@ import { AppService } from '../app.service'
     styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+    isLoggedIn = false;
+    role = '';
     emailAddress: any = "";
     password: any = "";
     checkedValue: any = "";
@@ -17,10 +20,38 @@ export class LoginComponent implements OnInit {
         message: ''
     };
 
-    constructor(private router: Router,private appService: AppService) { }
+    constructor(private router: Router,private appService: AppService, private navbarService: NavbarService) { 
+        this.navbarService.getLoginStatus().subscribe(status => this.isLoggedIn = status);
+    }
 
     ngOnInit() {
     }
+
+    loginAdmin() {
+        this.navbarService.updateNavAfterAuth('admin');
+        this.navbarService.updateLoginStatus(true);
+        this.role = 'admin';
+    }
+
+    loginVolunteer() {
+        this.navbarService.updateNavAfterAuth('volunteer');
+        this.navbarService.updateLoginStatus(true);
+        this.role = 'volunteer';
+    }
+
+    loginRecipient() {
+        this.navbarService.updateNavAfterAuth('recipient');
+        this.navbarService.updateLoginStatus(true);
+        this.role = 'recipient';
+    }
+
+    
+    loginDonor() {
+        this.navbarService.updateNavAfterAuth('donor');
+        this.navbarService.updateLoginStatus(true);
+        this.role = 'donor';
+    }
+    
 
     onEmailNameChange(value) {
         this.emailAddress = value;
@@ -53,19 +84,35 @@ export class LoginComponent implements OnInit {
         this.appService.getUsers().subscribe((data: any) => {
             for ( let user of data ) {
                 console.log(user)
-                if (user.password === formData.password && user.email === formData.emailAddress && user.userType === formData.userType) {
-                    this.statusMessage = {
-                        success: true,
-                        error: false,
-                        message: 'successfully logged in'
-                    };
-                    this.router.navigateByUrl(`/${this.checkedValue}`);
+                if (user.password === formData.password && user.email === formData.emailAddress && user.approved === true) {
+                    if (user.userType === 'admin') {
+                        this.loginAdmin();
+                        this.router.navigateByUrl('/admin');
+                    } else if (user.userType === 'volunteer'){
+                        this.loginVolunteer();
+                        this.router.navigateByUrl('/volunteer');
+                    } else if (user.userType === 'recipient') {
+                        this.loginRecipient();
+                        this.router.navigateByUrl('/recipient');
+                    } else {
+                        this.loginDonor();
+                        this.router.navigateByUrl('/donor');
+                    }
                 } else {
-                    this.statusMessage = {
-                        success: false,
-                        error: true,
-                        message: 'Invalid Login Credentials'
-                    };
+                    if (user.approved === false) {
+                        this.statusMessage = {
+                            success: false,
+                            error: true,
+                            message: 'Please wait for the admin to approve the details'
+                        };
+                    }
+                    if (user.password !== formData.password || user.email !== formData.emailAddress) {
+                        this.statusMessage = {
+                            success: false,
+                            error: true,
+                            message: 'Invalid Login Credentials'
+                        };
+                    }
                 }
             }
         })

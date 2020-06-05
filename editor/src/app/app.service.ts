@@ -37,6 +37,13 @@ export class AppService {
         );
     }
 
+    putUser(formData) {
+        return this.httpClient.put( this.userRegisterationUrl, formData, this.httpOptions )
+        .pipe(
+            catchError(this.handleError)
+        );
+    }
+
     getUsers() {
         return this.httpClient.get(this.userRegisterationUrl, this.httpOptions)
         .pipe(

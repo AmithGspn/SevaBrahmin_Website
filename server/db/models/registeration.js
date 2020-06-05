@@ -1,7 +1,5 @@
 let mongoose = require('mongoose');
 let db = require('./mongoConnect');
-let uuid = require('uuid');
-let async = require('async');
 let config = require('../../config')
 let Schema = mongoose.Schema;
 const projectionsDefaults = { _id: 0, __v: 0 };
@@ -9,12 +7,19 @@ const projectionsDefaults = { _id: 0, __v: 0 };
 const UserSchema = Schema({
     userName: {
         type: String,
+        required: true,
         required: [true, "required"]
+    },
+    contact: {
+        type: Number,
+        match: /^\+(?:[0-9] ?){6,14}[0-9]$/,
+        unique: true,
+        required: [true, "required"],
     },
     email: {
         type: String,
+        required: true,
         unique: true,
-        sparse:true,
         required: [true, "required"]
     },
     userType: {
@@ -22,21 +27,25 @@ const UserSchema = Schema({
         enum: ['volunteer', 'recipient', 'donor', 'admin'],
         required: [true, "required"]
     },
-    contact: {
-        type: Number,
-        match: /^\+(?:[0-9] ?){6,14}[0-9]$/,
-        unique: true,
-        required: [true, "required"]
-    },
     password: {
         type: String,
         required: [true, "required"],
     },
     approved: {
-        type: Boolean,
+        type: Boolean
     }
 }, {
     collection: config.collections.registerations
+});
+
+UserSchema.pre(['save', 'findOneAndUpdate'], function (next) {
+    let obj = this;
+
+    if (this._update && this._update['$set']){
+        obj = this._update['$set'];
+    }
+
+    next();
 });
 
 UserSchema.method('transform', function () {
@@ -58,17 +67,5 @@ UserSchema.statics.getAllUsers = function (callback) {
         }
     })
 };
-
-UserSchema.pre(['save', 'findOneAndUpdate'], function (next) {
-    let obj = this;
-
-    if (this._update && this._update['$set']) {
-        obj = this._update['$set'];
-    }
-
-    obj.id = obj.id;
-
-    next();
-});
 
 module.exports = db.model('user', UserSchema);

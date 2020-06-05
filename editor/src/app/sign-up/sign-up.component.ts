@@ -69,7 +69,11 @@ export class SignUpComponent implements OnInit {
             userType: this.checkedValue
         }
         this.appService.postUser(formData).subscribe((data) => {
-            console.log(data)
+            this.statusMessage = {
+                success: true,
+                error: false,
+                message: "Successfully signed up. Please wait for the admin to approve your account"
+            };
         }, (error) => {
             this.statusMessage = {
                 success: false,

@@ -5,28 +5,39 @@ import { LoginComponent } from './login/login.component';
 import { VolunteerComponent } from './volunteer/volunteer.component';
 import { DonorComponent } from './donor/donor.component';
 import { RecipientComponent } from './recipient/recipient.component';
+import { AdminComponent } from './admin/admin.component';
+import { HomeComponent } from './home/home.component'
 
 const routes: Routes = [
   {
-    path: 'signUp',
-    component: SignUpComponent
-  }, 
-  {
-    path: 'login',
-    component: LoginComponent,
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
   },
   {
-    path:'volunteer',
-    component: VolunteerComponent
-},
-{
-    path:'recipient',
+    path: 'signUp',
+    component: SignUpComponent
+  },
+  {
+    path: 'home',
+    component: HomeComponent
+  },
+  {
+    path: 'admin',
+    component: AdminComponent
+  },
+  {
+    path: 'recipient',
     component: RecipientComponent
-},
-{
-    path:'donor',
+  },
+  {
+    path: 'volunteer',
+    component: VolunteerComponent
+  },
+  {
+    path: 'donor',
     component: DonorComponent
-}
+  }
 ];
 
 @NgModule({

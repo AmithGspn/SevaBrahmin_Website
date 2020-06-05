@@ -8,8 +8,8 @@ router.post('/', async function (req, res, next) {
         email: req.body.email,
         userType: req.body.userType,
         password: req.body.password,
+        approved: false,
         contact: req.body.contact,
-        approved: false
     };
 
     try {
@@ -39,12 +39,13 @@ router.put('/', async function (req, res, next) {
         email: req.body.email,
         userType: req.body.userType,
         password: req.body.password,
-        contact: req.body.contact,
+        approved: req.body.approved,
+        contact: req.body.contact
     };
 
     try {
         let updateDoc = await registerationModel.findOneAndUpdate(
-            { id: req.body.email },
+            { email: req.body.email},
             { $set: data, $inc: { __v: 1 } },
             { new: true, runValidators: true }
         );
@@ -52,7 +53,7 @@ router.put('/', async function (req, res, next) {
         if (!updateDoc) {
             e = new Error();
             e.status = 404;
-            e.message = 'User not found';
+            e.message = 'user not found';
 
             return next(e);
         } else {
@@ -62,7 +63,7 @@ router.put('/', async function (req, res, next) {
         if (err.name === 'MongoError' && err.code === 11000) {
             e = new Error();
             e.status = 409;
-            e.message = "mail already in use, choose a different one";
+            e.message = "name already in use, choose a different one";
             return next(e);
         }
 

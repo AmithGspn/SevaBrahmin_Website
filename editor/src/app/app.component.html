@@ -1,21 +1,26 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark navbar-default">
   <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
       <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-              <a class="nav-link"routerLink="" routerLinkActive="active">SevaBrahm</a>
+              <a class="nav-link" routerLink="">SevaBrahm</a>
           </li>
+            <li class="nav-item" *ngFor="let link of links">
+                <a class="nav-link" [routerLink]="link.path" routerLinkActive="active">{{ link.text }}</a>
+            </li>
       </ul>
   </div>
   <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
       <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-              <a class="nav-link" routerLink="/signUp" routerLinkActive="active"><i class="fa fa-user"></i> Sign Up</a>
+              <a class="nav-link" *ngIf="!isLoggedIn" routerLink="/signUp" routerLinkActive="active"><i class="fa fa-user"></i> Sign Up</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
               <a class="nav-link" routerLink="/login" routerLinkActive="active"><i class="fa fa-sign-in"></i> Login</a>
+          </li> -->
+          <li class="nav-item" *ngIf="isLoggedIn">
+            <a class="nav-link" routerLink="logout" (click)="logout()">Logout</a>
           </li>
       </ul>
   </div>
 </nav>
 <router-outlet></router-outlet>
-

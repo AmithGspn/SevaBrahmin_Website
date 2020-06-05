@@ -3,7 +3,6 @@ let express = require('express');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
 let device = require('express-device');
-let browser = require('browser-detect');
 let bodyParser = require('body-parser');
 let compression = require('compression');
 let cors = require('cors');
@@ -37,22 +36,11 @@ app.use(cookieParser());
 
 
 // Logging Configuration
-logger.token('deviceSource', function (req, res) {
-    let deviceSource = req.headers['device'];
-    if (deviceSource == undefined) deviceSource = "Browser";
-    return deviceSource;
-});
-logger.token('browser', function (req, res) {
-    let result = browser(req.headers['user-agent']);
-    if (result.name === undefined) result.name = 'Safari';
-    return result.name;
-});
-logger.token('device-type', function (req, res) { return req.device.type; });
-logger.token('device-name', function (req, res) { return req.device.name; });
+
 
 if (process.env.NODE_ENV !== 'simulate') {
     app.use(
-        logger('[:date[iso]]  :method  :status  :url  :remote-addr  :response-time ms :device-type :device-name :browser :deviceSource')
+        logger(' :method  :status  :url :response-time ms')
     );
 }
 

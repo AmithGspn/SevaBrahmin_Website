@@ -29,7 +29,7 @@
                 <div class="row">
                     <div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
                         <div class="border-bottom w-100 ml-5"></div>
-                        <span class="px-2 large text-muted font-weight-bold text-muted">Submit_form</span>
+                        <span class="px-2 large text-muted font-weight-bold text-muted">SignUp_form</span>
                         <div class="border-bottom w-100 mr-5"></div>
                     </div>
 
@@ -87,7 +87,7 @@
                                 <i class="fa fa-lock text-muted"></i>
                             </span>
                         </div>
-                        <input id="passwordConfirmation" type="text" name="passwordConfirmation" (blur)="onRePasswordChange($event.target.value)" placeholder="Confirm Password" class="form-control bg-white border-left-0 border-md">
+                        <input id="passwordConfirmation" type="password" name="passwordConfirmation" (blur)="onRePasswordChange($event.target.value)" placeholder="Confirm Password" class="form-control bg-white border-left-0 border-md">
                     </div>
 
 
@@ -110,10 +110,10 @@
 
                     <span class="alert-container alertClass">
                         <alert type="success" *ngIf="statusMessage.success">
-                          <strong>Success</strong> {{statusMessage.message}}
+                          <strong>{{statusMessage.message}}</strong>
                         </alert>
                         <alert type="danger" *ngIf="statusMessage.error">
-                          <strong>Error</strong> {{statusMessage.message}}
+                          <strong>{{statusMessage.message}}</strong>
                         </alert>
                     </span>
 

@@ -1,7 +1,6 @@
 let mongoose = require('mongoose');
 let db = require('./mongoConnect');
 let uuid = require('uuid');
-// let async = require('async');
 let config = require('../../config')
 let Schema = mongoose.Schema;
 const projectionsDefaults = { _id: 0, __v: 0 };
