@@ -14,7 +14,7 @@ export class SignUpComponent implements OnInit {
     contact: any = "";
     password: any = "";
     rePassword: any = "";
-    countrycode: any = "";
+    countrycode: any = "91";
     checkedValue: any = "";
     familyName: any = "";
     gothram: any = "";
@@ -103,6 +103,16 @@ export class SignUpComponent implements OnInit {
         }
     }
 
+    selectCheckBox1(event) {
+        this.checkedValue1 = event;
+        console.log(this.checkedValue1)
+    }
+  
+    selectCheckBox2(event) {
+        this.checkedvalue2 = event;
+        console.log(this.checkedvalue2)
+    }
+
     signup() {
         let formData = {
             email: this.emailAddress,
@@ -164,8 +174,7 @@ export class SignUpComponent implements OnInit {
 
         this.appService.postUser(formData).subscribe((data: any) => {
             console.log(data)
-            localStorage.setItem('token', data.token)
-            // this.router.navigateByUrl('/thankyou');
+            this.router.navigateByUrl('/thankyou');
         }, (error) => {
             this.statusMessage = {
                 success: false,

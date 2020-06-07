@@ -46,6 +46,7 @@ UserSchema.pre(['save', 'findOneAndUpdate'], function (next) {
 UserSchema.method('transform', function () {
     let obj = this.toObject();
 
+    delete obj.__id;
     delete obj.__v;
 
     return obj;
