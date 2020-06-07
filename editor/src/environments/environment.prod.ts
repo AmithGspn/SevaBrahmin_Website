@@ -8,10 +8,13 @@ export const environment = {
 
 const apiServer = "https://sevabrahm.in/api/";
 
+
 export const apiUrls = {
   userManager: apiServer + 'userRegisterationManager',
   volunteerManager: apiServer + 'volunteerManager',
-  recipientManager: apiServer + 'recipientManager'
+  recipientManager: apiServer + 'recipientManager',
+  loginManager: apiServer + 'loginManager',
+  donorManager: apiServer + 'donorManager'
 };
 
 /*
