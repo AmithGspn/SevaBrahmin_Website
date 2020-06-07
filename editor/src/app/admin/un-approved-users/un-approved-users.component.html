@@ -2,22 +2,18 @@
     <thead>
         <tr>
             <th>No</th>
-            <th>Name</th>
             <th>Email</th>
             <th>Contact</th>
             <th>UserType</th>
-            <th>Status</th>
             <th>Approve</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let item of unApprovedUsers; index as i">
             <td>{{ i }}</td>
-            <td>{{ item.userName }}</td>
             <td>{{ item.email }}</td>
             <td>{{ item.contact}}</td>
             <td>{{ item.userType }}</td>
-            <td>{{ item.approved }}</td>
             <td>
                 <input style="margin-left: 25px;"class="custom-c" type="checkbox" name="approved" id="checkbox1" (click)="selectCheckBox(item, $event.target.checked)"/>
             </td>

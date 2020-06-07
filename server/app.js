@@ -13,6 +13,7 @@ let config = require('./config');
 let registerationRouter = require('./routes/userRegisterationManager');
 let volunteerRouter = require('./routes/volunteerManager');
 let recipientRouter = require('./routes/recipientManager');
+let loginRouter = require('./routes/loginManager');
 
 // Initialize the Express App and Configure
 let app = express();
@@ -20,7 +21,7 @@ app.enable('trust proxy');
 
 // CORS
 app.use(cors({
-    'allowedHeaders': ['X-Requested-With', 'Content-Type', config.SWITCH_HEADER],
+    'allowedHeaders': ['X-Requested-With', 'authorization' , 'Content-Type', config.SWITCH_HEADER],
     'origin': '*',
     'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
     'preflightContinue': false
@@ -50,6 +51,7 @@ if (process.env.NODE_ENV !== 'simulate') {
 app.use('/userRegisterationManager', registerationRouter);
 app.use('/volunteerManager', volunteerRouter);
 app.use('/recipientManager', recipientRouter);
+app.use('/loginManager', loginRouter);
 
 //catch 404 and forward to error handler
 app.use(function (req, res, next) {

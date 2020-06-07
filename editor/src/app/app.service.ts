@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { apiUrls } from '../environments/environment';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
@@ -12,6 +13,7 @@ export class AppService {
     private userRegisterationUrl = apiUrls.userManager;
     private volunteerManagerUrl = apiUrls.volunteerManager;
     private recipientManagerUrl = apiUrls.recipientManager;
+    private loginManagerUrl = apiUrls.loginManager;
 
     handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
@@ -22,7 +24,7 @@ export class AppService {
         return throwError('Something bad happened');
     }
 
-    constructor(private httpClient: HttpClient) {
+    constructor(private httpClient: HttpClient, private router: Router) {
         this.httpOptions = {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
@@ -37,8 +39,28 @@ export class AppService {
         );
     }
 
+    loggedIn() {
+        return !!localStorage.getItem('token')
+    }
+
+    getToken() {
+        return localStorage.getItem('token')
+    }
+
+    logoutUser() {
+        localStorage.removeItem('token')
+        this.router.navigate(['home'])
+    }
+
     putUser(formData) {
         return this.httpClient.put( this.userRegisterationUrl, formData, this.httpOptions )
+        .pipe(
+            catchError(this.handleError)
+        );
+    }
+
+    postLogin(formData) {
+        return this.httpClient.post( this.loginManagerUrl, formData, this.httpOptions )
         .pipe(
             catchError(this.handleError)
         );

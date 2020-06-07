@@ -11,9 +11,9 @@ import { NavbarService } from '../services/navbar.service';
 export class LoginComponent implements OnInit {
     isLoggedIn = false;
     role = '';
+    usertype: any = "";
     emailAddress: any = "";
     password: any = "";
-    checkedValue: any = "";
     statusMessage: any = {
         success: false,
         error: false,
@@ -27,32 +27,6 @@ export class LoginComponent implements OnInit {
     ngOnInit() {
     }
 
-    loginAdmin() {
-        this.navbarService.updateNavAfterAuth('admin');
-        this.navbarService.updateLoginStatus(true);
-        this.role = 'admin';
-    }
-
-    loginVolunteer() {
-        this.navbarService.updateNavAfterAuth('volunteer');
-        this.navbarService.updateLoginStatus(true);
-        this.role = 'volunteer';
-    }
-
-    loginRecipient() {
-        this.navbarService.updateNavAfterAuth('recipient');
-        this.navbarService.updateLoginStatus(true);
-        this.role = 'recipient';
-    }
-
-    
-    loginDonor() {
-        this.navbarService.updateNavAfterAuth('donor');
-        this.navbarService.updateLoginStatus(true);
-        this.role = 'donor';
-    }
-    
-
     onEmailNameChange(value) {
         this.emailAddress = value;
         console.log(this.emailAddress)
@@ -63,58 +37,28 @@ export class LoginComponent implements OnInit {
         console.log(this.password)
     }
 
-    selectCheckBox(event) {
-        if (event === "recipient") {
-            this.checkedValue = "recipient"
-        } else if (event === "volunteer") {
-            this.checkedValue = "volunteer"
-        } else {
-            this.checkedValue = "donor"
-        }
-    }
-
     login() {
-        console.log(this.checkedValue)
         let formData = {
-            emailAddress: this.emailAddress,
+            email: this.emailAddress,
             password: this.password,
-            userType: this.checkedValue
         };
-        console.log(formData)
-        this.appService.getUsers().subscribe((data: any) => {
-            for ( let user of data ) {
-                console.log(user)
-                if (user.password === formData.password && user.email === formData.emailAddress && user.approved === true) {
-                    if (user.userType === 'admin') {
-                        this.loginAdmin();
-                        this.router.navigateByUrl('/admin');
-                    } else if (user.userType === 'volunteer'){
-                        this.loginVolunteer();
-                        this.router.navigateByUrl('/volunteer');
-                    } else if (user.userType === 'recipient') {
-                        this.loginRecipient();
-                        this.router.navigateByUrl('/recipient');
-                    } else {
-                        this.loginDonor();
-                        this.router.navigateByUrl('/donor');
-                    }
-                } else {
-                    if (user.approved === false) {
-                        this.statusMessage = {
-                            success: false,
-                            error: true,
-                            message: 'Please wait for the admin to approve the details'
-                        };
-                    }
-                    if (user.password !== formData.password || user.email !== formData.emailAddress) {
-                        this.statusMessage = {
-                            success: false,
-                            error: true,
-                            message: 'Invalid Login Credentials'
-                        };
-                    }
-                }
+        this.appService.postLogin(formData).subscribe((data: any) => {
+            localStorage.setItem('token', data.token)
+            if (data.user.userType === 'admin') {
+                this.router.navigateByUrl('/admin');
+            } else if (data.user.userType === 'volunteer'){
+                this.router.navigateByUrl('/volunteer');
+            } else if (data.user.userType === 'recipient') {
+                this.router.navigateByUrl('/recipient');
+            } else {
+                this.router.navigateByUrl('/donor');
             }
+        }, (error) => {
+            this.statusMessage = {
+                success: false,
+                error: true,
+                message: error
+            };
         })
     }
 }

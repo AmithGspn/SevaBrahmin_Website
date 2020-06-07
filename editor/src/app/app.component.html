@@ -12,12 +12,9 @@
   <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
       <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-              <a class="nav-link" *ngIf="!isLoggedIn" routerLink="/signUp" routerLinkActive="active"><i class="fa fa-user"></i> Sign Up</a>
+              <a class="nav-link" *ngIf="!appService.loggedIn()" routerLink="/signUp" routerLinkActive="active"><i class="fa fa-user"></i> Sign Up</a>
           </li>
-          <!-- <li class="nav-item">
-              <a class="nav-link" routerLink="/login" routerLinkActive="active"><i class="fa fa-sign-in"></i> Login</a>
-          </li> -->
-          <li class="nav-item" *ngIf="isLoggedIn">
+          <li class="nav-item" *ngIf="appService.loggedIn()">
             <a class="nav-link" routerLink="logout" (click)="logout()">Logout</a>
           </li>
       </ul>

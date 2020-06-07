@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AppService } from '../app.service'
+import { AppService } from '../app.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-sign-up',
@@ -20,7 +21,7 @@ export class SignUpComponent implements OnInit {
         message: ''
     };
 
-    constructor(private appService: AppService) { }
+    constructor(private router: Router,private appService: AppService) { }
 
     ngOnInit() {
     }
@@ -68,12 +69,10 @@ export class SignUpComponent implements OnInit {
             password: this.password,
             userType: this.checkedValue
         }
-        this.appService.postUser(formData).subscribe((data) => {
-            this.statusMessage = {
-                success: true,
-                error: false,
-                message: "Successfully signed up. Please wait for the admin to approve your account"
-            };
+        this.appService.postUser(formData).subscribe((data: any) => {
+            console.log(data)
+            localStorage.setItem('token', data.token)
+            this.router.navigateByUrl('/thankyou');
         }, (error) => {
             this.statusMessage = {
                 success: false,
@@ -81,5 +80,6 @@ export class SignUpComponent implements OnInit {
                 message: error
             };
         });
+
     }
 }

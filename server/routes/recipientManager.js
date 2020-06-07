@@ -1,8 +1,25 @@
 let express = require('express');
+let jwt = require('jsonwebtoken');
 let router = express.Router();
 let recipientModel = require('../db/models/recipient');
 
-router.post('/', async function (req, res, next) {
+function verifyToken(req, res, next) {
+    if (!req.headers.authorization) {
+        return res.status(401).send('Unauthorized request')
+    } 
+    let token = req.headers.authorization.spilt(' ')[1]
+    if (token === 'null') {
+        return res.status(401).send('Unauthorized request')
+    } 
+    let payload = jwt.verify(token, 'secretKey')
+    if (!payload) {
+        return res.status(401).send('Unauthorized request')
+    }
+    req.userId = payload.subject
+    next()
+}
+
+router.post('/', verifyToken, async function (req, res, next) {
     data = {
         contact: req.body.contact,
         firstName: req.body.firstName,
@@ -33,7 +50,7 @@ router.post('/', async function (req, res, next) {
     }
 });
 
-router.get('/', async function (req, res, next) {
+router.get('/', verifyToken, async function (req, res, next) {
     let recipients = await new Promise((resolve, reject) =>
     recipientModel.getAllRecipients( (err, docs) => err ? reject(err) : resolve(docs)));
     return res.status(200).json(recipients);

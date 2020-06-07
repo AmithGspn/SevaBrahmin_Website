@@ -5,11 +5,6 @@ let Schema = mongoose.Schema;
 const projectionsDefaults = { _id: 0, __v: 0 };
 
 const UserSchema = Schema({
-    userName: {
-        type: String,
-        required: true,
-        required: [true, "required"]
-    },
     contact: {
         type: Number,
         match: /^\+(?:[0-9] ?){6,14}[0-9]$/,
@@ -51,7 +46,6 @@ UserSchema.pre(['save', 'findOneAndUpdate'], function (next) {
 UserSchema.method('transform', function () {
     let obj = this.toObject();
 
-    delete obj._id;
     delete obj.__v;
 
     return obj;

@@ -11,7 +11,8 @@ const apiServer = "http://localhost:3001/";
 export const apiUrls = {
   userManager: apiServer + 'userRegisterationManager',
   volunteerManager: apiServer + 'volunteerManager',
-  recipientManager: apiServer + 'recipientManager'
+  recipientManager: apiServer + 'recipientManager',
+  loginManager: apiServer + 'loginManager'
 };
 
 /*

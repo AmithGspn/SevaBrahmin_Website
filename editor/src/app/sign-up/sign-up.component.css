@@ -30,6 +30,15 @@ body {
     min-height: 100vh;
 }
 
+.line {
+    height: 1px;
+    width: 45%;
+    background-color: #E0E0E0;
+    margin-top: 10px;
+    padding-left: 50%;
+    transform: rotate(90deg); 
+}
+
 .form-control:not(select) {
     padding: 1.5rem 0.5rem;
 }

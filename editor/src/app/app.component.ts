@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { NavbarService } from './services/navbar.service';
+
 import { UnApprovedUsersComponent } from './admin/un-approved-users/un-approved-users.component';
 import { VolunteerRegisterationComponent } from './volunteer/registeration/registeration.component';
 import { AddRecipientsComponent } from './volunteer/add-recipients/add-recipients.component';
@@ -10,6 +11,8 @@ import { RecipientRegisterationComponent } from './recipient/registeration/regis
 import { DonorRegisterationComponent } from './donor/registeration/registeration.component';
 import { DonorShowRecipientsComponent } from './donor/show-recipients/show-recipients.component';
 import { ShowVolunteersComponent } from './donor/show-volunteers/show-volunteers.component';
+import { AuthGuard } from './auth.guard';
+import { AppService } from './app.service';
 
 @Component({
   selector: 'app-root',
@@ -21,17 +24,17 @@ export class AppComponent {
   links: Array<{ text: string, path: string }>;
   isLoggedIn = false;
  
-  constructor(private router: Router, private navbarService: NavbarService) {
+  constructor(private router: Router, private navbarService: NavbarService, private appService: AppService) {
     this.router.config.unshift(
-      { path: 'login', component: LoginComponent },
-      { path: 'admin/unapprovedusers', component: UnApprovedUsersComponent },
-      { path: 'volunteer/registeration', component: VolunteerRegisterationComponent },
-      { path: 'volunteer/addrecipients', component: AddRecipientsComponent },
-      { path: 'volunteer/showrecipients', component: VolunteerShowRecipientsComponent },
-      { path: 'recipient/registeration', component: RecipientRegisterationComponent },
-      { path: 'donor/registeration', component: DonorRegisterationComponent },
-      { path: 'donor/showrecipients', component: DonorShowRecipientsComponent },
-      { path: 'donor/showvolunteers', component: ShowVolunteersComponent },
+      { path: 'login', component: LoginComponent},
+      { path: 'admin/unapprovedusers', component: UnApprovedUsersComponent, canActivate: [AuthGuard]},
+      { path: 'volunteer/registeration', component: VolunteerRegisterationComponent, canActivate: [AuthGuard] },
+      { path: 'volunteer/addrecipients', component: AddRecipientsComponent, canActivate: [AuthGuard] },
+      { path: 'volunteer/showrecipients', component: VolunteerShowRecipientsComponent, canActivate: [AuthGuard] },
+      { path: 'recipient/registeration', component: RecipientRegisterationComponent, canActivate: [AuthGuard] },
+      { path: 'donor/registeration', component: DonorRegisterationComponent, canActivate: [AuthGuard] },
+      { path: 'donor/showrecipients', component: DonorShowRecipientsComponent, canActivate: [AuthGuard] },
+      { path: 'donor/showvolunteers', component: ShowVolunteersComponent, canActivate: [AuthGuard] },
     );
   }
  
@@ -41,6 +44,7 @@ export class AppComponent {
   }
  
   logout() {
+    this.appService.logoutUser()
     this.navbarService.updateLoginStatus(false);
     this.router.navigate(['home']);
   }

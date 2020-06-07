@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
@@ -20,6 +20,10 @@ import { VolunteerRegisterationComponent } from './volunteer/registeration/regis
 import { DonorRegisterationComponent } from './donor/registeration/registeration.component';
 import { DonorShowRecipientsComponent } from './donor/show-recipients/show-recipients.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { ThankYouComponent } from './thank-you/thank-you.component';
+import { AppService } from './app.service';
+import { AuthGuard } from './auth.guard';
+import { TokenInterceptorService } from './token-interceptor.service';
 @NgModule({
   declarations: [
     SignUpComponent,
@@ -37,7 +41,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     DonorShowRecipientsComponent,
     VolunteerShowRecipientsComponent,
     RecipientRegisterationComponent,
-    ShowVolunteersComponent
+    ShowVolunteersComponent,
+    ThankYouComponent
   ],
   imports: [
     AlertModule.forRoot(),
@@ -57,7 +62,12 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     VolunteerRegisterationComponent,
     AddRecipientsComponent
   ],
-  providers: [],
+  providers: [AppService, AuthGuard, 
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

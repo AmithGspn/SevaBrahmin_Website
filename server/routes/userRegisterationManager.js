@@ -1,10 +1,10 @@
 let express = require('express');
 let router = express.Router();
+let jwt = require('jsonwebtoken');
 let registerationModel = require('../db/models/registeration');
 
 router.post('/', async function (req, res, next) {
     data = {
-        userName: req.body.userName,
         email: req.body.email,
         userType: req.body.userType,
         password: req.body.password,
@@ -14,7 +14,9 @@ router.post('/', async function (req, res, next) {
 
     try {
         let newDoc = await registerationModel.create(data);
-        res.status(200).json(newDoc.transform())
+        let payload = { subject: newDoc._id}
+        let token = jwt.sign(payload, 'secretKey')
+        res.status(200).json({token})
     }
     catch (err) {
         if (err.name === 'MongoError' && err.code === 11000) {
@@ -27,7 +29,23 @@ router.post('/', async function (req, res, next) {
     }
 });
 
-router.get('/', async function (req, res, next) {
+function verifyToken(req, res, next) {
+    if (!req.headers.authorization) {
+        return res.status(401).send('Unauthorized request')
+    } 
+    let token = req.headers.authorization.spilt(' ')[1]
+    if (token === 'null') {
+        return res.status(401).send('Unauthorized request')
+    } 
+    let payload = jwt.verify(token, 'secretKey')
+    if (!payload) {
+        return res.status(401).send('Unauthorized request')
+    }
+    req.userId = payload.subject
+    next()
+}
+
+router.get('/', verifyToken, async function (req, res, next) {
     let users = await new Promise((resolve, reject) =>
     registerationModel.getAllUsers( (err, docs) => err ? reject(err) : resolve(docs)));
     return res.status(200).json(users);
@@ -35,7 +53,6 @@ router.get('/', async function (req, res, next) {
 
 router.put('/', async function (req, res, next) {
     data = {
-        userName: req.body.userName,
         email: req.body.email,
         userType: req.body.userType,
         password: req.body.password,

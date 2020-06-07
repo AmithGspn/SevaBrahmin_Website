@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { AppService } from '../app.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class NavbarService {
   private links = new Array<{ text: string, path: string }>();
   private isLoggedIn = new Subject<boolean>();
 
-  constructor() {
+  constructor(private appService: AppService) {
     this.addItem({ text: 'Login', path: 'login' });
     this.isLoggedIn.next(false);
   }
@@ -24,7 +25,7 @@ export class NavbarService {
 
   updateLoginStatus(status: boolean) {
     this.isLoggedIn.next(status);
-
+    console.log(status)
     if (!status) {
       this.clearAllItems();
       this.addItem({ text: 'Login', path: 'login' });
@@ -34,20 +35,21 @@ export class NavbarService {
   updateNavAfterAuth(role: string): void {
     this.removeItem({ text: 'Login' });
 
-    if (role === 'admin') {
-      this.addItem({ text: 'Unapproved-Users', path: 'admin/unapprovedusers' });
-    } else if (role === 'volunteer') {
-      this.addItem({ text: 'Show-recipients', path: 'volunteer/showrecipients' }),
-      this.addItem({ text: 'Add-recipients', path: 'volunteer/addrecipients'});
-      this.addItem({ text: 'registeration', path: 'volunteer/registeration'});
-
-    } else if (role === 'recipient') {
-      this.addItem({ text: 'registeration', path: 'recipient/registeration' });
-      // this.addItem({ text: 'Add-recipients', path: 'recipient/addrecipients'});
-    } else if (role === 'donor') {
-      this.addItem({ text: 'show-volunteers', path: 'donor/showvolunteers' }),
-      this.addItem({ text: 'show-recipients', path: 'donor/showrecipients' }),
-      this.addItem({ text: 'registeration', path: 'donor/registeration'});
+    if (this.appService.loggedIn) {
+      if (role === 'admin') {
+        this.addItem({ text: 'Approve', path: 'admin/unapprovedusers' });
+      } else if (role === 'volunteer') {
+        this.addItem({ text: 'Recipients', path: 'volunteer/showrecipients' }),
+        this.addItem({ text: 'Add Recipient', path: 'volunteer/addrecipients'});
+        this.addItem({ text: 'registeration', path: 'volunteer/registeration'});
+      } else if (role === 'recipient') {
+        this.addItem({ text: 'registeration', path: 'recipient/registeration' });
+        // this.addItem({ text: 'Add-recipients', path: 'recipient/addrecipients'});
+      } else if (role === 'donor') {
+        this.addItem({ text: 'show-volunteers', path: 'donor/showvolunteers' }),
+        this.addItem({ text: 'show-recipients', path: 'donor/showrecipients' }),
+        this.addItem({ text: 'registeration', path: 'donor/registeration'});
+      }
     }
   }
 
