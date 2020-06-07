@@ -7,7 +7,6 @@ function verifyToken(req, res, next) {
     if (!req.headers.authorization) {
         return res.status(401).send('Unauthorized request')
     } 
-    console.log(req.headers)
     let token = req.headers.authorization.split(' ')[1]
     if (token === 'null') {
         return res.status(401).send('Unauthorized request')
@@ -46,7 +45,6 @@ router.post('/', verifyToken, async function (req, res, next) {
 });
 
 router.get('/', verifyToken, async function (req, res, next) {
-    console.log(req.token)
     jwt.verify(req.token, 'secretKey', async(err, authData) => {
         if(err) {
             if (err.contact === 'MongoError' && err.code === 11000) {
@@ -60,7 +58,6 @@ router.get('/', verifyToken, async function (req, res, next) {
         } else {
             let volunteers = await new Promise((resolve, reject) =>
             volunteerModel.getAllVolunteers( (err, docs) => err ? reject(err) : resolve(docs)));
-            console.log(volunteers, "manager")
             return res.status(200).json(volunteers, authData);
         }
     });

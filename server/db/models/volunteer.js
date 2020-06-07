@@ -79,14 +79,12 @@ volunteerSchema.statics.getAllVolunteers = function (callback) {
                                 return callback(err);
                             }
                             volunteers.push(doc);
-                            console.log(volunteers, "bbbbbbbbbb")
                         });
                     });
             }, function (err) {
                 if (err) {
                     return callback(err);
                 }
-                console.log(volunteers, "aaaaaaaaaa")
                 return callback(null, volunteers);
             });
         })
