@@ -40,7 +40,6 @@ export class UnApprovedUsersComponent implements OnInit {
     console.log(user)
     user.approved = value;
     this.appService.putUser(user).subscribe((data) => {
-      
     })
   }
 }

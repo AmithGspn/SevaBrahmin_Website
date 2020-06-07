@@ -14,6 +14,7 @@ export class AppService {
     private volunteerManagerUrl = apiUrls.volunteerManager;
     private recipientManagerUrl = apiUrls.recipientManager;
     private loginManagerUrl = apiUrls.loginManager;
+    private donorManagerUrl = apiUrls.donorManager;
 
     handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
@@ -75,6 +76,20 @@ export class AppService {
 
     postVolunteer(formData) {
         return this.httpClient.post( this.volunteerManagerUrl, formData, this.httpOptions )
+        .pipe(
+          catchError(this.handleError)
+        );
+    }
+
+    getDonor() {
+        return this.httpClient.get(this.donorManagerUrl, this.httpOptions)
+        .pipe(
+            catchError(this.handleError)
+        );
+    }
+
+    postDonor(formData) {
+        return this.httpClient.post( this.donorManagerUrl, formData, this.httpOptions )
         .pipe(
           catchError(this.handleError)
         );

@@ -1,7 +1,7 @@
 let express = require('express');
 let router = express.Router();
 let jwt = require('jsonwebtoken');
-let volunteerModel = require('../db/models/volunteer');
+let donorModel = require('../db/models/donor');
 
 function verifyToken(req, res, next) {
     if (!req.headers.authorization) {
@@ -38,7 +38,7 @@ router.post('/', async function (req, res, next) {
                 gothram: req.body.gothram
             };
 
-            let newDoc = await volunteerModel.create(data);
+            let newDoc = await donorModel.create(data);
             res.status(200).json(newDoc.transform(),authData)
         }
     });
@@ -57,7 +57,7 @@ router.get('/', async function (req, res, next) {
             return next(err);
         } else {
             let volunteers = await new Promise((resolve, reject) =>
-            volunteerModel.getAllVolunteers( (err, docs) => err ? reject(err) : resolve(docs)));
+            donorModel.getAllVolunteers( (err, docs) => err ? reject(err) : resolve(docs)));
             return res.status(200).json(volunteers, authData);
         }
     // });

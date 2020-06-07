@@ -12,7 +12,8 @@ export const apiUrls = {
   userManager: apiServer + 'userRegisterationManager',
   volunteerManager: apiServer + 'volunteerManager',
   recipientManager: apiServer + 'recipientManager',
-  loginManager: apiServer + 'loginManager'
+  loginManager: apiServer + 'loginManager',
+  donorManager: apiServer + 'donorManager'
 };
 
 /*

@@ -157,6 +157,15 @@ export class SignUpComponent implements OnInit {
             };
         }
 
+        this.appService.postDonor(volunteerData).subscribe((data) => {
+            console.log(data)
+        });
+        this.statusMessage = {
+            success: true,
+            error: false,
+            message: "Successfully submited the form"
+        }
+
         this.appService.postRecipient(recipientData).subscribe((data) => {
             console.log(data)
             this.statusMessage = {
