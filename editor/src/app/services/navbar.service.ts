@@ -35,14 +35,62 @@ export class NavbarService {
     this.removeItem({ text: 'Login' });
     if (role === 'admin') {
       this.addItem({ text: 'Approve', path: 'admin/unapprovedusers' });
+    } else if (role === 'admin/unapprovedusers') {
+      this.removeItem({  text: 'Approve' })
+      this.addItem({ text: 'Approve', path: 'admin/unapprovedusers' });
     } else if (role === 'volunteer') {
+      this.addItem({ text: 'Recipients', path: 'volunteer/showrecipients' }),
+      this.addItem({ text: 'Add Recipients', path: 'volunteer/addrecipients'});
+      this.addItem({ text: 'registeration', path: 'volunteer/registeration'});
+    } else if (role === 'volunteer/showrecipients') {
+      this.removeItem({  text: 'Recipients' })
+      this.removeItem({  text: 'Add Recipients' })
+      this.removeItem({  text: 'registeration' })
+      this.addItem({ text: 'Recipients', path: 'volunteer/showrecipients' }),
+      this.addItem({ text: 'Add Recipient', path: 'volunteer/addrecipients'});
+      this.addItem({ text: 'registeration', path: 'volunteer/registeration'});
+    } else if (role === 'volunteer/addrecipients') {
+      this.removeItem({  text: 'Recipients' })
+      this.removeItem({  text: 'Add Recipients' })
+      this.removeItem({  text: 'registeration' })
+      this.addItem({ text: 'Recipients', path: 'volunteer/showrecipients' }),
+      this.addItem({ text: 'Add Recipient', path: 'volunteer/addrecipients'});
+      this.addItem({ text: 'registeration', path: 'volunteer/registeration'});
+    } else if (role === 'volunteer/registeration') {
+      this.removeItem({  text: 'Recipients' })
+      this.removeItem({  text: 'Add Recipients' })
+      this.removeItem({  text: 'registeration' })
       this.addItem({ text: 'Recipients', path: 'volunteer/showrecipients' }),
       this.addItem({ text: 'Add Recipient', path: 'volunteer/addrecipients'});
       this.addItem({ text: 'registeration', path: 'volunteer/registeration'});
     } else if (role === 'recipient') {
       this.addItem({ text: 'registeration', path: 'recipient/registeration' });
       // this.addItem({ text: 'Add-recipients', path: 'recipient/addrecipients'});
+    } else if (role === 'volunteer/showrecipients') {
+      this.removeItem({  text: 'registeration' })
+      this.addItem({ text: 'registeration', path: 'recipient/registeration' });
     } else if (role === 'donor') {
+      this.addItem({ text: 'show-volunteers', path: 'donor/showvolunteers' }),
+      this.addItem({ text: 'show-recipients', path: 'donor/showrecipients' }),
+      this.addItem({ text: 'registeration', path: 'donor/registeration'});
+    } else if (role === 'volunteer/showrecipients') {
+      this.removeItem({  text: 'show-volunteers' })
+      this.removeItem({  text: 'show-recipients' })
+      this.removeItem({  text: 'registeration' })
+      this.addItem({ text: 'show-volunteers', path: 'donor/showvolunteers' }),
+      this.addItem({ text: 'show-recipients', path: 'donor/showrecipients' }),
+      this.addItem({ text: 'registeration', path: 'donor/registeration'});
+    } else if (role === 'volunteer/showrecipients') {
+      this.removeItem({  text: 'show-volunteers' })
+      this.removeItem({  text: 'show-recipients' })
+      this.removeItem({  text: 'registeration' })
+      this.addItem({ text: 'show-volunteers', path: 'donor/showvolunteers' }),
+      this.addItem({ text: 'show-recipients', path: 'donor/showrecipients' }),
+      this.addItem({ text: 'registeration', path: 'donor/registeration'});
+    } else if (role === 'volunteer/showrecipients') {
+      this.removeItem({  text: 'show-volunteers' })
+      this.removeItem({  text: 'show-recipients' })
+      this.removeItem({  text: 'registeration' })
       this.addItem({ text: 'show-volunteers', path: 'donor/showvolunteers' }),
       this.addItem({ text: 'show-recipients', path: 'donor/showrecipients' }),
       this.addItem({ text: 'registeration', path: 'donor/registeration'});

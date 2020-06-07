@@ -15,8 +15,8 @@ export class UnApprovedUsersComponent implements OnInit {
   constructor(private appService: AppService, private router: Router, private navbarService: NavbarService) { }
 
   ngOnInit() {
-    // this.loginAdmin();
-    // this.router.navigateByUrl('/admin');
+    this.loginAdmin();
+    this.router.navigateByUrl('/admin/unapprovedusers');
     this.appService.getUsers().subscribe((data:any) => {
       console.log(data)
       for (let user of data) {
@@ -29,11 +29,11 @@ export class UnApprovedUsersComponent implements OnInit {
     })
   } 
 
-  // loginAdmin() {
-  //   this.navbarService.updateNavAfterAuth('admin/unapprovedusers');
-  //   this.navbarService.updateLoginStatus(true);
-  //   this.role = 'admin/unapprovedusers';
-  // }
+  loginAdmin() {
+    this.navbarService.updateNavAfterAuth('admin/unapprovedusers');
+    this.navbarService.updateLoginStatus(true);
+    this.role = 'admin/unapprovedusers';
+  }
 
   selectCheckBox(user, value) {
     console.log(value)

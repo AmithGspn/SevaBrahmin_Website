@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../../app.service';
+import { Router } from '@angular/router';
+import { NavbarService } from 'src/app/services/navbar.service';
 
 @Component({
   selector: 'app-registeration',
@@ -8,6 +10,7 @@ import { AppService } from '../../app.service';
 })
 export class DonorRegisterationComponent implements OnInit {
   firstName: any = "";
+  role: any = "";
   emailAddress: any = "";
   password: any = "";
   familyName: any = "";
@@ -15,9 +18,17 @@ export class DonorRegisterationComponent implements OnInit {
   gothram: any = "";
   countrycode: any = "";
 
-  constructor(private appService: AppService) { }
+  constructor(private appService: AppService, private router: Router, private navbarService: NavbarService) { }
 
   ngOnInit() {
+    this.loginDonor();
+    this.router.navigateByUrl('/donor/registeration');
+  }
+
+  loginDonor() {
+    this.navbarService.updateNavAfterAuth('donor/registeration');
+    this.navbarService.updateLoginStatus(true);
+    this.role = 'donor/registeration';
   }
 
   updateList(event) {

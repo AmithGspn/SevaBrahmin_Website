@@ -16,7 +16,7 @@ router.post('/', async function (req, res, next) {
         let newDoc = await registerationModel.create(data);
         let payload = { subject: newDoc._id}
         let token = jwt.sign(payload, 'secretKey')
-        res.status(200).json({token})
+        res.status(200).json({token}, newDoc)
     }
     catch (err) {
         if (err.name === 'MongoError' && err.code === 11000) {
