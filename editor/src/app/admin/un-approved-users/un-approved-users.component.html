@@ -5,7 +5,8 @@
             <th>Email</th>
             <th>Contact</th>
             <th>UserType</th>
-            <th>Approve</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -15,7 +16,10 @@
             <td>{{ item.contact}}</td>
             <td>{{ item.userType }}</td>
             <td>
-                <input style="margin-left: 25px;"class="custom-c" type="checkbox" name="approved" id="checkbox1" (click)="selectCheckBox(item, $event.target.checked)"/>
+                <button type="button" class="btn btn-sm btn-success py-0" (click)="selectCheckBox(item, $event.target.checked)">Approve</button>
+            </td>
+            <td>
+                <button type="button" class="btn btn-sm btn-danger py-0" (click)="selectCheckBox(item, $event.target.checked)">Decline</button>
             </td>
         </tr>        
     </tbody>

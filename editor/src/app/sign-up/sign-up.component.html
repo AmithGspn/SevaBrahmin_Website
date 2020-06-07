@@ -101,15 +101,6 @@
                         <span class="btn btn-primary btn-block py-2 font-weight-bold" (click)="signup()">Create your account</span>
                     </div>
 
-                    <span class="alert-container alertClass">
-                        <alert type="success" *ngIf="statusMessage.success">
-                          <strong>{{statusMessage.message}}</strong>
-                        </alert>
-                        <alert type="danger" *ngIf="statusMessage.error">
-                          <strong>{{statusMessage.message}}</strong>
-                        </alert>
-                    </span>
-
                     <!-- Divider Text -->
                     <div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
                         <div class="border-bottom w-100 ml-5 border border-dark"></div>
@@ -193,6 +184,15 @@
                 </div>
                 <input id="ifsc" type="text" name="ifsc" (blur)="onIfscChange($event.target.value)" placeholder="IFSC" class="form-control bg-white border-left-0 border-md">
             </div>
+
+            <span class="alert-container alertClass">
+                <alert type="success" *ngIf="statusMessage.success">
+                  <strong>{{statusMessage.message}}</strong>
+                </alert>
+                <alert type="danger" *ngIf="statusMessage.error">
+                  <strong>{{statusMessage.message}}</strong>
+                </alert>
+            </span>
         </div>
 
         <div class="col-md-8 col-lg-6" *ngIf="checkedValue === 'volunteer'">

@@ -45,7 +45,7 @@ function verifyToken(req, res, next) {
     next()
 }
 
-router.get('/', verifyToken, async function (req, res, next) {
+router.get('/', async function (req, res, next) {
     let users = await new Promise((resolve, reject) =>
     registerationModel.getAllUsers( (err, docs) => err ? reject(err) : resolve(docs)));
     return res.status(200).json(users);

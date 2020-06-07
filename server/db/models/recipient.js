@@ -6,11 +6,11 @@ let Schema = mongoose.Schema;
 const projectionsDefaults = { _id: 0, __v: 0 };
 
 let recipientSchema = Schema({
-    contact: {
-        type: Number,
-        match: /^\+(?:[0-9] ?){6,14}[0-9]$/,
+    email: {
+        type: String,
+        required: true,
         unique: true,
-        required: [true, "required"],
+        required: [true, "required"]
     },
     firstName: {
         type: String,

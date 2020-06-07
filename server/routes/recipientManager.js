@@ -19,9 +19,9 @@ function verifyToken(req, res, next) {
     next()
 }
 
-router.post('/', verifyToken, async function (req, res, next) {
+router.post('/', async function (req, res, next) {
     data = {
-        contact: req.body.contact,
+        email: req.body.email,
         firstName: req.body.firstName,
         familyName: req.body.familyName,
         gothram: req.body.gothram,
