@@ -121,6 +121,47 @@ export class SignUpComponent implements OnInit {
             userType: this.checkedValue
         }
 
+        this.appService.postUser(formData).subscribe((data: any) => {
+            console.log(data)
+            this.router.navigateByUrl('/thankyou');
+        }, (error) => {
+            this.statusMessage = {
+                success: false,
+                error: true,
+                message: error
+            };
+        });
+  
+        
+        let volunteerData = {
+            firstName: this.firstName,
+            familyName: this.familyName,
+            gothram: this.gothram,
+            contact: this.countrycode + this.contact
+        };
+
+        if ( this.checkedValue === "volunteer") {
+            if (this.checkedValue1 === true && this.checkedvalue2 === true) {
+                this.appService.postVolunteer(volunteerData).subscribe((data) => {
+                    console.log(data)
+                });
+            } else {
+                this.statusMessage = {
+                    success: false,
+                    error: true,
+                    message: "Please agree to the terms and conditions"
+                };
+            }
+        }
+
+        if ( this.checkedValue === "donor" ) {
+            if (this.checkedValue1 === true && this.checkedvalue2 === true) {
+                this.appService.postDonor(volunteerData).subscribe((data) => {
+                    console.log(data)
+                });
+            }
+        }
+
         let recipientData = {
             firstName: this.firstName,
             familyName: this.familyName,
@@ -133,64 +174,21 @@ export class SignUpComponent implements OnInit {
             IFSC: this.ifsc
         }
 
-        let volunteerData = {
-            firstName: this.firstName,
-            familyName: this.familyName,
-            gothram: this.gothram,
-            contact: this.countrycode + this.contact
-        };
-  
-        if (this.checkedValue1 === true && this.checkedvalue2 === true) {
-            this.appService.postVolunteer(volunteerData).subscribe((data) => {
+        if (this.checkedValue === "recipient" ) {
+            this.appService.postRecipient(recipientData).subscribe((data) => {
                 console.log(data)
-            });
-            this.statusMessage = {
-                success: true,
-                error: false,
-                message: "Successfully submited the form"
-            }
-        } else {
-            this.statusMessage = {
-                success: false,
-                error: true,
-                message: "Please agree to the terms and conditions"
-            };
+                this.statusMessage = {
+                    success: true,
+                    error: false,
+                    message: "Succesfully submitted the form"
+                };
+            }, (error) => {
+                this.statusMessage = {
+                    success: false,
+                    error: true,
+                    message: error
+                };
+            })
         }
-
-        this.appService.postDonor(volunteerData).subscribe((data) => {
-            console.log(data)
-        });
-        this.statusMessage = {
-            success: true,
-            error: false,
-            message: "Successfully submited the form"
-        }
-
-        this.appService.postRecipient(recipientData).subscribe((data) => {
-            console.log(data)
-            this.statusMessage = {
-                success: true,
-                error: false,
-                message: "Succesfully submitted the form"
-            };
-        }, (error) => {
-            this.statusMessage = {
-                success: false,
-                error: true,
-                message: error
-            };
-        })
-
-        this.appService.postUser(formData).subscribe((data: any) => {
-            console.log(data)
-            this.router.navigateByUrl('/thankyou');
-        }, (error) => {
-            this.statusMessage = {
-                success: false,
-                error: true,
-                message: error
-            };
-        });
-
     }
 }

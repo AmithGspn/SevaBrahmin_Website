@@ -20,7 +20,7 @@ function verifyToken(req, res, next) {
 }
 
 router.post('/', async function (req, res, next) {
-    jwt.verify(req.token, 'secretKey', async(err, authData) => {
+    // jwt.verify(req.token, 'secretKey', async(err, authData) => {
         if(err) {
             if (err.contact === 'MongoError' && err.code === 11000) {
                 e = new Error();
@@ -41,7 +41,7 @@ router.post('/', async function (req, res, next) {
             let newDoc = await volunteerModel.create(data);
             res.status(200).json(newDoc.transform(),authData)
         }
-    });
+    // });
 });
 
 router.get('/', async function (req, res, next) {
