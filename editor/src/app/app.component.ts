@@ -24,7 +24,7 @@ export class AppComponent {
   links: Array<{ text: string, path: string }>;
   isLoggedIn = false;
  
-  constructor(private router: Router, private navbarService: NavbarService, private appService: AppService) {
+  constructor(private router: Router, private navbarService: NavbarService,public appService: AppService) {
     this.router.config.unshift(
       { path: 'login', component: LoginComponent},
       { path: 'admin/unapprovedusers', component: UnApprovedUsersComponent, canActivate: [AuthGuard]},
