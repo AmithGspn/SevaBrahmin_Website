@@ -154,12 +154,10 @@ export class SignUpComponent implements OnInit {
             }
         }
 
-        if ( this.checkedValue === "donor" ) {
-            if (this.checkedValue1 === true && this.checkedvalue2 === true) {
-                this.appService.postDonor(volunteerData).subscribe((data) => {
-                    console.log(data)
-                });
-            }
+        if ( this.checkedValue === "donor") {
+            this.appService.postDonor(volunteerData).subscribe((data) => {
+                console.log(data)
+            });
         }
 
         let recipientData = {

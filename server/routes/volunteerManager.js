@@ -21,16 +21,7 @@ function verifyToken(req, res, next) {
 
 router.post('/', async function (req, res, next) {
     // jwt.verify(req.token, 'secretKey', async(err, authData) => {
-        if(err) {
-            if (err.contact === 'MongoError' && err.code === 11000) {
-                e = new Error();
-                e.status = 403;
-                e.message = "Contact details already exists";
-                return next(e);
-            }
-    
-            return next(err);
-        } else {
+        try {
             data = {
                 contact: req.body.contact,
                 firstName: req.body.firstName,
@@ -39,14 +30,9 @@ router.post('/', async function (req, res, next) {
             };
 
             let newDoc = await volunteerModel.create(data);
-            res.status(200).json(newDoc.transform(),authData)
+            res.status(200).json(newDoc.transform())
         }
-    // });
-});
-
-router.get('/', async function (req, res, next) {
-    // jwt.verify(req.token, 'secretKey', async(err, authData) => {
-        if(err) {
+        catch (err) {
             if (err.contact === 'MongoError' && err.code === 11000) {
                 e = new Error();
                 e.status = 403;
@@ -55,10 +41,24 @@ router.get('/', async function (req, res, next) {
             }
     
             return next(err);
-        } else {
+        }
+    // });
+});
+
+router.get('/', async function (req, res, next) {
+    // jwt.verify(req.token, 'secretKey', async(err, authData) => {
+        try {
             let volunteers = await new Promise((resolve, reject) =>
             volunteerModel.getAllVolunteers( (err, docs) => err ? reject(err) : resolve(docs)));
-            return res.status(200).json(volunteers, authData);
+            return res.status(200).json(volunteers);
+        }
+        catch (err) {
+            if (err.contact === 'MongoError' && err.code === 11000) {
+                e = new Error();
+                e.status = 403;
+                e.message = "Contact details already exists";
+                return next(e);
+            }
         }
     // });
 });

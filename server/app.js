@@ -53,7 +53,7 @@ app.use('/userRegisterationManager', registerationRouter);
 app.use('/volunteerManager', volunteerRouter);
 app.use('/recipientManager', recipientRouter);
 app.use('/loginManager', loginRouter);
-app.use('/donorRouter', donorRouter)
+app.use('/donorManager', donorRouter)
 
 //catch 404 and forward to error handler
 app.use(function (req, res, next) {

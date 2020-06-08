@@ -20,47 +20,45 @@ function verifyToken(req, res, next) {
 }
 
 router.post('/', async function (req, res, next) {
-    jwt.verify(req.token, 'secretKey', async(err, authData) => {
-        if(err) {
-            if (err.contact === 'MongoError' && err.code === 11000) {
-                e = new Error();
-                e.status = 403;
-                e.message = "Contact details already exists";
-                return next(e);
-            }
-    
-            return next(err);
-        } else {
-            data = {
-                contact: req.body.contact,
-                firstName: req.body.firstName,
-                familyName: req.body.familyName,
-                gothram: req.body.gothram
-            };
+    try {
+        data = {
+            contact: req.body.contact,
+            firstName: req.body.firstName,
+            familyName: req.body.familyName,
+            gothram: req.body.gothram
+        };
 
-            let newDoc = await donorModel.create(data);
-            res.status(200).json(newDoc.transform(),authData)
+        let newDoc = await donorModel.create(data);
+        res.status(200).json(newDoc.transform())
+    }
+    catch (err) {
+        if (err.contact === 'MongoError' && err.code === 11000) {
+            e = new Error();
+            e.status = 403;
+            e.message = "Contact details already exists";
+            return next(e);
         }
-    });
+
+        return next(err);
+    }
 });
 
 router.get('/', async function (req, res, next) {
-    // jwt.verify(req.token, 'secretKey', async(err, authData) => {
-        if(err) {
-            if (err.contact === 'MongoError' && err.code === 11000) {
-                e = new Error();
-                e.status = 403;
-                e.message = "Contact details already exists";
-                return next(e);
-            }
-    
-            return next(err);
-        } else {
-            let volunteers = await new Promise((resolve, reject) =>
-            donorModel.getAllVolunteers( (err, docs) => err ? reject(err) : resolve(docs)));
-            return res.status(200).json(volunteers, authData);
+    try {
+        let volunteers = await new Promise((resolve, reject) =>
+        donorModel.getAllVolunteers( (err, docs) => err ? reject(err) : resolve(docs)));
+        return res.status(200).json(volunteers);
+    }
+    catch (err) {
+        if (err.contact === 'MongoError' && err.code === 11000) {
+            e = new Error();
+            e.status = 403;
+            e.message = "Contact details already exists";
+            return next(e);
         }
-    // });
+
+        return next(err);
+    }
 });
 
 module.exports = router;
