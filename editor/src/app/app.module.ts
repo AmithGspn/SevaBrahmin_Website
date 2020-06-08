@@ -24,6 +24,8 @@ import { ThankYouComponent } from './thank-you/thank-you.component';
 import { AppService } from './app.service';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './token-interceptor.service';
+import { HashLocationStrategy, LocationStrategy} from '@angular/common';
+
 @NgModule({
   declarations: [
     SignUpComponent,
@@ -62,7 +64,7 @@ import { TokenInterceptorService } from './token-interceptor.service';
     VolunteerRegisterationComponent,
     AddRecipientsComponent
   ],
-  providers: [AppService, AuthGuard, 
+  providers: [AppService, AuthGuard,{provide: LocationStrategy, useClass: HashLocationStrategy},
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,
