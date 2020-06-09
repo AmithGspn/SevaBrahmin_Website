@@ -1,1 +1,33 @@
-<p>show-recipients works!</p>
+<table class="table table-dark table-responsive-md">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>First Name</th>
+            <th>Family Name</th>
+            <th>Gothram</th>
+            <th>State</th>
+            <th>District</th>
+            <th>Taluk</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let Recipient of Recipients; index as i">
+            <td>{{ i }}</td>
+            <td>{{ Recipient.firstName }}</td>
+            <td>{{ Recipient.familyName}}</td>
+            <td>{{ Recipient.gothram }}</td>
+            <td>{{ Recipient.state }}</td>
+            <td>{{ Recipient.district }}</td>
+            <td>{{ Recipient.taluk }}</td>
+            <!-- <td>
+                <button type="button" class="btn btn-sm btn-success py-0" (click)="selectCheckBox(item)">Approve</button>
+            </td> -->
+            <!-- <td>
+                <button type="button" class="btn btn-sm btn-danger py-0" (click)="selectCheckBox(item, $event.target.checked)">Decline</button>
+            </td> -->
+        </tr>        
+    </tbody>
+</table>

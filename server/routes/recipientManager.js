@@ -50,7 +50,7 @@ router.post('/', async function (req, res, next) {
     }
 });
 
-router.get('/', verifyToken, async function (req, res, next) {
+router.get('/',async function (req, res, next) {
     let recipients = await new Promise((resolve, reject) =>
     recipientModel.getAllRecipients( (err, docs) => err ? reject(err) : resolve(docs)));
     return res.status(200).json(recipients);

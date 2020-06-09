@@ -4,6 +4,7 @@ let uuid = require('uuid');
 let config = require('../../config')
 let Schema = mongoose.Schema;
 let recipientModel = require('./recipient');
+let async = require('async')
 const projectionsDefaults = { _id: 0, __v: 0 };
 
 let volunteerSchema = Schema({
