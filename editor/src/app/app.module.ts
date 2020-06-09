@@ -25,6 +25,7 @@ import { AppService } from './app.service';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './token-interceptor.service';
 import { HashLocationStrategy, LocationStrategy} from '@angular/common';
+import { ApprovedUsersComponent } from './admin/approved-users/approved-users.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { HashLocationStrategy, LocationStrategy} from '@angular/common';
     VolunteerShowRecipientsComponent,
     RecipientRegisterationComponent,
     ShowVolunteersComponent,
-    ThankYouComponent
+    ThankYouComponent,
+    ApprovedUsersComponent
   ],
   imports: [
     AlertModule.forRoot(),
@@ -56,6 +58,7 @@ import { HashLocationStrategy, LocationStrategy} from '@angular/common';
   entryComponents: [
     LoginComponent,
     UnApprovedUsersComponent,
+    ApprovedUsersComponent,
     DonorRegisterationComponent,
     DonorShowRecipientsComponent,
     ShowVolunteersComponent,

@@ -35,10 +35,9 @@ export class UnApprovedUsersComponent implements OnInit {
     this.role = 'admin/unapprovedusers';
   }
 
-  selectCheckBox(user, value) {
-    console.log(value)
+  selectCheckBox(user) {
     console.log(user)
-    user.approved = value;
+    user.approved = true;
     this.appService.putUser(user).subscribe((data) => {
       window.location.reload();
     })

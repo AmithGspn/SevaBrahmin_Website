@@ -40,9 +40,16 @@ export class NavbarService {
     this.addItem({ text: 'registeration', path: 'volunteer/registeration'});
   }
 
+  adminTabs(){
+    this.removeItem({  text: 'Approve' });
+    this.removeItem({  text: 'Users' });
+    this.addItem({ text: 'Approve', path: 'admin/unapprovedusers' });
+    this.addItem({ text: 'Users', path: 'admin/approvedusers' });
+  }
+
   donorTabs() {
-    this.removeItem({  text: 'show-volunteers' })
-    this.removeItem({  text: 'show-recipients' })
+    this.removeItem({  text: 'Volunteers' })
+    this.removeItem({  text: 'Recipients' })
     this.removeItem({  text: 'registeration' })
     this.addItem({ text: 'show-volunteers', path: 'donor/showvolunteers' });
     this.addItem({ text: 'show-recipients', path: 'donor/showrecipients' });
@@ -52,11 +59,13 @@ export class NavbarService {
   updateNavAfterAuth(role: string): void {
     this.removeItem({ text: 'Login' });
     if (role === 'admin') {
-      this.addItem({ text: 'Approve', path: 'admin/unapprovedusers' });
+      this.adminTabs();
     } else if (role === 'admin/unapprovedusers') {
-      this.removeItem({  text: 'Approve' })
-      this.addItem({ text: 'Approve', path: 'admin/unapprovedusers' });
-    } else if (role === 'volunteer') {
+      this.adminTabs();
+    } else if (role === 'admin/approvedusers') {
+      this.adminTabs(); 
+    } 
+    else if (role === 'volunteer') {
       this.volunteerTabs();
     } else if (role === 'volunteer/showrecipients') {
       this.volunteerTabs();

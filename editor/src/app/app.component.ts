@@ -13,6 +13,7 @@ import { DonorShowRecipientsComponent } from './donor/show-recipients/show-recip
 import { ShowVolunteersComponent } from './donor/show-volunteers/show-volunteers.component';
 import { AuthGuard } from './auth.guard';
 import { AppService } from './app.service';
+import { ApprovedUsersComponent } from './admin/approved-users/approved-users.component';
 
 @Component({
   selector: 'app-root',
@@ -28,6 +29,7 @@ export class AppComponent {
     this.router.config.unshift(
       { path: 'login', component: LoginComponent},
       { path: 'admin/unapprovedusers', component: UnApprovedUsersComponent, canActivate: [AuthGuard]},
+      { path: 'admin/approvedusers', component: ApprovedUsersComponent, canActivate: [AuthGuard]},
       { path: 'volunteer/registeration', component: VolunteerRegisterationComponent, canActivate: [AuthGuard] },
       { path: 'volunteer/addrecipients', component: AddRecipientsComponent, canActivate: [AuthGuard] },
       { path: 'volunteer/showrecipients', component: VolunteerShowRecipientsComponent, canActivate: [AuthGuard] },
