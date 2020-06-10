@@ -51,8 +51,8 @@ export class NavbarService {
     this.removeItem({  text: 'Volunteers' })
     this.removeItem({  text: 'Recipients' })
     this.removeItem({  text: 'registeration' })
-    this.addItem({ text: 'show-volunteers', path: 'donor/showvolunteers' });
-    this.addItem({ text: 'show-recipients', path: 'donor/showrecipients' });
+    this.addItem({ text: 'Volunteers', path: 'donor/showvolunteers' });
+    this.addItem({ text: 'Recipients', path: 'donor/showrecipients' });
     this.addItem({ text: 'registeration', path: 'donor/registeration'});
   }
 
