@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { NavbarService } from './services/navbar.service';
-
+import { Title } from '@angular/platform-browser';
 import { UnApprovedUsersComponent } from './admin/un-approved-users/un-approved-users.component';
 import { VolunteerRegisterationComponent } from './volunteer/registeration/registeration.component';
 import { AddRecipientsComponent } from './volunteer/add-recipients/add-recipients.component';
@@ -17,6 +17,7 @@ import { ApprovedUsersComponent } from './admin/approved-users/approved-users.co
 
 @Component({
   selector: 'app-root',
+  viewProviders: [Title], 
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
@@ -25,7 +26,7 @@ export class AppComponent {
   links: Array<{ text: string, path: string }>;
   isLoggedIn = false;
  
-  constructor(private router: Router, private navbarService: NavbarService,public appService: AppService) {
+  constructor(private router: Router, private titleService: Title, private navbarService: NavbarService,public appService: AppService) {
     this.router.config.unshift(
       { path: 'login', component: LoginComponent},
       { path: 'admin/unapprovedusers', component: UnApprovedUsersComponent, canActivate: [AuthGuard]},
@@ -41,10 +42,15 @@ export class AppComponent {
   }
  
   ngOnInit() {
+    this.setTitle('SevaBrahm');
     this.links = this.navbarService.getLinks();
     this.navbarService.getLoginStatus().subscribe(status => this.isLoggedIn = status);
   }
  
+  public setTitle( newTitle: string) {
+    this.titleService.setTitle(newTitle);
+  }
+
   logout() {
     this.appService.logoutUser()
     this.navbarService.updateLoginStatus(false);

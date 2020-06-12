@@ -5,16 +5,27 @@ let Schema = mongoose.Schema;
 const projectionsDefaults = { _id: 0, __v: 0 };
 
 const UserSchema = Schema({
+    name: {
+        type: String,
+        trim: true,
+    },
     contact: {
         type: Number,
-        match: /^\+(?:[0-9] ?){6,14}[0-9]$/,
         unique: true,
         required: [true, "required"],
     },
     email: {
         type: String,
-        required: true,
         unique: true,
+        required: [true, "required"]
+    },
+    age: {
+        type: Number,
+        required: [true, "required"]
+    },
+    gender: {
+        type: String,
+        enum: ['male', 'female'],
         required: [true, "required"]
     },
     userType: {

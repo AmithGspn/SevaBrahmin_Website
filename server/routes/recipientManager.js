@@ -28,9 +28,6 @@ router.post('/', async function (req, res, next) {
         bankAccountNumber: req.body.bankAccountNumber,
         IFSC: req.body.IFSC,
         state: req.body.state,
-        district: req.body.district,
-        taluk: req.body.taluk,
-        village: req.body.village,
         volunteerNo: req.body.volunteerNo || " "
     };
 

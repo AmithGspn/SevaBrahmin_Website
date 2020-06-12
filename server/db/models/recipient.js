@@ -35,21 +35,8 @@ let recipientSchema = Schema({
     IFSC: {
         type: String,
         // match: /^[A-Za-z]{4}[a-zA-Z0-9]{7}$/,
-        required: [true, "required"],
     },
     state: {
-        type: String,
-        trim: true
-    },
-    district: {
-        type: String,
-        trim: true
-    },
-    taluk: {
-        type: String,
-        trim: true
-    },
-    village: {
         type: String,
         trim: true
     },

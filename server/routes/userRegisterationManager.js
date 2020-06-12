@@ -6,8 +6,11 @@ let registerationModel = require('../db/models/registeration');
 router.post('/', async function (req, res, next) {
     data = {
         email: req.body.email,
+        name: req.body.name,
         userType: req.body.userType,
         password: req.body.password,
+        age: req.body.age,
+        gender: req.body.gender,
         approved: false,
         contact: req.body.contact,
     };
@@ -52,10 +55,13 @@ router.get('/', async function (req, res, next) {
 router.put('/', async function (req, res, next) {
     data = {
         email: req.body.email,
+        name: req.body.name,
         userType: req.body.userType,
         password: req.body.password,
+        age: req.body.age,
+        gender: req.body.gender,
         approved: req.body.approved,
-        contact: req.body.contact
+        contact: req.body.contact,
     };
 
     try {

@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -67,7 +67,7 @@ import { ApprovedUsersComponent } from './admin/approved-users/approved-users.co
     VolunteerRegisterationComponent,
     AddRecipientsComponent
   ],
-  providers: [AppService, AuthGuard,{provide: LocationStrategy, useClass: HashLocationStrategy},
+  providers: [AppService, Title, AuthGuard,{provide: LocationStrategy, useClass: HashLocationStrategy},
   {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptorService,

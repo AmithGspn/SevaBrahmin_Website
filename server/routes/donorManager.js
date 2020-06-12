@@ -22,10 +22,13 @@ function verifyToken(req, res, next) {
 router.post('/', async function (req, res, next) {
     try {
         data = {
-            contact: req.body.contact,
+            email: req.body.email,
             firstName: req.body.firstName,
             familyName: req.body.familyName,
-            gothram: req.body.gothram
+            gothram: req.body.gothram,
+            state: req.body.state,
+            address: req.body.address,
+            postalCode: req.body.postalCode
         };
 
         let newDoc = await donorModel.create(data);

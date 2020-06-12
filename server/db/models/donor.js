@@ -7,9 +7,9 @@ let recipientModel = require('./recipient');
 const projectionsDefaults = { _id: 0, __v: 0 };
 
 let donorSchema = Schema({
-    contact: {
-        type: Number,
-        match: /^\+(?:[0-9] ?){6,14}[0-9]$/,
+    email: {
+        type: String,
+        required: true,
         unique: true,
         required: [true, "required"]
     },
@@ -20,11 +20,25 @@ let donorSchema = Schema({
     },
     familyName: {
         type: String,
-        trim: true
+        trim: true,
+        required: [true, "required"]
     },
     gothram: {
         type: String,
         trim: true
+    },
+    state: {
+        type: String,
+        trim: true,
+        // required: [true, "required"]
+    },
+    postalCode: {
+        type: Number,
+        required: [true, "required"]
+    },
+    address: {
+        type: String,
+        required: [true, "required"]
     }
 }, {
     collection: config.collections.donor

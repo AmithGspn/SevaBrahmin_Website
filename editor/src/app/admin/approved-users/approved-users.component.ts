@@ -21,11 +21,12 @@ export class ApprovedUsersComponent implements OnInit {
       console.log(data)
       for (let user of data) {
         if (user.approved === true) {
-          console.log(user)
+          console.log(user.userType)
+          // console.log(user)
           this.ApprovedUsers.push(user);
         }
       }
-      console.log(this.ApprovedUsers)
+      // console.log(this.ApprovedUsers)
     })
   } 
 

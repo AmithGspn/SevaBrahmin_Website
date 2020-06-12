@@ -118,7 +118,8 @@ export class SignUpComponent implements OnInit {
             email: this.emailAddress,
             contact: this.countrycode + this.contact,
             password: this.password,
-            userType: this.checkedValue
+            userType: this.checkedValue,
+            name: this.firstName
         }
 
         this.appService.postUser(formData).subscribe((data: any) => {
