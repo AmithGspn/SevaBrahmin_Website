@@ -22,10 +22,6 @@ let volunteerSchema = Schema({
     familyName: {
         type: String,
         trim: true
-    },
-    gothram: {
-        type: String,
-        trim: true
     }
 }, {
     collection: config.collections.volunteers

@@ -30,7 +30,7 @@ const UserSchema = Schema({
     },
     userType: {
         type: String,
-        enum: ['volunteer', 'recipient', 'donor', 'admin'],
+        enum: ['Volunteer', 'Recipient', 'Donor', 'Admin'],
         required: [true, "required"]
     },
     password: {
@@ -39,6 +39,21 @@ const UserSchema = Schema({
     },
     approved: {
         type: Boolean
+    },
+    address: {
+        type: String,
+        trim: true
+    }, 
+    age: {
+        type: Number,
+    },
+    gender: {
+        type: String,
+        enum: ['male', 'female'],
+    },
+    pincode: {
+        type: String,
+        trim: true
     }
 }, {
     collection: config.collections.registerations

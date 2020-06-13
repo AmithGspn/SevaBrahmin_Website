@@ -1,4 +1,9 @@
 .img1{
-    width:75vh;
-    height:70vh;
+    width:65vh;
+    height:65vh;
+}
+
+.container{
+    height: 70vh;
+    margin:0px 300px;
 }

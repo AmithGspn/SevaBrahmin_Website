@@ -10,7 +10,7 @@ export class NavbarService {
   private isLoggedIn = new Subject<boolean>();
 
   constructor() {
-    this.addItem({ text: 'Login', path: 'login' });
+    // this.addItem({ text: 'Login', path: 'login' });
     this.isLoggedIn.next(false);
   }
 
@@ -27,7 +27,7 @@ export class NavbarService {
     console.log(status)
     if (!status) {
       this.clearAllItems();
-      this.addItem({ text: 'Login', path: 'login' });
+      // this.addItem({ text: 'Login', path: 'login' });
     }
   }
 
@@ -57,7 +57,7 @@ export class NavbarService {
   }
 
   updateNavAfterAuth(role: string): void {
-    this.removeItem({ text: 'Login' });
+    // this.removeItem({ text: 'Login' });
     if (role === 'admin') {
       this.adminTabs();
     } else if (role === 'admin/unapprovedusers') {

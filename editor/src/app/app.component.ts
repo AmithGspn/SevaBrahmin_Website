@@ -28,7 +28,7 @@ export class AppComponent {
  
   constructor(private router: Router, private titleService: Title, private navbarService: NavbarService,public appService: AppService) {
     this.router.config.unshift(
-      { path: 'login', component: LoginComponent},
+      // { path: 'login', component: LoginComponent},
       { path: 'admin/unapprovedusers', component: UnApprovedUsersComponent, canActivate: [AuthGuard]},
       { path: 'admin/approvedusers', component: ApprovedUsersComponent, canActivate: [AuthGuard]},
       { path: 'volunteer/registeration', component: VolunteerRegisterationComponent, canActivate: [AuthGuard] },

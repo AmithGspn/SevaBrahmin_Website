@@ -44,13 +44,13 @@ export class LoginComponent implements OnInit {
         };
         this.appService.postLogin(formData).subscribe((data: any) => {
             localStorage.setItem('token', data.token)
-            if (data.user.userType === 'admin') {
+            if (data.user.userType === 'Admin') {
                 this.router.navigateByUrl('/admin');
-            } else if (data.user.userType === 'volunteer'){
+            } else if (data.user.userType === 'Volunteer'){
                 this.router.navigateByUrl('/volunteer');
-            } else if (data.user.userType === 'recipient') {
+            } else if (data.user.userType === 'Recipient') {
                 this.router.navigateByUrl('/recipient');
-            } else {
+            } else if (data.user.userType === 'Donor') {
                 this.router.navigateByUrl('/donor');
             }
         }, (error) => {

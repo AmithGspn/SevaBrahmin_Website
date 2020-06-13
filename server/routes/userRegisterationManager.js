@@ -13,6 +13,10 @@ router.post('/', async function (req, res, next) {
         gender: req.body.gender,
         approved: false,
         contact: req.body.contact,
+        age: req.body.age,
+        gender: req.body.gender,
+        address: req.body.address,
+        pincode: req.body.pincode
     };
 
     try {
@@ -62,6 +66,10 @@ router.put('/', async function (req, res, next) {
         gender: req.body.gender,
         approved: req.body.approved,
         contact: req.body.contact,
+        age: req.body.age,
+        gender: req.body.gender,
+        address: req.body.address,
+        pincode: req.body.pincode
     };
 
     try {

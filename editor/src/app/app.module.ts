@@ -10,7 +10,6 @@ import { VolunteerComponent } from './volunteer/volunteer.component';
 import { RecipientComponent } from './recipient/recipient.component';
 import { DonorComponent } from './donor/donor.component';
 import { AdminComponent } from './admin/admin.component';
-import { HomeComponent } from './home/home.component';
 import { UnApprovedUsersComponent } from './admin/un-approved-users/un-approved-users.component';
 import { AddRecipientsComponent } from './volunteer/add-recipients/add-recipients.component';
 import { VolunteerShowRecipientsComponent } from './volunteer/show-recipients/show-recipients.component';
@@ -35,7 +34,6 @@ import { ApprovedUsersComponent } from './admin/approved-users/approved-users.co
     RecipientComponent,
     DonorComponent,
     AdminComponent,
-    HomeComponent,
     LoginComponent,
     DonorRegisterationComponent,
     VolunteerRegisterationComponent,
@@ -56,7 +54,6 @@ import { ApprovedUsersComponent } from './admin/approved-users/approved-users.co
     AppRoutingModule
   ],
   entryComponents: [
-    LoginComponent,
     UnApprovedUsersComponent,
     ApprovedUsersComponent,
     DonorRegisterationComponent,

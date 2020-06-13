@@ -8,23 +8,34 @@ import { Router } from '@angular/router';
     styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
+    // filled=true;
+    age:any= "18";
     name: any = "";
-    firstName: any = "";
-    emailAddress: any = "";
-    contact: any = "";
-    password: any = "";
-    rePassword: any = "";
+    firstName: any = {disabled: false, value: ""};
+    emailAddress: any = {disabled: false, value: ""};
+    contact: any = {disabled: false, value: ""};
+    password: any = {disabled: false, value: ""};
+    rePassword: any = {disabled: false, value: ""};
     countrycode: any = "91";
     checkedValue: any = "";
     familyName: any = "";
     gothram: any = "";
+    address1: any={disabled: false, value: ""};
+    address2: any={disabled: false, value: ""};
+    pinCode: any={disabled: false, value: ""};
+    gender:any="male";
     state: any = "";
     district: any = "";
     taluk: any = "";
+    city: any="";
+    country: any="";
     bankDetails: any = "";
     ifsc: any = "";
     checkedValue1: any = "";
     checkedvalue2: any = "";
+    passwordformat= /[0-9a-zA-Z@$!%*#?&]{6,}/;
+    contactformat = /^\d{10}$/;
+    mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     statusMessage: any = {
         success: false,
         error: false,
@@ -47,14 +58,40 @@ export class SignUpComponent implements OnInit {
     onFamilyNameChange(event) {
         this.familyName = event;
     }
-
-    onDistrictChange(event) {
-        this.district = event;
+    onAddress1Change(event){
+        if(event == ''){
+            this.address1 = {value: '', disabled: true}
+        }else{
+            this.address1 = {value: event, disabled: false}
+        }
     }
-
-    onTalukChange(event) {
-        this.taluk = event;
+    onAddress2Change(event){
+        if(event == ''){
+            this.address2 = {value: '', disabled: true}
+        }else{
+            this.address2 = {value: event, disabled: false}
+        }
     }
+    onGenderChange(event){
+        console.log(event)
+        this.gender = event;
+    }
+    onPinChange(event){
+        if(event == ''){
+            this.pinCode = {value: '',disabled: true}
+        }else{
+            this.pinCode = {value: event,disabled: false}
+        }
+    }
+    // onDistrictChange(event) {
+    //     this.district = event;
+    // }
+    onAgeChange(event){
+        this.age = event;
+    }
+    // onTalukChange(event) {
+    //     this.taluk = event;
+    // }
 
     onBankDetailsChange(event) {
         this.bankDetails = event;
@@ -74,34 +111,74 @@ export class SignUpComponent implements OnInit {
     }
 
     onEmailChange(event) {
-        this.emailAddress = event
+        if (event.match(this.mailformat)) {
+            console.log('ddd')
+            this.emailAddress = {value: event, disabled: false}
+        } else {
+            this.emailAddress = {value: '', disabled: true}
+        }
     }
 
     onContactChange(event) {
-        this.contact = event
+        if (event.match(this.contactformat)) {
+            this.contact = {disabled: false, value: event}
+        } else {
+            this.contact = {value: '', disabled: true}
+        }
     }
-
+    onCityChange(event){
+        this.city=event;
+    }
+    onCountryChange(event){
+        this.country=event;
+    }
     onPasswordChange(event) {
-        this.password = event
+        if(event.match(this.passwordformat)){
+            this.password = {disabled: false, value: event}
+        } else {
+            this.password = {value:'',disabled:true}
+        }
     }
 
     onRePasswordChange(event) {
-        this.rePassword = event
+        console.log(this.password);
+        console.log(event);
+        if(event === this.password.value){
+            console.log('sss')
+            this.rePassword = {disabled: false, value: event}
+        } else {
+            this.rePassword = {value:'',disabled:true}
+        }
     }
 
     onFirstNameChange(event) {
-        this.firstName = event;
-    }
-
-    selectCheckBox(event) {
-        if (event === "recipient") {
-            this.checkedValue = "recipient"
-        } else if (event === "volunteer") {
-            this.checkedValue = "volunteer"
-        } else {
-            this.checkedValue = "donor"
+        if(event == ''){
+            this.firstName={value:'',disabled:true}
+        }else{
+            this.firstName={value:event,disabled:false}    
         }
     }
+    
+    selectCheckBox(event) {
+        if (event === "Recipient") {
+            this.checkedValue = "Recipient"
+        } else if (event === "Volunteer") {
+            this.checkedValue = "Volunteer"
+        } else {
+            this.checkedValue = "Donor"
+        }
+    }
+
+    // onChecked(event){
+    //     this.filled=false;
+    // }
+// modified thing
+    // disbale(){
+    //     if (this.emailAddress !== "") {
+    //         console.log('rr')
+    //         this.filled =false
+    //     }
+    // }
 
     selectCheckBox1(event) {
         this.checkedValue1 = event;
@@ -115,11 +192,15 @@ export class SignUpComponent implements OnInit {
 
     signup() {
         let formData = {
-            email: this.emailAddress,
-            contact: this.countrycode + this.contact,
-            password: this.password,
+            email: this.emailAddress.value,
+            contact: this.countrycode + this.contact.value,
+            password: this.password.value,
             userType: this.checkedValue,
-            name: this.firstName
+            name: this.firstName,
+            age: this.age,
+            gender: this.gender,
+            address: this.address1 + this.address2,
+            pinCode: this.pinCode
         }
 
         this.appService.postUser(formData).subscribe((data: any) => {
@@ -137,7 +218,6 @@ export class SignUpComponent implements OnInit {
         let volunteerData = {
             firstName: this.firstName,
             familyName: this.familyName,
-            gothram: this.gothram,
             contact: this.countrycode + this.contact
         };
 
@@ -155,8 +235,15 @@ export class SignUpComponent implements OnInit {
             }
         }
 
+        let donorData = {
+            firstName: this.firstName,
+            familyName: this.familyName,
+            email: this.emailAddress.value,
+            state: this.state
+        }
+
         if ( this.checkedValue === "donor") {
-            this.appService.postDonor(volunteerData).subscribe((data) => {
+            this.appService.postDonor(donorData).subscribe((data) => {
                 console.log(data)
             });
         }
@@ -164,11 +251,9 @@ export class SignUpComponent implements OnInit {
         let recipientData = {
             firstName: this.firstName,
             familyName: this.familyName,
-            email: this.emailAddress,
+            email: this.emailAddress.value,
             gothram: this.gothram,
             state: this.state,
-            district: this.district,
-            taluk: this.taluk,
             bankAccountNumber: this.bankDetails,
             IFSC: this.ifsc
         }

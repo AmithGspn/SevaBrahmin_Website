@@ -45,14 +45,24 @@ body {
 
 select.form-control {
     height: 52px;
-    padding-left: 0.5rem;
+    padding-left: 0.3rem;
 }
 
 .form-control::placeholder {
-    color: #ccc;
+    color:darkgray;
     font-weight: bold;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
 }
 .form-control:focus {
     box-shadow: none;
+}
+
+/* #s{
+    : red;
+} */
+
+:required  {  
+    background: url("../../assets/asterisk.jpeg") no-repeat;
+    background-position:99% 10%;
+    background-size: 10px 10px;
 }

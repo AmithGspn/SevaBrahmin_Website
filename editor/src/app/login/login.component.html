@@ -1,36 +1,36 @@
-<!-- Navbar-->
-<header class="header">
-    <nav class="navbar navbar-expand-lg navbar-light py-3">
-        <div class="container">
-            <!-- Navbar Brand -->
-            <a href="#" class="navbar-brand">
-                <!-- <img src="https://res.cloudinary.com/mhmd/image/upload/v1571398888/Group_1514_tjekh3_zkts1c.svg" alt="logo" width="150"> -->
-            </a>
-        </div>
-    </nav>
-</header>
+<nav class="navbar navbar-expand-md navbar-dark navbar-default">
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" >SevaBrahm</a>
+            </li>
+        </ul>
+    </div>
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/signUp" routerLinkActive="active"><i class="fa fa-user"></i> Sign Up</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!-- <h1 class="display:3 text-center">WELCOME!!!</h1> -->
 
 
 <div class="container">
-    <div class="row py-5 mt-4 align-items-center">
-        <!-- For Demo Purpose -->
-        <!-- <div class="col-md-5 pr-lg-5 mb-5 mb-md-0">
-            <img src="https://res.cloudinary.com/mhmd/image/upload/v1569543678/form_d9sh6m.svg" alt="" class="img-fluid mb-3 d-none d-md-block">
-            <h1>Create an Account</h1>
-            <p class="font-italic text-muted mb-0">Create a minimal registeration page using Bootstrap 4 HTML form elements.</p>
-            <p class="font-italic text-muted">Snippet By <a href="https://bootstrapious.com" class="text-muted">
-                <u>Bootstrapious</u></a>
-            </p>
-        </div> -->
-
-        <!-- Login Form -->
-        <div class="col-md-7 col-lg-6 my-auto mx-auto">
+    <div class="row">
+        <div class="col-md-6 col-sm-5">
+            <div class="row mr-5">
+                <img src="../../assets/img.jpeg" class="rounded d-block img1 img-fluid ml-auto" alt="img">            
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-7 my-auto mx-auto">
             <form action="#">
-                <div class="row">
-                    <div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
-                        <div class="border-bottom w-25 ml-5 border border-dark"></div>
-                        <span class="px-2 large text-muted font-weight-bold text-muted">Please fill the details</span>
-                        <div class="border-bottom w-25 mr-0 border border-dark"></div>
+                <div class="row ml-5">
+                    <div class="form-group col-lg-12 mx-auto d-flex align-items-center">
+                        <div class="border-bottom w-50 ml-5 border border-dark"></div>
+                        <span class="px-2 large text-muted font-weight-bold text-muted">Login</span>
+                        <div class="border-bottom w-50 mr-5 border border-dark"></div>
                     </div>
 
                     <!-- Email -->
@@ -80,8 +80,9 @@
                         </alert>
                     </span>
                 </div>
-            </form>
+            </form>            
         </div>
     </div>
 </div>
 
+<router-outlet></router-outlet>

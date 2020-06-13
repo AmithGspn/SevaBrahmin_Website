@@ -23,22 +23,10 @@ let donorSchema = Schema({
         trim: true,
         required: [true, "required"]
     },
-    gothram: {
-        type: String,
-        trim: true
-    },
     state: {
         type: String,
         trim: true,
         // required: [true, "required"]
-    },
-    postalCode: {
-        type: Number,
-        required: [true, "required"]
-    },
-    address: {
-        type: String,
-        required: [true, "required"]
     }
 }, {
     collection: config.collections.donor

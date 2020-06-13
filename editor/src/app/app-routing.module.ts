@@ -22,7 +22,7 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: LoginComponent
   },
   {
     path: 'admin',
