@@ -52,6 +52,7 @@ select.form-control {
     color:darkgray;
     font-weight: bold;
     font-size: 1.1rem;
+    padding-left: 5px;
 }
 .form-control:focus {
     box-shadow: none;
@@ -65,4 +66,12 @@ select.form-control {
     background: url("../../assets/asterisk.jpeg") no-repeat;
     background-position:99% 10%;
     background-size: 10px 10px;
+}
+
+.input{
+    margin-left: -2px;
+}
+
+.invalid-feedback{
+    display: none;
 }

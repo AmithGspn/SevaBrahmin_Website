@@ -18,17 +18,17 @@ export class SignUpComponent implements OnInit {
     rePassword: any = {disabled: false, value: ""};
     countrycode: any = "91";
     checkedValue: any = "";
-    familyName: any = "";
+    familyName: any = {disabled: false, value: ""};
     gothram: any = "";
     address1: any={disabled: false, value: ""};
     address2: any={disabled: false, value: ""};
     pinCode: any={disabled: false, value: ""};
-    gender:any="male";
+    gender:any="";
     state: any = "";
     district: any = "";
     taluk: any = "";
     city: any="";
-    country: any="";
+    country: any={disabled: false, value: ""};
     bankDetails: any = "";
     ifsc: any = "";
     checkedValue1: any = "";
@@ -56,7 +56,11 @@ export class SignUpComponent implements OnInit {
     }
 
     onFamilyNameChange(event) {
-        this.familyName = event;
+        if(event == ''){
+            this.familyName = {value: '',disabled: true}
+        }else{
+            this.familyName = {value: event, disabled: false}
+        }
     }
     onAddress1Change(event){
         if(event == ''){
@@ -130,7 +134,11 @@ export class SignUpComponent implements OnInit {
         this.city=event;
     }
     onCountryChange(event){
-        this.country=event;
+        if(event == ''){
+            this.country={disabled: true, value: ''}
+        } else{
+            this.country={disabled:false,value:event}
+        }
     }
     onPasswordChange(event) {
         if(event.match(this.passwordformat)){
@@ -147,6 +155,7 @@ export class SignUpComponent implements OnInit {
             console.log('sss')
             this.rePassword = {disabled: false, value: event}
         } else {
+            console.log('dddd')
             this.rePassword = {value:'',disabled:true}
         }
     }

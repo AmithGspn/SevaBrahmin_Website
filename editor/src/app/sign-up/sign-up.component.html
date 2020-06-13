@@ -32,50 +32,65 @@
                         <span class="px-2 large text-muted font-weight-bold text-muted">Please fill the details</span>
                         <div class="border-bottom w-25 mr-0 border border-dark"></div>
                     </div>
+                    <div class="text-start col-lg-12">
+                        <p class="text-muted font-weight-bold"><sup><img src="../../assets/asterisk.jpeg" alt="asterisk" height="10px" width="10px"></sup> indicates a required field</p>
+                    </div>
                     <!-- FirstName -->
                     <div class="input-group col-lg-6 mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-user text-muted"></i>
-                            </span>
+                        <div class="input-group-prepend w-100">
+                            <!-- <span class="input-group-text bg-white px-4 border-md border-right-0">
+                            </span> -->
+                            <input id="firstName" type="text" required="required" name="firstname" [ngClass]="firstName.disabled == false ? 'form-control bg-white border-md' : 'is-invalid' " (blur)="onFirstNameChange($event.target.value)" placeholder="First Name" class="form-control bg-white border-md">                
                         </div>
-                        <input id="firstName" type="text" required="required" name="firstname" (blur)="onFirstNameChange($event.target.value)" placeholder="First Name" class="form-control bg-white border-left-0 border-md mr-2">                
+                        <!-- <i class="fa fa-user text-muted"></i> -->
+                        <!-- <div class="invalid-feedback">
+                            please enter name
+                        </div> -->
+                        <div *ngIf="firstName.disabled == true" class="text-danger">
+                            <small>please enter Name</small>    
+                        </div>
                     </div>
                     <!-- FamilyName -->
                     <div class="input-group col-lg-6 mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                        <div class="input-group-prepend w-100">
+                            <!-- <span class="input-group-text bg-white px-4 border-md border-right-0">
                                 <i class="fa fa-user text-muted"></i>
-                            </span>
+                            </span> -->
+                            <input id="familyname" type="text" required="required" name="familyname" [ngClass]="familyName.disabled == false ? 'form-control bg-white border-md' : 'is-invalid' " (blur)="onFamilyNameChange($event.target.value)" placeholder="Family Name" class="form-control bg-white border-md">
                         </div>
-                        <input id="familyname" type="text" required="required" name="familyname" (blur)="onFamilyNameChange($event.target.value)" placeholder="Family Name" class="form-control bg-white border-left-0 border-md">
+                        <!-- <div class="invalid-feedback">
+                            please enter familyname
+                        </div> -->
+                        <div *ngIf="familyName.disabled == true" class="text-danger">
+                            <small>please enter Name</small>    
+                        </div>
                     </div>                    
                     <!-- Email Address -->
                     <div class="input-group col-lg-12 mb-4">
-                        <div class="input-group-prepend">
+                        <div class="input-group-prepend w-100">
                             <span class="input-group-text bg-white px-4 border-md border-right-0">
                                 <i class="fa fa-envelope text-muted"></i>
                             </span>
+                            <input id="email" type="email" name="email" required="required" placeholder="Email Address" (blur)="onEmailChange($event.target.value)" [ngClass]="emailAddress.disabled == false ? 'form-control bg-white border-left-0 border-md' : 'is-invalid'" class="form-control bg-white border-left-0 border-md">
                         </div>
-                        <input id="email" type="email" name="email" required="required" placeholder="Email Address" (blur)="onEmailChange($event.target.value)" [ngClass]="emailAddress.disabled == false ? 'form-control bg-white border-left-0 border-md' : 'is-invalid'" class="form-control bg-white border-left-0 border-md">
-                        <div class="invalid-feedback">
-                            please provide a valid email
+                        <div *ngIf="emailAddress.disabled == true" class="text-danger">
+                            <small> please provide a valid email</small>
                         </div>
                     </div>
 
                     <!-- Phone Number -->
                     <div class="input-group col-lg-12 mb-4">
-                        <div class="input-group-prepend">
+                        <div class="input-group-prepend w-100">
                             <span class="input-group-text bg-white px-4 border-md border-right-0">
                                 <i class="fa fa-phone-square text-muted"></i>
                             </span>
+                            <select id="countryCode" name="countryCode" (click)="updateList($event.target.value)" style="max-width: 80px"  class="custom-select form-control bg-white border-left-0 border-md font-weight-bold text-muted">
+                                <option value="91">+91</option>
+                                <option value="1">+1</option>
+                            </select>
+                            <input id="phoneNumber" type="tel" required="required" name="phone" placeholder="Phone Number" [ngClass]="contact.disabled == false ? 'form-control bg-white border-md border-left-0 pl-3' : 'is-invalid'" (blur)="onContactChange($event.target.value)" class="form-control bg-white border-md border-left-0 pl-3">
                         </div>
-                        <select id="countryCode" name="countryCode" (click)="updateList($event.target.value)" style="max-width: 80px"  class="custom-select form-control bg-white border-left-0 border-md font-weight-bold text-muted">
-                            <option value="91">+91</option>
-                            <option value="1">+1</option>
-                        </select>
-                        <input id="phoneNumber" type="tel" required="required" name="phone" placeholder="Phone Number" [ngClass]="contact.disabled == false ? 'form-control bg-white border-md border-left-0 pl-3' : 'is-invalid'" (blur)="onContactChange($event.target.value)" class="form-control bg-white border-md border-left-0 pl-3">
-                        <div class="invalid-feedback">
+                        <div *ngIf="contact.disabled == true" class="text-danger">
                             please provide a valid contact number
                         </div>
                     </div>
@@ -83,23 +98,22 @@
                     <!-- <div class="input-group col-lg-12 mb-4"> -->
                         <!-- Age -->
                         <div class="input-group col-lg-6 mb-4">
-                            <div class="input-group-prepend">
+                            <!-- <div class="input-group-prepend">
                                 <span class="input-group-text bg-white px-4 border-md border-right-0">
                                     <i class="fa fa-user text-muted"></i>
                                 </span>
-                            </div>
-                            <input id="age" type="number" required="required" min="18" value="18" name="age" (blur)="onAgeChange($event.target.value)" placeholder="Age" class="form-control bg-white border-left-0 border-md mr-2">                
+                            </div> -->
+                            <input id="age" type="number" min="18" name="age" (blur)="onAgeChange($event.target.value)" placeholder="Age" class="form-control bg-white  border-md">                
                         </div>
                         <!-- Gender -->
                         <div class="input-group col-lg-6 mb-4">
                             <div class="input-group-prepend">
-                                <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                    <i class="fa fa-user text-muted"></i>
-                                </span>
+                                <!-- <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                    <i class="fa fa-sex text-muted"></i>
+                                </span> -->
                             </div>
-                            <!-- <input id="age" type="number" min="18" name="age" (blur)="onFirstNameChange($event.target.value)" placeholder="Age" class="form-control bg-white border-left-0 border-md mr-2">                 -->
-                            <select (blur)="onGenderChange($event.target.value)"  class="custom-select h-120 form-control bg-white border-left-0 border-md " name="Gender">
-                                <option value="male">Male</option>
+                            <select (blur)="onGenderChange($event.target.value)" class="custom-select h-120 form-control bg-white border-md " name="Gender">
+                                <option value="male"> Male</option>
                                 <option value="female">Female</option>
                             </select>
                         </div>
@@ -133,35 +147,35 @@
                     <!-- mx-sm-3 my-3 -->
                     <!-- Password -->
                     <div class="input-group col-lg-12 mb-4">
-                        <div class="input-group-prepend">
+                        <div class="input-group-prepend w-100">
                             <span class="input-group-text bg-white px-4 border-md border-right-0">
                                 <i class="fa fa-lock text-muted"></i>
                             </span>
+                            <input id="password" type="password" required="required" name="password" placeholder="Password" [ngClass]="password.disabled == false ? 'form-control bg-white border-md border-left-0' : 'is-invalid'" (blur)="onPasswordChange($event.target.value)" class="form-control bg-white border-left-0 border-md">
                         </div>
                         <!-- col-lg-4 -->
-                        <input id="password" type="password" required="required" name="password" placeholder="Password" [ngClass]="password.disabled == false ? 'form-control bg-white border-md border-left-0' : 'is-invalid'" (blur)="onPasswordChange($event.target.value)" class="form-control bg-white border-left-0 border-md">
                         <!-- <small class="form-text text-muted mx-sm-3 my-3">
                             Must be atleast 8 characters long
                         </small> -->
                         <!-- <small class="form-text text-muted mx-sm-2 my-3">
                             Must be atleast 8 characters long
                         </small>         -->
-                        <div class="invalid-feedback">
+                        <div *ngIf="password.disabled == true" class="text-danger">
                             password must be atleast 8 characters long 
                         </div>                    
                     </div>
                     <!-- Password Confirmation -->
                     <div class="input-group col-lg-12 mb-4">
-                        <div class="input-group-prepend">
+                        <div class="input-group-prepend w-100">
                             <span class="input-group-text bg-white px-4 border-md border-right-0 h-80">
                                 <i class="fa fa-lock text-muted"></i>
                             </span>
+                            <input id="passwordConfirmation" type="password" required="required" name="passwordConfirmation" [ngClass]="rePassword.disabled == false ? 'form-control bg-white border-left-0 border-md' : 'is-invalid'"  (blur)="onRePasswordChange($event.target.value)" placeholder="Confirm Password" class="form-control bg-white border-left-0 border-md">
                         </div>
-                        <input id="passwordConfirmation" type="password" required="required" name="passwordConfirmation" [ngClass]="rePassword.disabled == false ? 'form-control bg-white border-left-0 border-md' : 'is-invalid'"  (blur)="onRePasswordChange($event.target.value)" placeholder="Confirm Password" class="form-control bg-white border-left-0 border-md">
-                        <div class="invalid-feedback">
+                        <div *ngIf="rePassword.disabled == true" class="text-danger">
                             passwords are not matching
                         </div>
-                        <div class="valid-feedback">
+                        <div *ngIf="rePassword.value == password.value && rePassword.value != ''" class="text-success">
                             passwords match
                         </div> 
                     </div>
@@ -207,11 +221,8 @@
                     </div>
 
                     <!-- Already Registered -->
-                    <div class="text-start ml-4 col-lg-6">
+                    <div class="text-center col-lg-12">
                         <p class="text-muted font-weight-bold">Already Registered? <a routerLink="/login" class="text-primary ml-2">Login</a></p>
-                    </div>
-                    <div class="text-center col-lg-5">
-                        <p class="text-muted font-weight-bold"><sup><img src="../../assets/asterisk.jpeg" alt="asterisk" height="10px" width="10px"></sup>  Mandatory Field</p>
                     </div>
                 </div>
             </form>
@@ -222,15 +233,18 @@
                 <div class="row">
                     <!-- Address 1 -->
                     <div class="input-group col-lg-12 mb-4">
-                        <div class="input-group-prepend">
+                        <div class="input-group-prepend w-100">
                             <span class="input-group-text bg-white px-4 border-md border-right-0">
                                 <i class="fa fa-user text-muted"></i>
                             </span>
+                            <input id="address1" type="text" required="required" name="address1" (blur)="onAddress1Change($event.target.value)" [ngClass]="address1.disabled == false ? 'form-control bg-white border-left-0 border-md':'is-invalid'" placeholder="Address 1" class="form-control bg-white border-left-0 border-md">
                         </div>
-                        <input id="address1" type="text" required="required" name="address1" (blur)="onAddress1Change($event.target.value)" [ngClass]="address1.disabled == false ? 'form-control bg-white border-left-0 border-md':'is-invalid'" placeholder="Address 1" class="form-control bg-white border-left-0 border-md">
-                        <div class="invalid-feedback">
+                        <!-- <div class="invalid-feedback">
                             please enter the address
-                        </div>
+                        </div> -->
+                        <div *ngIf="address1.disabled == true" class="text-danger">
+                            <small>please enter address</small>    
+                        </div>    
                     </div>
                     <!-- Address 2 -->
                     <div class="input-group col-lg-12 mb-4">
@@ -239,67 +253,70 @@
                                 <i class="fa fa-user text-muted"></i>
                             </span>
                         </div>
-                        <input id="address2" type="text" required="required" name="address2" (blur)="onAddress2Change($event.target.value)" [ngClass]="address2.disabled == false ? 'form-control bg-white border-left-0 border-md':'is-invalid'" placeholder="Address 2" class="form-control bg-white border-left-0 border-md">
-                        <div class="invalid-feedback">
+                        <input id="address2" type="text" name="address2" (blur)="onAddress2Change($event.target.value)" placeholder="Address 2" class="form-control bg-white border-left-0 border-md">
+                        <!-- <div class="invalid-feedback">
                             please enter the address
-                        </div>
+                        </div> -->
                     </div>
                     <!-- City -->
                     <div class="input group col-lg-6 mb-4">
                         <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                            <!-- <span class="input-group-text bg-white px-4 border-md border-right-0">
                                 <i class="fa fa-user text-muted"></i>
-                            </span>
-                            <input id="city" type="text" name="city" (blur)="onCityChange($event.target.value)" placeholder="City" class="form-control bg-white border-left-0 border-md">    
+                            </span> -->
+                            <input id="city" type="text" name="city" (blur)="onCityChange($event.target.value)" placeholder="City" class="form-control bg-white border-md">    
                         </div>
                     </div>
                     <!-- State -->
                     <div class="input group col-lg-6 mb-4">
                         <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                            <!-- <span class="input-group-text bg-white px-4 border-md border-right-0">
                                 <i class="fa fa-user text-muted"></i>
-                            </span>
-                            <input id="state" type="text" name="state" (blur)="onStateChange($event.target.value)" placeholder="State" class="form-control bg-white border-left-0 border-md">
+                            </span> -->
+                            <input id="state" type="textbox" name="state" (blur)="onStateChange($event.target.value)" placeholder="State" class="form-control bg-white border-md">
                         </div>
                     </div>
-                    <!-- Country -->
+                    <!-- Country -->    
                     <div class="input group col-lg-6 mb-4">
                         <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-user text-muted"></i>
-                            </span>
-                            <input id="country" type="text" name="country" (blur)="onCountryChange($event.target.value)" placeholder="Country" class="form-control bg-white border-left-0 border-md">    
+                            <!-- <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-user text-muted ml-0"></i>
+                            </span> -->
+                            <input id="country" type="text" required="required" name="country"  (blur)="onCountryChange($event.target.value)" [ngClass]="country.disabled == false ? 'form-control bg-white border-md' : 'is-invalid'" placeholder="Country" class="form-control bg-white border-md">    
                         </div>
+                        <div *ngIf="country.disabled == true" class="text-danger">
+                        <small>please enter country</small>    
+                        </div>    
                     </div>
                     <!-- Pin/Zipcode -->
                     <div class="input-group col-lg-6 mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                        <div class="input-group-prepend w-100">
+                            <!-- <span class="input-group-text bg-white px-4 border-md border-right-0">
                                 <i class="fa fa-user text-muted"></i>
-                            </span>
+                            </span> -->
+                            <input id="zip" type="text" required="required" name="zip" (blur)="onPinChange($event.target.value)" placeholder="Pin/Zip Code" class="form-control bg-white border-md">
                         </div>
-                        <input id="zip" type="text" required="required" name="zip" [ngClass]="pinCode.disabled == false ? 'form-control bg-white border-left-0 border-md' : 'is-invalid'" (blur)="onPinChange($event.target.value)" placeholder="Pin/Zip Code" class="form-control bg-white border-left-0 border-md">
-                        <div class="invalid-feedback">
-                            please enter pincode
+                        <div *ngIf="pinCode.disabled == true" class="text-danger">
+                        <small>please enter pincode</small>    
                         </div>
                     </div>
                     <!-- Bank Acc No -->
                     <div class="input-group col-lg-6 mb-4">
                         <div class="input-group-prepend">
                             <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-envelope text-muted"></i>
+                                <i class="fa fa-bank text-muted"></i>
                             </span>
-                            <input id="bankaccountdetails" type="email" required="required" name="bankaccountdetails" (blur)="onBankDetailsChange($event.target.value)" placeholder="Bank Account No" class="form-control bg-white border-left-0 border-md">    
+                            <input id="bankaccountdetails" type="email" name="bankaccountdetails" (blur)="onBankDetailsChange($event.target.value)" placeholder="Bank Account No" class="form-control bg-white border-left-0 border-md">    
                         </div>
                     </div>
                     <!-- IFSC -->
                     <div class="input-group col-lg-6 mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-envelope text-muted"></i>
-                            </span>
+                        <div class="input-group-prepend w-100">
+                            <!-- <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-bank text-muted"></i>
+                            </span> -->
+                            <input id="bankaccountdetails" type="email" name="ifsc" (blur)="onBankDetailsChange($event.target.value)" placeholder="IFSC" class="form-control bg-white border-md">    
                         </div>
-                        <input id="bankaccountdetails" type="email" required="required" name="ifsc" (blur)="onBankDetailsChange($event.target.value)" placeholder="IFSC" class="form-control bg-white border-left-0 border-md">    
                     </div>
                     <!-- checkboxes -->
                     <div class="input-group col-lg-12 mb-4">
@@ -315,12 +332,18 @@
                 <div class="row">
                     <!-- Address 1 -->
                     <div class="input-group col-lg-12 mb-4">
-                        <div class="input-group-prepend">
+                        <div class="input-group-prepend w-100">
                             <span class="input-group-text bg-white px-4 border-md border-right-0">
                                 <i class="fa fa-user text-muted"></i>
                             </span>
+                            <input id="address1" type="text" required="required" name="address1" (blur)="onAddress1Change($event.target.value)" [ngClass]="address1.disabled == false ? 'form-control bg-white border-left-0 border-md':'is-invalid'" placeholder="Address 1" class="form-control bg-white border-left-0 border-md">
                         </div>
-                        <input id="address1" type="text" required="required" name="address1" (blur)="onAddress1Change($event.target.value)" placeholder="Address 1" class="form-control bg-white border-left-0 border-md">
+                        <!-- <div class="invalid-feedback">
+                            please enter the address
+                        </div> -->
+                        <div *ngIf="address1.disabled == true" class="text-danger">
+                            <small>please enter address</small>    
+                        </div>    
                     </div>
                     <!-- Address 2 -->
                     <div class="input-group col-lg-12 mb-4">
@@ -329,48 +352,53 @@
                                 <i class="fa fa-user text-muted"></i>
                             </span>
                         </div>
-                        <input id="address2" type="text" required="required" name="address2" (blur)="onAddress2Change($event.target.value)" placeholder="Address 2" class="form-control bg-white border-left-0 border-md">
-                    </div> 
-                        <!-- City -->
+                        <input id="address2" type="text" name="address2" (blur)="onAddress2Change($event.target.value)" placeholder="Address 2" class="form-control bg-white border-left-0 border-md">
+                        <!-- <div class="invalid-feedback">
+                            please enter the address
+                        </div> -->
+                    </div>
+                    <!-- City -->
                     <div class="input group col-lg-6 mb-4">
                         <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                            <!-- <span class="input-group-text bg-white px-4 border-md border-right-0">
                                 <i class="fa fa-user text-muted"></i>
-                            </span>
-                            <input id="city" type="text" name="city" (blur)="onCityChange($event.target.value)" placeholder="City" class="form-control bg-white border-left-0 border-md">    
+                            </span> -->
+                            <input id="city" type="text" name="city" (blur)="onCityChange($event.target.value)" placeholder="City" class="form-control bg-white border-md">    
                         </div>
                     </div>
                     <!-- State -->
                     <div class="input group col-lg-6 mb-4">
                         <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                            <!-- <span class="input-group-text bg-white px-4 border-md border-right-0">
                                 <i class="fa fa-user text-muted"></i>
-                            </span>
-                            <input id="state" type="text" name="state" (blur)="onStateChange($event.target.value)" placeholder="State" class="form-control bg-white border-left-0 border-md">
+                            </span> -->
+                            <input id="state" type="textbox" name="state" (blur)="onStateChange($event.target.value)" placeholder="State" class="form-control bg-white border-md">
                         </div>
                     </div>
-                    <!-- Country -->
+                    <!-- Country -->    
                     <div class="input group col-lg-6 mb-4">
                         <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-user text-muted"></i>
-                            </span>
-                            <input id="country" type="text" name="country" (blur)="onCountryChange($event.target.value)" placeholder="Country" class="form-control bg-white border-left-0 border-md">    
+                            <!-- <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-user text-muted ml-0"></i>
+                            </span> -->
+                            <input id="country" type="text" required="required" name="country"  (blur)="onCountryChange($event.target.value)" [ngClass]="country.disabled == false ? 'form-control bg-white border-md' : 'is-invalid'" placeholder="Country" class="form-control bg-white border-md">    
                         </div>
+                        <div *ngIf="country.disabled == true" class="text-danger">
+                        <small>please enter country</small>    
+                        </div>    
                     </div>
                     <!-- Pin/Zipcode -->
                     <div class="input-group col-lg-6 mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                        <div class="input-group-prepend w-100">
+                            <!-- <span class="input-group-text bg-white px-4 border-md border-right-0">
                                 <i class="fa fa-user text-muted"></i>
-                            </span>
+                            </span> -->
+                            <input id="zip" type="text" required="required" name="zip" (blur)="onPinChange($event.target.value)" placeholder="Pin/Zip Code" class="form-control bg-white border-md">
                         </div>
-                        <input id="zip" type="text" required="required" name="zip" [ngClass]="pinCode.disabled == false ? 'form-control bg-white border-left-0 border-md' : 'is-invalid'" (blur)="onPinChange($event.target.value)" placeholder="Pin/Zip Code" class="form-control bg-white border-left-0 border-md">
-                        <div class="invalid-feedback">
-                            please enter pincode
+                        <div *ngIf="pinCode.disabled == true" class="text-danger">
+                        <small>please enter pincode</small>    
                         </div>
-                    </div>        
-                    <!-- Gothram -->
+                    </div>                    <!-- Gothram -->
                     <!-- <div class="input-group col-lg-6 mb-2">
                         <div class="input-group-prepend">
                             <span class="input-group-text bg-white px-4 border-md border-right-0">
@@ -406,12 +434,18 @@
                     </div> -->  
                     <!-- Address 1 -->
                     <div class="input-group col-lg-12 mb-4">
-                        <div class="input-group-prepend">
+                        <div class="input-group-prepend w-100">
                             <span class="input-group-text bg-white px-4 border-md border-right-0">
                                 <i class="fa fa-user text-muted"></i>
                             </span>
+                            <input id="address1" type="text" required="required" name="address1" (blur)="onAddress1Change($event.target.value)" [ngClass]="address1.disabled == false ? 'form-control bg-white border-left-0 border-md':'is-invalid'" placeholder="Address 1" class="form-control bg-white border-left-0 border-md">
                         </div>
-                        <input id="address1" type="text" required="required" name="address1" (blur)="onAddress1Change($event.target.value)" placeholder="Address 1" class="form-control bg-white border-left-0 border-md">
+                        <!-- <div class="invalid-feedback">
+                            please enter the address
+                        </div> -->
+                        <div *ngIf="address1.disabled == true" class="text-danger">
+                            <small>please enter address</small>    
+                        </div>    
                     </div>
                     <!-- Address 2 -->
                     <div class="input-group col-lg-12 mb-4">
@@ -420,45 +454,51 @@
                                 <i class="fa fa-user text-muted"></i>
                             </span>
                         </div>
-                        <input id="address2" type="text" required="required" name="address2" (blur)="onAddress2Change($event.target.value)" placeholder="Address 2" class="form-control bg-white border-left-0 border-md">
-                    </div>       
+                        <input id="address2" type="text" name="address2" (blur)="onAddress2Change($event.target.value)" placeholder="Address 2" class="form-control bg-white border-left-0 border-md">
+                        <!-- <div class="invalid-feedback">
+                            please enter the address
+                        </div> -->
+                    </div>
                     <!-- City -->
                     <div class="input group col-lg-6 mb-4">
                         <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                            <!-- <span class="input-group-text bg-white px-4 border-md border-right-0">
                                 <i class="fa fa-user text-muted"></i>
-                            </span>
-                            <input id="city" type="text" name="city" (blur)="onCityChange($event.target.value)" placeholder="City" class="form-control bg-white border-left-0 border-md">    
+                            </span> -->
+                            <input id="city" type="text" name="city" (blur)="onCityChange($event.target.value)" placeholder="City" class="form-control bg-white border-md">    
                         </div>
                     </div>
                     <!-- State -->
                     <div class="input group col-lg-6 mb-4">
                         <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                            <!-- <span class="input-group-text bg-white px-4 border-md border-right-0">
                                 <i class="fa fa-user text-muted"></i>
-                            </span>
-                            <input id="state" type="text" name="state" (blur)="onStateChange($event.target.value)" placeholder="State" class="form-control bg-white border-left-0 border-md">
+                            </span> -->
+                            <input id="state" type="textbox" name="state" (blur)="onStateChange($event.target.value)" placeholder="State" class="form-control bg-white border-md">
                         </div>
                     </div>
-                    <!-- Country -->
+                    <!-- Country -->    
                     <div class="input group col-lg-6 mb-4">
                         <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-user text-muted"></i>
-                            </span>
-                            <input id="country" type="text" name="country" (blur)="onCountryChange($event.target.value)" placeholder="Country" class="form-control bg-white border-left-0 border-md">    
+                            <!-- <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-user text-muted ml-0"></i>
+                            </span> -->
+                            <input id="country" type="text" required="required" name="country"  (blur)="onCountryChange($event.target.value)" [ngClass]="country.disabled == false ? 'form-control bg-white border-md' : 'is-invalid'" placeholder="Country" class="form-control bg-white border-md">    
                         </div>
+                        <div *ngIf="country.disabled == true" class="text-danger">
+                        <small>please enter country</small>    
+                        </div>    
                     </div>
                     <!-- Pin/Zipcode -->
                     <div class="input-group col-lg-6 mb-4">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                        <div class="input-group-prepend w-100">
+                            <!-- <span class="input-group-text bg-white px-4 border-md border-right-0">
                                 <i class="fa fa-user text-muted"></i>
-                            </span>
+                            </span> -->
+                            <input id="zip" type="text" required="required" name="zip" (blur)="onPinChange($event.target.value)" placeholder="Pin/Zip Code" class="form-control bg-white border-md">
                         </div>
-                        <input id="zip" type="text" required="required" name="zip" [ngClass]="pinCode.disabled == false ? 'form-control bg-white border-left-0 border-md' : 'is-invalid'" (blur)="onPinChange($event.target.value)" placeholder="Pin/Zip Code" class="form-control bg-white border-left-0 border-md">
-                        <div class="invalid-feedback">
-                            please enter pincode
+                        <div *ngIf="pinCode.disabled == true" class="text-danger">
+                        <small>please enter pincode</small>    
                         </div>
                     </div>
                     <!-- checkbox -->
