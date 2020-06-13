@@ -98,12 +98,15 @@
                     <!-- <div class="input-group col-lg-12 mb-4"> -->
                         <!-- Age -->
                         <div class="input-group col-lg-6 mb-4">
-                            <!-- <div class="input-group-prepend">
-                                <span class="input-group-text bg-white px-4 border-md border-right-0">
+                            <div class="input-group-prepend w-100">
+                                <!-- <span class="input-group-text bg-white px-4 border-md border-right-0">
                                     <i class="fa fa-user text-muted"></i>
-                                </span>
-                            </div> -->
-                            <input id="age" type="number" min="18" name="age" (blur)="onAgeChange($event.target.value)" placeholder="Age" class="form-control bg-white  border-md">                
+                                </span> -->
+                                <input id="age" type="number" min="18" max="90" name="age" onkeydown="return event.keyCode !== 69" (blur)="onAgeChange($event.target.value)" [ngClass]="age" placeholder="Age" class="form-control bg-white  border-md">                
+                            </div>
+                            <div *ngIf="age.disabled == true" class="text-danger">
+                                Age must be between 18 to 90
+                            </div>
                         </div>
                         <!-- Gender -->
                         <div class="input-group col-lg-6 mb-4">

@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class SignUpComponent implements OnInit {
     // filled=true;
-    age:any= "18";
+    age:any= {disabled: false, value: "18"};
     name: any = "";
     firstName: any = {disabled: false, value: ""};
     emailAddress: any = {disabled: false, value: ""};
@@ -91,7 +91,11 @@ export class SignUpComponent implements OnInit {
     //     this.district = event;
     // }
     onAgeChange(event){
-        this.age = event;
+        if(event >= 90){
+            this.age = {value:'',disabled: true}
+        }else{
+            this.age = {value: event,disabled: false}
+        }
     }
     // onTalukChange(event) {
     //     this.taluk = event;
