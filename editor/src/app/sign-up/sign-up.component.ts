@@ -206,7 +206,7 @@ export class SignUpComponent implements OnInit {
         console.log(this.checkedvalue2)
     }
 
-    selectCHeckBox3(event) {
+    selectCheckBox3(event) {
         this.checkedvalue3 = false
         this.checkedvalue3 = event;
         console.log(this.checkedvalue3)
@@ -224,18 +224,6 @@ export class SignUpComponent implements OnInit {
             address: this.address1.value + this.address2.value,
             pinCode: this.pinCode.value
         }
-
-        this.appService.postUser(formData).subscribe((data: any) => {
-            console.log(data)
-            this.router.navigateByUrl('/thankyou');
-        }, (error) => {
-            this.statusMessage = {
-                success: false,
-                error: true,
-                message: error
-            };
-        });
-  
         
         let volunteerData = {
             email: this.emailAddress.value,
@@ -249,8 +237,20 @@ export class SignUpComponent implements OnInit {
 
         if ( this.checkedValue === "Volunteer") {
             if (this.checkedValue1 === true && this.checkedvalue2 === true) {
+                if(this.checkedValue1 == this.checkedvalue2 == true) {
+                    this.
+                }
                 this.appService.postVolunteer(volunteerData).subscribe((data) => {
-                    console.log(data)
+                    this.appService.postUser(formData).subscribe((data: any) => {
+                        console.log(data)
+                        this.router.navigateByUrl('/thankyou');
+                    }, (error) => {
+                        this.statusMessage = {
+                            success: false,
+                            error: true,
+                            message: error
+                        };
+                    });
                 });
             } else {
                 this.statusMessage = {
@@ -277,7 +277,16 @@ export class SignUpComponent implements OnInit {
         if ( this.checkedValue === "Donor") {
             if(this.checkedValue1 === true && this.checkedvalue2 === true && this.checkedvalue3 === true) {
                 this.appService.postDonor(donorData).subscribe((data) => {
-                    console.log(data)
+                    this.appService.postUser(formData).subscribe((data: any) => {
+                        console.log(data)
+                        this.router.navigateByUrl('/thankyou');
+                    }, (error) => {
+                        this.statusMessage = {
+                            success: false,
+                            error: true,
+                            message: error
+                        };
+                    });
                 });
             }else {
                 this.statusMessage = {
@@ -303,7 +312,16 @@ export class SignUpComponent implements OnInit {
         console.log(this.checkedValue)
         if (this.checkedValue === "Recipient" ) {
             this.appService.postRecipient(recipientData).subscribe((data) => {
-                console.log(data)
+                this.appService.postUser(formData).subscribe((data: any) => {
+                    console.log(data)
+                    this.router.navigateByUrl('/thankyou');
+                }, (error) => {
+                    this.statusMessage = {
+                        success: false,
+                        error: true,
+                        message: error
+                    };
+                });
                 this.statusMessage = {
                     success: true,
                     error: false,
