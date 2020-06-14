@@ -24,10 +24,12 @@ router.post('/', async function (req, res, next) {
         email: req.body.email,
         firstName: req.body.firstName,
         familyName: req.body.familyName,
-        gothram: req.body.gothram,
+        // gothram: req.body.gothram,
         bankAccountNumber: req.body.bankAccountNumber,
         IFSC: req.body.IFSC,
         state: req.body.state,
+        city: req.body.city,
+        country: req.body.country,
         volunteerNo: req.body.volunteerNo || " "
     };
 

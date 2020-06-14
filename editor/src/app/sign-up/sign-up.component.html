@@ -318,7 +318,7 @@
                             <!-- <span class="input-group-text bg-white px-4 border-md border-right-0">
                                 <i class="fa fa-bank text-muted"></i>
                             </span> -->
-                            <input id="bankaccountdetails" type="email" name="ifsc" (blur)="onBankDetailsChange($event.target.value)" placeholder="IFSC" class="form-control bg-white border-md">    
+                            <input id="bankaccountdetails" type="email" name="ifsc" (blur)="onIfscChange($event.target.value)" placeholder="IFSC" class="form-control bg-white border-md">    
                         </div>
                     </div>
                     <!-- checkboxes -->
@@ -506,9 +506,9 @@
                     </div>
                     <!-- checkbox -->
                     <div class="input-group col-lg-12 mb-4">
-                        <div style="margin-top: 0px" class="custom-control custom-checkbox custom-control-inline"> <input id="chk2" type="checkbox" name="chk" class="custom-control-input"> <label for="chk2" class="custom-control-label text-sm">I understand that sevaBrahm platform and website should not be used to help my own relatives</label> </div>
-                        <div style="margin-top: 15px" class="custom-control custom-checkbox custom-control-inline"> <input id="chk1" type="checkbox" name="chk" class="custom-control-input"> <label for="chk1" class="custom-control-label text-sm">I will follow all the rules of respective government</label> </div>
-                        <div style="margin-top: 15px" class="custom-control custom-checkbox custom-control-inline"> <input id="chk3" type="checkbox" name="chk" class="custom-control-input"> <label for="chk3" class="custom-control-label text-sm">I consent to no hold sevaBrahm and the team responsible for any issues that may arise due to my donation</label> </div>
+                        <div style="margin-top: 0px" (click)="selectCheckBox1($event.target.checked)" class="custom-control custom-checkbox custom-control-inline"> <input id="chk2" type="checkbox" name="chk" class="custom-control-input"> <label for="chk2" class="custom-control-label text-sm">I understand that sevaBrahm platform and website should not be used to help my own relatives</label> </div>
+                        <div style="margin-top: 15px" (click)="selectCheckBox2($event.target.checked)" class="custom-control custom-checkbox custom-control-inline"> <input id="chk1" type="checkbox" name="chk" class="custom-control-input"> <label for="chk1" class="custom-control-label text-sm">I will follow all the rules of respective government</label> </div>
+                        <div style="margin-top: 15px" (click)="selectCheckBox3($event.target.checked)" class="custom-control custom-checkbox custom-control-inline"> <input id="chk3" type="checkbox" name="chk" class="custom-control-input"> <label for="chk3" class="custom-control-label text-sm">I consent to no hold sevaBrahm and the team responsible for any issues that may arise due to my donation</label> </div>
                     </div>
                 </div>
             </form>    

@@ -4,13 +4,12 @@
             <th>No</th>
             <th>First Name</th>
             <th>Family Name</th>
-            <th>Gothram</th>
+            <!-- <th>Gothram</th> -->
+            <th>Email</th>
+            <th>City</th>
             <th>State</th>
-            <th>District</th>
-            <th>Taluk</th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th>Country</th>
+            <!-- <th></th> -->
         </tr>
     </thead>
     <tbody>
@@ -18,10 +17,10 @@
             <td>{{ i+1 }}</td>
             <td>{{ Recipient.firstName }}</td>
             <td>{{ Recipient.familyName}}</td>
-            <td>{{ Recipient.gothram }}</td>
+            <td>{{ Recipient.email }}</td>
+            <td>{{ Recipient.city }}</td>
             <td>{{ Recipient.state }}</td>
-            <td>{{ Recipient.district }}</td>
-            <td>{{ Recipient.taluk }}</td>
+            <td>{{ Recipient.country }}</td>
             <!-- <td>
                 <button type="button" class="btn btn-sm btn-success py-0" (click)="selectCheckBox(item)">Approve</button>
             </td> -->

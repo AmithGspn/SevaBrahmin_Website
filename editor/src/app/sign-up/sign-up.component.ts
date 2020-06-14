@@ -23,7 +23,7 @@ export class SignUpComponent implements OnInit {
     address1: any={disabled: false, value: ""};
     address2: any={disabled: false, value: ""};
     pinCode: any={disabled: false, value: ""};
-    gender:any="";
+    gender:any="male";
     state: any = "";
     district: any = "";
     taluk: any = "";
@@ -31,8 +31,9 @@ export class SignUpComponent implements OnInit {
     country: any={disabled: false, value: ""};
     bankDetails: any = "";
     ifsc: any = "";
-    checkedValue1: any = "";
-    checkedvalue2: any = "";
+    checkedValue1: any = false;
+    checkedvalue2: any = false;
+    checkedvalue3: any = false;
     passwordformat= /[0-9a-zA-Z@$!%*#?&]{6,}/;
     contactformat = /^\d{10}$/;
     mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -194,13 +195,21 @@ export class SignUpComponent implements OnInit {
     // }
 
     selectCheckBox1(event) {
+        this.checkedValue1 = false
         this.checkedValue1 = event;
         console.log(this.checkedValue1)
     }
   
     selectCheckBox2(event) {
+        this.checkedvalue2 = false
         this.checkedvalue2 = event;
         console.log(this.checkedvalue2)
+    }
+
+    selectCHeckBox3(event) {
+        this.checkedvalue3 = false
+        this.checkedvalue3 = event;
+        console.log(this.checkedvalue3)
     }
 
     signup() {
@@ -209,11 +218,11 @@ export class SignUpComponent implements OnInit {
             contact: this.countrycode + this.contact.value,
             password: this.password.value,
             userType: this.checkedValue,
-            name: this.firstName,
-            age: this.age,
+            name: this.firstName.value,
+            age: this.age.value,
             gender: this.gender,
-            address: this.address1 + this.address2,
-            pinCode: this.pinCode
+            address: this.address1.value + this.address2.value,
+            pinCode: this.pinCode.value
         }
 
         this.appService.postUser(formData).subscribe((data: any) => {
@@ -229,12 +238,16 @@ export class SignUpComponent implements OnInit {
   
         
         let volunteerData = {
-            firstName: this.firstName,
-            familyName: this.familyName,
-            contact: this.countrycode + this.contact
+            email: this.emailAddress.value,
+            firstName: this.firstName.value,
+            familyName: this.familyName.value,
+            contact: this.countrycode + this.contact.value,
+            city: this.city,
+            country: this.country.value,
+            state: this.state
         };
 
-        if ( this.checkedValue === "volunteer") {
+        if ( this.checkedValue === "Volunteer") {
             if (this.checkedValue1 === true && this.checkedvalue2 === true) {
                 this.appService.postVolunteer(volunteerData).subscribe((data) => {
                     console.log(data)
@@ -249,29 +262,46 @@ export class SignUpComponent implements OnInit {
         }
 
         let donorData = {
-            firstName: this.firstName,
-            familyName: this.familyName,
             email: this.emailAddress.value,
+            firstName: this.firstName.value,
+            familyName: this.familyName.value,
+            contact: this.countrycode + this.contact.value,
+            city: this.city,
+            country: this.country.value,
             state: this.state
         }
 
-        if ( this.checkedValue === "donor") {
-            this.appService.postDonor(donorData).subscribe((data) => {
-                console.log(data)
-            });
+        console.log(this.checkedvalue3)
+        console.log(this.checkedValue1)
+        console.log(this.checkedvalue2)
+        if ( this.checkedValue === "Donor") {
+            if(this.checkedValue1 === true && this.checkedvalue2 === true && this.checkedvalue3 === true) {
+                this.appService.postDonor(donorData).subscribe((data) => {
+                    console.log(data)
+                });
+            }else {
+                this.statusMessage = {
+                    success: false,
+                    error: true,
+                    message: "Please agree to the terms and conditions"
+                };
+            }
         }
 
         let recipientData = {
-            firstName: this.firstName,
-            familyName: this.familyName,
+            firstName: this.firstName.value,
+            familyName: this.familyName.value,
             email: this.emailAddress.value,
-            gothram: this.gothram,
+            city: this.city,
+            country: this.country.value,
             state: this.state,
             bankAccountNumber: this.bankDetails,
             IFSC: this.ifsc
         }
 
-        if (this.checkedValue === "recipient" ) {
+        console.log(recipientData)
+        console.log(this.checkedValue)
+        if (this.checkedValue === "Recipient" ) {
             this.appService.postRecipient(recipientData).subscribe((data) => {
                 console.log(data)
                 this.statusMessage = {

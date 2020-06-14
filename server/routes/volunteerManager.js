@@ -23,10 +23,14 @@ router.post('/', async function (req, res, next) {
     // jwt.verify(req.token, 'secretKey', async(err, authData) => {
         try {
             data = {
+                email: req.body.email,
                 contact: req.body.contact,
                 firstName: req.body.firstName,
                 familyName: req.body.familyName,
-                gothram: req.body.gothram
+                state: req.body.state,
+                // gothram: req.body.gothram,
+                city: req.body.city,
+                country: req.body.country,
             };
 
             let newDoc = await volunteerModel.create(data);

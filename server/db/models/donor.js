@@ -27,6 +27,14 @@ let donorSchema = Schema({
         type: String,
         trim: true,
         // required: [true, "required"]
+    },
+    city: {
+        type: String,
+        trim: true,
+    },
+    country: {
+        type: String,
+        trim: true
     }
 }, {
     collection: config.collections.donor

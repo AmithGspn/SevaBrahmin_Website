@@ -8,6 +8,12 @@ let async = require('async')
 const projectionsDefaults = { _id: 0, __v: 0 };
 
 let volunteerSchema = Schema({
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        required: [true, "required"]
+    },
     contact: {
         type: Number,
         match: /^\+(?:[0-9] ?){6,14}[0-9]$/,
@@ -20,6 +26,18 @@ let volunteerSchema = Schema({
         required: [true, "required"]
     },
     familyName: {
+        type: String,
+        trim: true
+    },
+    state: {
+        type: String,
+        trim: true
+    },
+    city: {
+        type: String,
+        trim: true,
+    },
+    country: {
         type: String,
         trim: true
     }

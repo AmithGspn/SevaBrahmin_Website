@@ -27,6 +27,8 @@ router.post('/', async function (req, res, next) {
             familyName: req.body.familyName,
             gothram: req.body.gothram,
             state: req.body.state,
+            city: req.body.city,
+            country: req.body.country,
             address: req.body.address,
             postalCode: req.body.postalCode
         };

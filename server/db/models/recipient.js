@@ -21,10 +21,10 @@ let recipientSchema = Schema({
         type: String,
         trim: true
     },
-    gothram: {
-        type: String,
-        trim: true
-    },
+    // gothram: {
+    //     type: String,
+    //     trim: true
+    // },
     bankAccountNumber: {
         type: Number,
         match: /^\d{11}$/,
@@ -43,6 +43,14 @@ let recipientSchema = Schema({
     volunteerNo: {
         type: Number,
         match: /^\d{10}$/
+    },
+    city: {
+        type: String,
+        trim: true,
+    },
+    country: {
+        type: String,
+        trim: true
     }
 }, {
     collection: config.collections.recipients
