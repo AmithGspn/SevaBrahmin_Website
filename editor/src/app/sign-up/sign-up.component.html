@@ -173,7 +173,7 @@
                             <span class="input-group-text bg-white px-4 border-md border-right-0 h-80">
                                 <i class="fa fa-lock text-muted"></i>
                             </span>
-                            <input id="passwordConfirmation" type="password" required="required" name="passwordConfirmation" [ngClass]="rePassword.disabled == false ? 'form-control bg-white border-left-0 border-md' : 'is-invalid'"  (blur)="onRePasswordChange($event.target.value)" placeholder="Confirm Password" class="form-control bg-white border-left-0 border-md">
+                            <input id="passwordConfirmation" type="password" required="required" name="passwordConfirmation" [ngClass]="rePassword.disabled == false ? 'form-control bg-white border-left-0 border-md' : 'is-invalid'"  (keyup)="onRePasswordChange($event.target.value)" placeholder="Confirm Password" class="form-control bg-white border-left-0 border-md">
                         </div>
                         <div *ngIf="rePassword.disabled == true" class="text-danger">
                             passwords are not matching
