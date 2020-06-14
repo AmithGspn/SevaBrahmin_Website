@@ -323,13 +323,23 @@
                     </div>
                     <!-- checkboxes -->
                     <div class="input-group col-lg-12 mb-4">
-                        <div style="margin-top: 0px" class="custom-control custom-checkbox custom-control-inline"> <input id="chk2" type="checkbox" name="chk" class="custom-control-input"> <label for="chk2" class="custom-control-label text-sm">I am in genuine need of help</label> </div>
-                        <div style="margin-top: 15px" class="custom-control custom-checkbox custom-control-inline"> <input id="chk1" type="checkbox" name="chk" class="custom-control-input"> <label for="chk1" class="custom-control-label text-sm">I will follow all the rules of respective government</label> </div>
-                        <div style="margin-top: 15px" class="custom-control custom-checkbox custom-control-inline"> <input id="chk3" type="checkbox" name="chk" class="custom-control-input"> <label for="chk3" class="custom-control-label text-sm">I consent to not hold sevaBrahm and the team responsible for any issues that may arise</label> </div>
+                        <div style="margin-top: 0px" (click)="selectCheckBox1($event.target.checked)" class="custom-control custom-checkbox custom-control-inline"> <input id="chk2" type="checkbox" name="chk" class="custom-control-input"> <label for="chk2" class="custom-control-label text-sm">I am in genuine need of help</label> </div>
+                        <div style="margin-top: 15px" (click)="selectCheckBox2($event.target.checked)" class="custom-control custom-checkbox custom-control-inline"> <input id="chk1" type="checkbox" name="chk" class="custom-control-input"> <label for="chk1" class="custom-control-label text-sm">I will follow all the rules of respective government</label> </div>
+                        <div style="margin-top: 15px" (click)="selectCheckBox3($event.target.checked)" class="custom-control custom-checkbox custom-control-inline"> <input id="chk3" type="checkbox" name="chk" class="custom-control-input"> <label for="chk3" class="custom-control-label text-sm">I consent to not hold sevaBrahm and the team responsible for any issues that may arise</label> </div>
                     </div>
+
+                    <span class="alert-container alertClass">
+                        <alert type="success" *ngIf="statusMessage.success">
+                          <strong>{{statusMessage.message}}</strong>
+                        </alert>
+                        <alert type="danger" *ngIf="statusMessage.error">
+                          <strong>{{statusMessage.message}}</strong>
+                        </alert>
+                    </span>
                 </div>
             </form>
         </div>
+
         <div class="col-md-8 col-lg-6" *ngIf="checkedValue === 'Volunteer'">
             <form action="#">
                 <div class="row">
@@ -414,12 +424,24 @@
                     <div class="input-group col-lg-12 mb-4">
                         <label>I read the policies and understood  the following requirements for the recipients :</label>
                         <div style="margin-top: 5px" (click)="selectCheckBox1($event.target.checked)" class="custom-control custom-checkbox custom-control-inline"> <input id="chk1" type="checkbox" name="chk" class="custom-control-input"> <label for="chk1" class="custom-control-label text-sm">Consent that the recipients are not related to me</label> </div>
-                        <div style="margin-top: 15px" (click)="selectCheckBox2($event.target.checked)" class="custom-control custom-checkbox custom-control-inline"> <input id="chk2" type="checkbox" name="chk" class="custom-control-input"> <label for="chk2" class="custom-control-label text-sm">Recipients meet the “Eligibility” criteria posted on sevaBrahm website
-                        </label> </div>
-                    </div>                
+                        <div style="margin-top: 15px" (click)="selectCheckBox2($event.target.checked)" class="custom-control custom-checkbox custom-control-inline"> <input id="chk2" type="checkbox" name="chk" class="custom-control-input"> <label for="chk2" class="custom-control-label text-sm">Recipients meet the “Eligibility” criteria posted on sevaBrahm website</label> </div>
+                        <div *ngIf="check.disabled == true" class="text-danger">
+                            <small>please agree to the conditions</small>    
+                        </div>           
+                    </div>   
+                    
+                    <span class="alert-container alertClass">
+                        <alert type="success" *ngIf="statusMessage.success">
+                          <strong>{{statusMessage.message}}</strong>
+                        </alert>
+                        <alert type="danger" *ngIf="statusMessage.error">
+                          <strong>{{statusMessage.message}}</strong>
+                        </alert>
+                    </span>
                 </div>
             </form>
-        </div>        
+        </div>     
+
         <div class="col-md-8 col-lg-6 " *ngIf="checkedValue === 'Donor'">
             <form action="#">
                 <div class="row"> 
@@ -510,6 +532,15 @@
                         <div style="margin-top: 15px" (click)="selectCheckBox2($event.target.checked)" class="custom-control custom-checkbox custom-control-inline"> <input id="chk1" type="checkbox" name="chk" class="custom-control-input"> <label for="chk1" class="custom-control-label text-sm">I will follow all the rules of respective government</label> </div>
                         <div style="margin-top: 15px" (click)="selectCheckBox3($event.target.checked)" class="custom-control custom-checkbox custom-control-inline"> <input id="chk3" type="checkbox" name="chk" class="custom-control-input"> <label for="chk3" class="custom-control-label text-sm">I consent to no hold sevaBrahm and the team responsible for any issues that may arise due to my donation</label> </div>
                     </div>
+
+                    <span class="alert-container alertClass">
+                        <alert type="success" *ngIf="statusMessage.success">
+                          <strong>{{statusMessage.message}}</strong>
+                        </alert>
+                        <alert type="danger" *ngIf="statusMessage.error">
+                          <strong>{{statusMessage.message}}</strong>
+                        </alert>
+                    </span>
                 </div>
             </form>    
         </div>

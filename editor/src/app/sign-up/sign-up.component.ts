@@ -28,6 +28,7 @@ export class SignUpComponent implements OnInit {
     district: any = "";
     taluk: any = "";
     city: any="";
+    check:any ={disabled:false,value: ""}
     country: any={disabled: false, value: ""};
     bankDetails: any = "";
     ifsc: any = "";
@@ -237,19 +238,10 @@ export class SignUpComponent implements OnInit {
 
         if ( this.checkedValue === "Volunteer") {
             if (this.checkedValue1 === true && this.checkedvalue2 === true) {
-                if(this.checkedValue1 == this.checkedvalue2 == true) {
-                    this.
-                }
                 this.appService.postVolunteer(volunteerData).subscribe((data) => {
                     this.appService.postUser(formData).subscribe((data: any) => {
                         console.log(data)
                         this.router.navigateByUrl('/thankyou');
-                    }, (error) => {
-                        this.statusMessage = {
-                            success: false,
-                            error: true,
-                            message: error
-                        };
                     });
                 });
             } else {
@@ -280,15 +272,9 @@ export class SignUpComponent implements OnInit {
                     this.appService.postUser(formData).subscribe((data: any) => {
                         console.log(data)
                         this.router.navigateByUrl('/thankyou');
-                    }, (error) => {
-                        this.statusMessage = {
-                            success: false,
-                            error: true,
-                            message: error
-                        };
                     });
                 });
-            }else {
+            } else {
                 this.statusMessage = {
                     success: false,
                     error: true,
@@ -311,29 +297,20 @@ export class SignUpComponent implements OnInit {
         console.log(recipientData)
         console.log(this.checkedValue)
         if (this.checkedValue === "Recipient" ) {
-            this.appService.postRecipient(recipientData).subscribe((data) => {
-                this.appService.postUser(formData).subscribe((data: any) => {
-                    console.log(data)
-                    this.router.navigateByUrl('/thankyou');
-                }, (error) => {
-                    this.statusMessage = {
-                        success: false,
-                        error: true,
-                        message: error
-                    };
+            if(this.checkedValue1 === true && this.checkedvalue2 === true && this.checkedvalue3 === true) {
+                this.appService.postRecipient(recipientData).subscribe((data) => {
+                    this.appService.postUser(formData).subscribe((data: any) => {
+                        console.log(data)
+                        this.router.navigateByUrl('/thankyou');
+                    });
                 });
-                this.statusMessage = {
-                    success: true,
-                    error: false,
-                    message: "Succesfully submitted the form"
-                };
-            }, (error) => {
+            } else {
                 this.statusMessage = {
                     success: false,
                     error: true,
-                    message: error
+                    message: "Please agree to the terms and conditions"
                 };
-            })
+            }
         }
     }
 }
