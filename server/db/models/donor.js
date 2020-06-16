@@ -9,7 +9,6 @@ const projectionsDefaults = { _id: 0, __v: 0 };
 let donorSchema = Schema({
     email: {
         type: String,
-        required: true,
         unique: true,
         required: [true, "required"]
     },
