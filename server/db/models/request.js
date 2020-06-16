@@ -5,7 +5,7 @@ let config = require('../../config')
 let Schema = mongoose.Schema;
 const projectionsDefaults = { _id: 0, __v: 0 };
 
-let requestSchema = Schema({
+let RequestSchema = Schema({
     firstName: {
         type: String
     },
@@ -14,8 +14,7 @@ let requestSchema = Schema({
     },
     email: {
         type: String,
-        trim: true,
-        unique: true
+        trim: true
     },
     contact: {
         type: Number
@@ -45,3 +44,35 @@ let requestSchema = Schema({
 }, {
     collection: config.collections.request
 });
+
+RequestSchema.pre(['save', 'findOneAndUpdate'], function (next) {
+    let obj = this;
+
+    if (this._update && this._update['$set']){
+        obj = this._update['$set'];
+    }
+
+    next();
+});
+
+RequestSchema.method('transform', function () {
+    let obj = this.toObject();
+
+    delete obj.__id;
+    delete obj.__v;
+
+    return obj;
+});
+
+RequestSchema.statics.getAllrequests = function (callback) {
+    this.find({ }, projectionsDefaults).lean().exec(function (err, allRequests) {
+        if (err) {;
+            return callback(err);
+        }
+        if (allRequests) {
+            return callback(null, allRequests);
+        }
+    })
+};
+
+module.exports = db.model('request', RequestSchema);

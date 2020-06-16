@@ -65,6 +65,7 @@ UserSchema.pre(['save', 'findOneAndUpdate'], function (next) {
     if (this._update && this._update['$set']){
         obj = this._update['$set'];
     }
+    obj.id = obj.id || uuid();
 
     next();
 });
