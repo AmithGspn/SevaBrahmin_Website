@@ -9,7 +9,8 @@ import { NavbarService } from '../services/navbar.service';
 })
 export class RecipientComponent implements OnInit {
     role = '';
-
+    type:any ="";
+    amount:any ="";
     constructor(private router: Router, private navbarService: NavbarService) { }
 
     ngOnInit() {
@@ -22,5 +23,16 @@ export class RecipientComponent implements OnInit {
         this.navbarService.updateLoginStatus(true);
         this.role = 'recipient';
     }
-
+    OnClickRequest(){
+        document.querySelector('.bg-model').setAttribute("style","display:flex;");
+    }
+    onClickClose(){
+        document.querySelector('.bg-model').setAttribute("style","display:none;");
+    }
+    onTypeChange(event){
+        this.type=event;
+    }
+    onAmountChange(event){
+        this.amount=event;
+    }
 }

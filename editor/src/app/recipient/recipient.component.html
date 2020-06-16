@@ -1,1 +1,40 @@
-<h1 class="display-3 text-center">Welcome to Recipient Portal</h1>
+<h1 class="display-3 text-center">Welcome to Recipient Portal</h1><br>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+    </tr>
+    </thead>
+</table>
+<button class="btn btn-primary" (click)="OnClickRequest()">Request</button>
+<div class="bg-model">
+    <div class="model-content">
+        <div class="close" (click)="onClickClose()">+</div>
+        <h3 class="header">REQUEST FORM</h3>
+        <form action="#">
+                <div class="input-group1">
+                    <input id="occupation" type="text" name="occupation" (blur)="onOccupationChange($event.target.value)" placeholder="Occupation" class="form-control bg-white border-md">    
+                </div>
+                <!-- Type of Help -->
+                <div class="input-group">
+                    <select (blur)="onTypeChange($event.target.value)" class="custom-select form-control bg-white border-md" name="Type">
+                        <option value="food">Food</option>
+                        <option value="clothes">Clothes</option>
+                        <option value="education">Education</option>
+                        <option value="agriculture">Agriculture</option>
+                    </select>
+                </div>       
+                <!-- Amount -->
+                <div class="input-group">
+                        <input id="amount" type="text" name="amount" (blur)="onAmountChange($event.target.value)" placeholder="Amount" class="form-control bg-white border-md">    
+                </div>
+                <div class="input-group">
+                    <textarea class="form-control" rows="5"> Description</textarea>
+                </div>
+                <button class="btn btn-primary mt-4 submit">Submit</button>
+        </form>  
+    </div>   
+</div>
