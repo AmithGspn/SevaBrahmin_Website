@@ -12,7 +12,7 @@ router.post('/', async function (req, res, next) {
         occupation: req.body.occupation,
         type: req.body.type,
         amount: req.body.amount,
-        descrition: req.body.descrition,
+        description: req.body.description,
         status: req.body.status
     };
 
