@@ -69,6 +69,7 @@ RequestSchema.statics.getAllrequests = function (callback) {
         if (err) {;
             return callback(err);
         }
+        console.log('rrrr')
         if (allRequests) {
             return callback(null, allRequests);
         }

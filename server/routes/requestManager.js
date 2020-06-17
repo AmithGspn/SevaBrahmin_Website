@@ -49,7 +49,7 @@ function verifyToken(req, res, next) {
 
 router.get('/', async function (req, res, next) {
     let requests = await new Promise((resolve, reject) =>
-    requestModel.getAllRequests( (err, docs) => err ? reject(err) : resolve(docs)));
+    requestModel.getAllrequests( (err, docs) => err ? reject(err) : resolve(docs)));
     return res.status(200).json(requests);
 });
 
@@ -93,3 +93,5 @@ router.put('/', async function (req, res, next) {
         return next(err);
     }
 });
+
+module.exports = router;

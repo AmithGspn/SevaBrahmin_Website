@@ -14,7 +14,8 @@ let registerationRouter = require('./routes/userRegisterationManager');
 let volunteerRouter = require('./routes/volunteerManager');
 let recipientRouter = require('./routes/recipientManager');
 let loginRouter = require('./routes/loginManager');
-let donorRouter = require('./routes/donorManager')
+let donorRouter = require('./routes/donorManager');
+let requestRouter = require('./routes/requestManager');
 
 // Initialize the Express App and Configure
 let app = express();
@@ -53,7 +54,8 @@ app.use('/userRegisterationManager', registerationRouter);
 app.use('/volunteerManager', volunteerRouter);
 app.use('/recipientManager', recipientRouter);
 app.use('/loginManager', loginRouter);
-app.use('/donorManager', donorRouter)
+app.use('/donorManager', donorRouter);
+app.use('/requestManager', requestRouter);
 
 //catch 404 and forward to error handler
 app.use(function (req, res, next) {
