@@ -84,7 +84,7 @@ select.form-control {
 
 .model-content{
     width:50vh;
-    height:75vh;
+    height:72vh;
     background-color: white;
     border-radius: 4px;
     text-align: center;
@@ -116,24 +116,25 @@ select{
 } */
 
 .input-group{
-    width: 75%;
+    width: 85%;
     margin-top: 1.5rem;
     margin-left: 4rem;
 }
 
 .input-group1{
-    width:75%;
+    width:90%;
     margin-top: 1.5rem;
-    margin-left: 4rem;
+    margin-left: 2rem;
 }
 
 .header{
     margin-top: 2rem;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: Arial, Helvetica;
 }
 
 .submit{
-    width:25%;
+    width:30%;
+    margin-left:auto;
 }
 
 th{
