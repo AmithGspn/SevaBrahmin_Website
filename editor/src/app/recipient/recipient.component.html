@@ -1,27 +1,51 @@
-<h1 class="display-3 text-center">Welcome to Recipient Portal</h1><br>
+<h1 class="display-5">Welcome to Recipient Portal</h1><br>
 
 <!-- <button class="btn btn-primary" (click)="OnClickRequest()">Request</button> -->
 <!-- <button class="btn btn-danger delbutton" (click)="OnClickRequest()"><i class="fa fa-trash-o icon-large"></i> Delete</button> -->
 <!-- <a class="btn btn-danger delbutton" href="#">
     <i class="fa fa-trash-o icon-large"></i> Delete</a> -->
 
+    
 
 
-<table class="table table-striped">
+
+<div class="row">
+    <button class="btn btn-success request ml-auto" (click)="OnClickRequest()"><i>+</i> Request</button>
+    <button class="btn btn-danger ml-3 mr-5 Delete" (click)="OnClickRequest()"><i class="fa fa-trash-o icon-large mr-1"></i>Delete</button>
+</div>
+<table class="table table-bordered table-striped mt-4">
     <thead>
-    <tr>
-        <th scope="col" >No</th>
-        <th scope="col" >Occupation</th>
-        <th scope="col" >Type</th>
-        <th scope="col" >Amount</th>
-        <th scope="col">Description</th>
-        <th scope="col">Status</th>
-        <th scope="col" ></th>
-        <th scope="col" ></th>
-        <th scope="col" ></th>
-        <th scope="col" ><button class="btn btn-success" (click)="OnClickRequest()"><i>+</i> Request</button> <button class="btn btn-danger ml-2" (click)="OnClickRequest()"><i class="fa fa-trash-o icon-large"></i> Delete</button></th>
-    </tr>
+        <tr>
+            <th scope="col" >No</th>
+            <!-- <th scope="col" >Occupation</th> -->
+            <th scope="col" >Type</th>
+            <th scope="col" >Amount</th>
+            <th scope="col">Description</th>
+            <th scope="col">Status</th>
+            <!-- <th scope="col" ></th> -->
+            <!-- <th scope="col" ></th> -->
+            <!-- <th scope="col" ></th> -->
+            <!-- <th scope="col" ><button class="btn btn-success" (click)="OnClickRequest()"><i>+</i> Request</button> <button class="btn btn-danger ml-2" (click)="OnClickRequest()"><i class="fa fa-trash-o icon-large"></i> Delete</button></th> -->
+        </tr>
+        <!-- <button class="btn btn-success" (click)="OnClickRequest()"><i>+</i> Request</button> <button class="btn btn-danger ml-2" (click)="OnClickRequest()"><i class="fa fa-trash-o icon-large"></i> Delete</button> -->
     </thead>
+
+    <tbody>
+        <tr *ngFor="let request of RequestsList; index as i">
+            <td>{{ i + 1 }}</td>
+            <!-- <td>{{ request.occupation }}</td> -->
+            <td>{{ request.type }}</td>
+            <td>{{ request.amount}}</td>
+            <td>{{ request.description}}</td>
+            <td>{{ request.status}}</td>
+            <!-- <td>
+                <button type="button" class="btn btn-sm btn-success py-0" (click)="selectCheckBox(item, $event.target.checked)">Approve</button>
+            </td> -->
+            <!-- <td>
+                <button type="button" class="btn btn-sm btn-danger py-0" (click)="selectCheckBox(item, $event.target.checked)">Decline</button>
+            </td> -->
+        </tr>        
+    </tbody>
 </table>
 <div class="bg-model">
     <div class="model-content">
@@ -29,8 +53,12 @@
         <h3 class="header">REQUEST FORM</h3>
         <hr>
         <form action="#">
+                <!-- occupation -->
                 <div class="input-group1">
-                    <input id="occupation" type="text" name="occupation" (blur)="onOccupationChange($event.target.value)" placeholder="Occupation" class="form-control bg-white border-md">    
+                    <input id="occupation" type="text" name="occupation" (blur)="onOccupationChange($event.target.value)" [ngClass]="occupation.disabled == false ? 'form-control bg-white border-md':'is-invalid'" placeholder="Occupation" class="form-control bg-white border-md">    
+                    <div *ngIf="occupation.disabled == true" class="text-danger">
+                        <small>please enter occupation</small>    
+                    </div>    
                 </div>
                 <!-- Type of Help -->
                 <div class="input-group">
@@ -42,13 +70,20 @@
                     </select>
                 </div>       
                 <!-- Amount -->
-                <div class="input-group">
-                        <input id="amount" type="text" name="amount" (blur)="onAmountChange($event.target.value)" placeholder="Amount" class="form-control bg-white border-md">    
+                <div class="input-group1">
+                    <input id="amount" type="text" name="amount" (blur)="onAmountChange($event.target.value)" [ngClass]="amount.disabled == false ? 'form-control bg-white border-md':'is-invalid'" placeholder="Amount" class="form-control bg-white border-md">    
+                    <div *ngIf="amount.disabled == true" class="text-danger">
+                        <small>please enter amount</small>    
+                    </div>    
                 </div>
-                <div class="input-group">
-                    <textarea class="form-control" rows="5" placeholder="Description"></textarea>
+                <!-- description -->
+                <div class="input-group1">
+                    <textarea class="form-control" rows="5" (blur)="onDescriptionChange($event.target.value)" [ngClass]="description.disabled == false ? 'form-control':'is-invalid'" placeholder="Description"></textarea>
+                    <div *ngIf="description.disabled == true" class="text-danger">
+                        <small>please enter details</small>    
+                    </div>    
                 </div>
-                <button class="btn btn-primary mt-4 submit">Submit</button>
+                <button class="btn btn-primary mt-4 submit" (click)="saveDetails()">Submit</button>
         </form>  
     </div>   
 </div>

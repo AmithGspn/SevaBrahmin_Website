@@ -84,7 +84,7 @@ select.form-control {
 
 .model-content{
     width:50vh;
-    height:70vh;
+    height:75vh;
     background-color: white;
     border-radius: 4px;
     text-align: center;
@@ -117,13 +117,13 @@ select{
 
 .input-group{
     width: 75%;
-    margin-top: 3rem;
+    margin-top: 1.5rem;
     margin-left: 4rem;
 }
 
 .input-group1{
     width:75%;
-    margin-top: 3rem;
+    margin-top: 1.5rem;
     margin-left: 4rem;
 }
 
@@ -147,5 +147,9 @@ table{
 }
 
 td{
-    width:17%
+    width:15%;
 }
+
+/* .Delete{
+    margin-left: 40rem;
+} */
