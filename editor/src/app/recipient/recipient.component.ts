@@ -35,6 +35,9 @@ export class RecipientComponent implements OnInit {
     }
 
     OnClickRequest() {
+        this.occupation = {disabled: false,value:''}
+        this.amount = {disabled: false,value:''}
+        this.description = {disabled: false,value:''}
         document.querySelector('.bg-model').setAttribute("style","display:flex;");
     }
     onClickClose() {

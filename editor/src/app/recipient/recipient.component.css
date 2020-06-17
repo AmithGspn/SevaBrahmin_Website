@@ -115,16 +115,16 @@ select{
     margin-left: 4.5rem;
 } */
 
-.input-group{
+/* .input-group{
     width: 85%;
     margin-top: 1.5rem;
     margin-left: 4rem;
-}
+} */
 
 .input-group1{
     width:90%;
     margin-top: 1.5rem;
-    margin-left: 2rem;
+    margin-left: 1.5rem;
 }
 
 .header{
@@ -154,3 +154,9 @@ td{
 /* .Delete{
     margin-left: 40rem;
 } */
+
+:required  {  
+    background: url("../../assets/asterisk.jpeg") no-repeat;
+    background-position:99% 10%;
+    background-size: 10px 10px;
+}

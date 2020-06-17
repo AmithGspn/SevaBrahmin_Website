@@ -9,11 +9,11 @@
 
 
 
-<div class="row">
+<div class="row mt--3">
     <button class="btn btn-success request ml-auto" (click)="OnClickRequest()"><i>+</i> Request</button>
     <button class="btn btn-danger ml-3 mr-5 Delete" (click)="OnClickRequest()"><i class="fa fa-trash-o icon-large mr-1"></i>Delete</button>
 </div>
-<table class="table table-bordered table-striped mt-4">
+<table class="table table-bordered table-striped mt-3">
     <thead>
         <tr>
             <th scope="col" >No</th>
@@ -55,8 +55,8 @@
         <form action="#">
                 <!-- occupation -->
                 <div class="input-group1">
-                    <input id="occupation" type="text" name="occupation" (blur)="onOccupationChange($event.target.value)" [ngClass]="occupation.disabled == false ? 'form-control bg-white border-md':'is-invalid'" placeholder="Occupation" class="form-control bg-white border-md">    
-                    <div *ngIf="occupation.disabled == true" class="text-danger">
+                    <input id="occupation" required="required" type="text" name="occupation" (blur)="onOccupationChange($event.target.value)" [ngClass]="occupation.disabled == false ? 'form-control bg-white border-md':'is-invalid'" placeholder="Occupation" class="form-control bg-white border-md">    
+                    <div *ngIf="occupation.disabled == true" id="error-class" class="text-danger">
                         <small>please enter occupation</small>    
                     </div>    
                 </div>
@@ -71,15 +71,15 @@
                 </div>       
                 <!-- Amount -->
                 <div class="input-group1">
-                    <input id="amount" type="text" name="amount" (blur)="onAmountChange($event.target.value)" [ngClass]="amount.disabled == false ? 'form-control bg-white border-md':'is-invalid'" placeholder="Amount" class="form-control bg-white border-md">    
-                    <div *ngIf="amount.disabled == true" class="text-danger">
+                    <input id="amount" required="required" type="text" name="amount" (blur)="onAmountChange($event.target.value)" [ngClass]="amount.disabled == false ? 'form-control bg-white border-md':'is-invalid'" placeholder="Amount" class="form-control bg-white border-md">    
+                    <div *ngIf="amount.disabled == true" id="error-class" class="text-danger">
                         <small>please enter amount</small>    
                     </div>    
                 </div>
                 <!-- description -->
                 <div class="input-group1">
-                    <textarea class="form-control" rows="5" (blur)="onDescriptionChange($event.target.value)" [ngClass]="description.disabled == false ? 'form-control':'is-invalid'" placeholder="Description"></textarea>
-                    <div *ngIf="description.disabled == true" class="text-danger">
+                    <textarea class="form-control" required="required" rows="5" (blur)="onDescriptionChange($event.target.value)" [ngClass]="description.disabled == false ? 'form-control':'is-invalid'" placeholder="Description"></textarea>
+                    <div *ngIf="description.disabled == true" id="eroor-class" class="text-danger">
                         <small>please enter details</small>    
                     </div>    
                 </div>
