@@ -135,3 +135,17 @@ select{
 .submit{
     width:25%;
 }
+
+th{
+    /* margin-left:2rem; */
+    /* margin-bottom: 1rem; */
+    font-size: 2vh;
+}
+
+table{
+    width: 100%;
+}
+
+td{
+    width:17%
+}

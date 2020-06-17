@@ -1,19 +1,33 @@
 <h1 class="display-3 text-center">Welcome to Recipient Portal</h1><br>
+
+<!-- <button class="btn btn-primary" (click)="OnClickRequest()">Request</button> -->
+<!-- <button class="btn btn-danger delbutton" (click)="OnClickRequest()"><i class="fa fa-trash-o icon-large"></i> Delete</button> -->
+<!-- <a class="btn btn-danger delbutton" href="#">
+    <i class="fa fa-trash-o icon-large"></i> Delete</a> -->
+
+
+
 <table class="table table-striped">
     <thead>
     <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
+        <th scope="col" >No</th>
+        <th scope="col" >Occupation</th>
+        <th scope="col" >Type</th>
+        <th scope="col" >Amount</th>
+        <th scope="col">Description</th>
+        <th scope="col">Status</th>
+        <th scope="col" ></th>
+        <th scope="col" ></th>
+        <th scope="col" ></th>
+        <th scope="col" ><button class="btn btn-success" (click)="OnClickRequest()"><i>+</i> Request</button> <button class="btn btn-danger ml-2" (click)="OnClickRequest()"><i class="fa fa-trash-o icon-large"></i> Delete</button></th>
     </tr>
     </thead>
 </table>
-<button class="btn btn-primary" (click)="OnClickRequest()">Request</button>
 <div class="bg-model">
     <div class="model-content">
         <div class="close" (click)="onClickClose()">+</div>
         <h3 class="header">REQUEST FORM</h3>
+        <hr>
         <form action="#">
                 <div class="input-group1">
                     <input id="occupation" type="text" name="occupation" (blur)="onOccupationChange($event.target.value)" placeholder="Occupation" class="form-control bg-white border-md">    
@@ -32,7 +46,7 @@
                         <input id="amount" type="text" name="amount" (blur)="onAmountChange($event.target.value)" placeholder="Amount" class="form-control bg-white border-md">    
                 </div>
                 <div class="input-group">
-                    <textarea class="form-control" rows="5"> Description</textarea>
+                    <textarea class="form-control" rows="5" placeholder="Description"></textarea>
                 </div>
                 <button class="btn btn-primary mt-4 submit">Submit</button>
         </form>  
