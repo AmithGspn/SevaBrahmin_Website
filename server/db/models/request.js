@@ -6,10 +6,7 @@ let Schema = mongoose.Schema;
 const projectionsDefaults = { _id: 0, __v: 0 };
 
 let RequestSchema = Schema({
-    firstName: {
-        type: String
-    },
-    familyName: {
+    name: {
         type: String
     },
     email: {

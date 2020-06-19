@@ -65,7 +65,7 @@ UserSchema.pre(['save', 'findOneAndUpdate'], function (next) {
     if (this._update && this._update['$set']){
         obj = this._update['$set'];
     }
-    obj.id = obj.id || uuid();
+    // obj.id = obj.id || uuid();
 
     next();
 });
@@ -81,7 +81,7 @@ UserSchema.method('transform', function () {
 
 UserSchema.statics.getAllUsers = function (callback) {
     this.find({ }, projectionsDefaults).lean().exec(function (err, allUsers) {
-        if (err) {;
+        if (err) {
             return callback(err);
         }
         if (allUsers) {
@@ -89,5 +89,16 @@ UserSchema.statics.getAllUsers = function (callback) {
         }
     })
 };
+
+UserSchema.statics.getUserByEmail = function (email, callback) {
+    this.find({ email: email }, projectionsDefaults).lean().exec(function (err, User) {
+        if (err) {
+            return callback(err);
+        }
+        if (User) {
+            return callback(null, User)
+        }
+    })
+}
 
 module.exports = db.model('user', UserSchema);

@@ -15,6 +15,7 @@ export const apiUrls = {
   loginManager: apiServer + 'loginManager',
   donorManager: apiServer + 'donorManager',
   requestManager: apiServer + 'requestManager',
+  getUserByEmail: apiServer + 'userRegisterationManager/getUserByEmail'
 };
 
 /*

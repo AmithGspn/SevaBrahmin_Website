@@ -5,8 +5,7 @@ let requestModel = require('../db/models/request');
 
 router.post('/', async function (req, res, next) {
     data = {
-        firstName: req.body.firstName,
-        familyName: req.body.familyName,
+        name: req.body.name,
         email: req.body.email,
         contact: req.body.contact,
         occupation: req.body.occupation,
@@ -55,8 +54,7 @@ router.get('/', async function (req, res, next) {
 
 router.put('/', async function (req, res, next) {
     data = {
-        firstName: req.body.firstName,
-        familyName: req.body.familyName,
+        name: req.body.name,
         email: req.body.email,
         contact: req.body.contact,
         occupation: req.body.occupation,
@@ -90,6 +88,27 @@ router.put('/', async function (req, res, next) {
             return next(e);
         }
 
+        return next(err);
+    }
+});
+
+/* Delete a request */
+router.delete('/', async function (req, res, next) {
+    let userId = req.query['emailId'] || req.body['emailId'];
+    console.log(userId)
+    try {
+        let delDoc = await requestModel.findOneAndRemove({ email: userId });
+
+        if (!delDoc) {
+            e = new Error();
+            e.status = 404;
+            e.message = 'user not found';
+
+            return next(e);
+        } else {
+            return res.status(200).json({ emailId: userId, "deleted": true });
+        }
+    } catch (err) {
         return next(err);
     }
 });

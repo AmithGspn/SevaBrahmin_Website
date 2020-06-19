@@ -43,7 +43,9 @@ export class LoginComponent implements OnInit {
             password: this.password,
         };
         this.appService.postLogin(formData).subscribe((data: any) => {
+            console.log(data)
             localStorage.setItem('token', data.token)
+            localStorage.setItem('email', data.user.email)
             if (data.user.userType === 'Admin') {
                 this.router.navigateByUrl('/admin');
             } else if (data.user.userType === 'Volunteer'){

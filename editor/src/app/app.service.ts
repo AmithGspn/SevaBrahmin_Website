@@ -16,6 +16,7 @@ export class AppService {
     private loginManagerUrl = apiUrls.loginManager;
     private donorManagerUrl = apiUrls.donorManager;
     private requestManagerUrl = apiUrls.requestManager;
+    private getUserByEmailUrl = apiUrls.getUserByEmail;
 
     handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
@@ -34,6 +35,13 @@ export class AppService {
         }
     }
 
+    getUserByEmail(emailId) {
+        return this.httpClient.get(this.getUserByEmailUrl + '?emailId='+emailId, this.httpOptions)
+        .pipe(
+            catchError(this.handleError)
+        );
+    }
+
     postUser(formData) {
         return this.httpClient.post( this.userRegisterationUrl, formData, this.httpOptions )
         .pipe(
@@ -43,6 +51,7 @@ export class AppService {
 
     loggedIn() {
         return !!localStorage.getItem('token')
+        // !!localStorage.getItem('email')
     }
 
     getToken() {
@@ -90,16 +99,23 @@ export class AppService {
     }
 
     postRequests(formData) {
-        return this.httpClient.post( this.recipientManagerUrl, formData, this.httpOptions )
+        return this.httpClient.post( this.requestManagerUrl, formData, this.httpOptions )
         .pipe(
           catchError(this.handleError)
         );
     }
 
     putRequests(formData) {
-        return this.httpClient.put( this.recipientManagerUrl, formData, this.httpOptions )
+        return this.httpClient.put( this.requestManagerUrl, formData, this.httpOptions )
         .pipe(
           catchError(this.handleError)
+        );
+    }
+
+    deleteRequest(emailId) {
+        return this.httpClient.delete(this.requestManagerUrl + '?emailId='+emailId, this.httpOptions)
+        .pipe(
+            catchError(this.handleError)
         );
     }
 
