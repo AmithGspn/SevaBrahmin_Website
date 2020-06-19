@@ -52,6 +52,13 @@ router.get('/', async function (req, res, next) {
     return res.status(200).json(requests);
 });
 
+router.get('/getRequestsByEmail', async function (req, res, next) {
+    let email= req.body['emailId'] || req.query['emailId']
+    let requests = await new Promise((resolve, reject) =>
+    requestModel.getRequestsByEmail(email, (err, docs) => err ? reject(err) : resolve(docs)));
+    return res.status(200).json(requests);
+})
+
 router.put('/', async function (req, res, next) {
     data = {
         name: req.body.name,

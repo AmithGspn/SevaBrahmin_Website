@@ -66,11 +66,21 @@ RequestSchema.statics.getAllrequests = function (callback) {
         if (err) {;
             return callback(err);
         }
-        console.log('rrrr')
         if (allRequests) {
             return callback(null, allRequests);
         }
     })
 };
+
+RequestSchema.statics.getRequestsByEmail = function (email, callback) {
+    this.find({ email: email }, projectionsDefaults).lean().exec(function (err, Requests) {
+        if (err) {
+            return callback(err);
+        }
+        if (Requests) {
+            return callback(null, Requests)
+        }
+    })
+}
 
 module.exports = db.model('request', RequestSchema);

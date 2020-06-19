@@ -17,6 +17,7 @@ export class AppService {
     private donorManagerUrl = apiUrls.donorManager;
     private requestManagerUrl = apiUrls.requestManager;
     private getUserByEmailUrl = apiUrls.getUserByEmail;
+    private getRequestsByEmailUrl = apiUrls.getRequestsByEmail;
 
     handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
@@ -93,6 +94,13 @@ export class AppService {
 
     getRequests() {
         return this.httpClient.get(this.requestManagerUrl, this.httpOptions)
+        .pipe(
+            catchError(this.handleError)
+        );
+    }
+    
+    getRequestsByEmail(emailId) {
+        return this.httpClient.get(this.getRequestsByEmailUrl + '?emailId='+emailId, this.httpOptions)
         .pipe(
             catchError(this.handleError)
         );

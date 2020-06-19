@@ -102,9 +102,9 @@ router.put('/', async function (req, res, next) {
 
 router.get('/getUserByEmail', async function (req, res, next) {
     let email= req.body['emailId'] || req.query['emailId']
-        let user = await new Promise((resolve, reject) =>
-        registerationModel.getUserByEmail(email, (err, docs) => err ? reject(err) : resolve(docs)));
-        return res.status(200).json(user);
+    let user = await new Promise((resolve, reject) =>
+    registerationModel.getUserByEmail(email, (err, docs) => err ? reject(err) : resolve(docs)));
+    return res.status(200).json(user);
 })
 
 module.exports = router;

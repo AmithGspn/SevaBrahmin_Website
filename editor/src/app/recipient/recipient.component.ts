@@ -27,13 +27,11 @@ export class RecipientComponent implements OnInit {
         this.appService.getUserByEmail(this.email).subscribe((data:any) => {
             this.loginData = [];
             this.loginData = data
-            console.log(this.loginData)
-        })
-        this.appService.getRequests().subscribe((data:any) => {
-            for(let request of data) {
-                this.RequestsList.push(request);
-                console.log(this.RequestsList);
-            }
+            this.appService.getRequestsByEmail(this.loginData[0].email).subscribe((data:any) => {
+                for(let request of data) {
+                    this.RequestsList.push(request);
+                }
+            })
         })
     }
 
