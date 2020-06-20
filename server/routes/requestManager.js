@@ -62,6 +62,7 @@ router.get('/getRequestsByEmail', async function (req, res, next) {
 
 router.put('/', async function (req, res, next) {
     data = {
+        id: req.body.id,
         name: req.body.name,
         email: req.body.email,
         contact: req.body.contact,
@@ -72,10 +73,10 @@ router.put('/', async function (req, res, next) {
         status: req.body.status,
         handledBy: req.body.handledBy
     };
-
+    console.log(req.query.email)
     try {
         let updateDoc = await requestModel.findOneAndUpdate(
-            { email: req.body.email},
+            { id: req.body.id},
             { $set: data, $inc: { __v: 1 } },
             { new: true, runValidators: true }
         );

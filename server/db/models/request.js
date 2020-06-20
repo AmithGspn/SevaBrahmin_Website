@@ -1,11 +1,16 @@
 let mongoose = require('mongoose');
 let db = require('./mongoConnect');
-let uuid = require('uuid');
+let uuid = require('uuid').v4;
 let config = require('../../config')
 let Schema = mongoose.Schema;
 const projectionsDefaults = { _id: 0, __v: 0 };
 
 let RequestSchema = Schema({
+    id: {
+        trim: true,
+        unique: true,
+        type: String
+    },
     name: {
         type: String
     },
@@ -53,6 +58,7 @@ RequestSchema.pre(['save', 'findOneAndUpdate'], function (next) {
         obj = this._update['$set'];
     }
 
+    obj.id = obj.id || uuid();
     next();
 });
 

@@ -114,6 +114,7 @@ export class AppService {
     }
 
     putRequests(formData) {
+        console.log(formData)
         return this.httpClient.put( this.requestManagerUrl, formData, this.httpOptions )
         .pipe(
           catchError(this.handleError)

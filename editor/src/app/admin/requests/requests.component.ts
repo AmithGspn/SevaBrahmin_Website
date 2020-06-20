@@ -59,12 +59,14 @@ export class RequestsComponent implements OnInit {
 
   saveDetails() {
 
-    console.log(this.selectedRequest[0])
+    console.log(this.name)
     let formData = {
+      id: this.selectedRequest[0].id,
+      email: this.selectedRequest[0].email,
       occupation: this.selectedRequest[0].occupation,
       type: this.selectedRequest[0].type,
       amount: this.selectedRequest[0].amount,
-      handlesBy: this.name,
+      handledBy: this.name,
       status: "processing"
     }
     this.appService.putRequests(formData).subscribe((data:any) => {

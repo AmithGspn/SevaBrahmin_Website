@@ -39,7 +39,7 @@
                 <select (blur)="onVolunteerChange($event.target.value)" class="custom-select form-control bg-white border-md " name="VolunteerList">
                     <option> Select</option>
                     <option *ngFor="let volunteer of volunteers"
-                        [value]="volunteer">{{volunteer.firstName}}
+                        [value]="volunteer.firstName">{{volunteer.firstName}}
                     </option>
                 </select>
             </div>       
