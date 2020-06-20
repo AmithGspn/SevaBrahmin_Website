@@ -1,0 +1,49 @@
+<table class="table table-dark table-responsive-md">
+    <thead>
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">Type</th>
+            <th scope="col">Amount</th>
+            <th scope="col" class="text-center">Description</th>
+            <th scope="col">Status</th>
+            <!-- <th scope="col">Handled By</th> -->
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let request of requests; index as i">
+            <td>{{ i+1 }}</td>
+            <td>{{ request.type }}</td>
+            <td>{{ request.amount }}</td>
+            <td>{{ request.description}}</td>
+            <td>{{ request.status }}</td>
+            <td>
+                <button type="button" class="btn btn-sm btn-success py-0" (click)="onClickAssign(request)">Assign</button>
+            </td>
+            <!-- <td>
+                <button type="button" class="btn btn-sm btn-danger py-0" (click)="selectCheckBox(item, $event.target.checked)">Decline</button>
+            </td> -->
+        </tr>        
+    </tbody>
+</table>
+
+<div class="bg-model">
+    <div class="model-content">
+        <div class="close" (click)="onClickClose()">+</div>
+        <h3 class="header mr-auto">Assign Volunteer</h3>
+        <hr>
+        <form action="#">
+            <!-- Volunteers list -->
+            <div class="input-group1">
+                <select (blur)="onVolunteerChange($event.target.value)" class="custom-select form-control bg-white border-md " name="VolunteerList">
+                    <option> Select</option>
+                    <option *ngFor="let volunteer of volunteers"
+                        [value]="volunteer">{{volunteer.firstName}}
+                    </option>
+                </select>
+            </div>       
+            <button class="btn btn-primary mt-4 submit" (click)="saveDetails()">OK</button>
+        </form>  
+    </div>   
+</div>

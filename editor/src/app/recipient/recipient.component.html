@@ -4,12 +4,12 @@
 <!-- <a class="btn btn-danger delbutton" href="#">
     <i class="fa fa-trash-o icon-large"></i> Delete</a> -->
     
-    <h1 class="display-5 text-center" *ngFor= "let item of loginData">Welcome {{ item.name }}</h1>
+<h1 class="display-5 text-center" *ngFor= "let item of loginData">Welcome {{ item.name }}</h1>
 <div class="row mt--3">
     <button class="btn btn-success request" (click)="OnClickRequest()"><i>+</i> Request</button>
 </div>
-<table class="table table-bordered table-striped mt-3">
-    <thead>
+<table class="table table-striped table-responsive-md mt-3 ml-2">
+    <thead class="text-light bg-dark">
         <tr>
             <th scope="col">No</th>
             <th scope="col">Type</th>

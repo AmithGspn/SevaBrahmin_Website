@@ -14,6 +14,7 @@ import { ShowVolunteersComponent } from './donor/show-volunteers/show-volunteers
 import { AuthGuard } from './auth.guard';
 import { AppService } from './app.service';
 import { ApprovedUsersComponent } from './admin/approved-users/approved-users.component';
+import { RequestsComponent } from './admin/requests/requests.component';
 
 @Component({
   selector: 'app-root',
@@ -31,6 +32,7 @@ export class AppComponent {
       // { path: 'login', component: LoginComponent},
       { path: 'admin/unapprovedusers', component: UnApprovedUsersComponent, canActivate: [AuthGuard]},
       { path: 'admin/approvedusers', component: ApprovedUsersComponent, canActivate: [AuthGuard]},
+      { path: 'admin/requests', component: RequestsComponent, canActivate: [AuthGuard] },
       { path: 'volunteer/registeration', component: VolunteerRegisterationComponent, canActivate: [AuthGuard] },
       { path: 'volunteer/addrecipients', component: AddRecipientsComponent, canActivate: [AuthGuard] },
       { path: 'volunteer/showrecipients', component: VolunteerShowRecipientsComponent, canActivate: [AuthGuard] },

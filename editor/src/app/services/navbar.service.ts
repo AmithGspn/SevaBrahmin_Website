@@ -41,8 +41,10 @@ export class NavbarService {
   adminTabs(){
     this.removeItem({  text: 'Approve' });
     this.removeItem({  text: 'Users' });
+    this.removeItem({ text: 'Requests'});
     this.addItem({ text: 'Approve', path: 'admin/unapprovedusers' });
     this.addItem({ text: 'Users', path: 'admin/approvedusers' });
+    this.addItem({ text: 'Requests', path: 'admin/requests'});
   }
 
   donorTabs() {
@@ -60,7 +62,9 @@ export class NavbarService {
       this.adminTabs();
     } else if (role === 'admin/approvedusers') {
       this.adminTabs(); 
-    } 
+    } else if (role === 'admin/requests') {
+      this.adminTabs();
+    }
     else if (role === 'volunteer') {
       this.volunteerTabs();
     } else if (role === 'volunteer/showrecipients') {

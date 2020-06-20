@@ -12,7 +12,8 @@ router.post('/', async function (req, res, next) {
         type: req.body.type,
         amount: req.body.amount,
         description: req.body.description,
-        status: req.body.status
+        status: req.body.status,
+        handledBy: req.body.handledBy 
     };
 
     try {
@@ -68,7 +69,8 @@ router.put('/', async function (req, res, next) {
         type: req.body.type,
         amount: req.body.amount,
         descrition: req.body.descrition,
-        status: req.body.status
+        status: req.body.status,
+        handledBy: req.body.handledBy
     };
 
     try {
@@ -77,6 +79,7 @@ router.put('/', async function (req, res, next) {
             { $set: data, $inc: { __v: 1 } },
             { new: true, runValidators: true }
         );
+        console.log(updateDoc)
 
         if (!updateDoc) {
             e = new Error();

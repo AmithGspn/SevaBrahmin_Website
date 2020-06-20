@@ -141,14 +141,16 @@ th{
     /* margin-left:2rem; */
     /* margin-bottom: 1rem; */
     font-size: 2vh;
+    text-align: center;
 }
 
 table{
-    width: 100%;
+    width: 99%;
 }
 
 td{
-    width:15%;
+    width:10%;
+    text-align: center;
 }
 
 /* .Delete{
@@ -162,5 +164,6 @@ td{
 }
 
 .request {
-    margin-left: 98rem;
+    margin-left: 90%;
 }
+

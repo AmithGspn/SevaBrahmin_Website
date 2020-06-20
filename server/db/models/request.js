@@ -37,6 +37,10 @@ let RequestSchema = Schema({
     },
     status: {
         type: String,
+    },
+    handledBy: {
+        type: String,
+        trim: true
     }
 }, {
     collection: config.collections.request

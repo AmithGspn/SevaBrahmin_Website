@@ -90,6 +90,7 @@ export class RecipientComponent implements OnInit {
             amount: this.amount.value,
             description: this.description.value,
             status: "pending",
+            handledBy: "None",
             name: this.loginData[0].name,
             email: this.loginData[0].email,
             contact: this.loginData[0].contact
