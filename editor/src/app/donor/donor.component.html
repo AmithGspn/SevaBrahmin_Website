@@ -1,1 +1,130 @@
-<h1 class="display-3 text-center">Welcome to Donor Portal</h1>
+<!-- <h1 class="display-3 text-center">Welcome to Donor Portal</h1> -->
+<h1 class="display-5 text-center" *ngFor="let login of loginData">Welcome {{ login.name }}</h1>
+<div class="row">
+    <div id="request-type" class="input-group col-lg-2 col-sm-2 mb-2 mt-2" data-size = "5">
+        <!-- <div class="input-group-prepend"> -->
+            <select (blur)="onTypeChange($event.target.value)" class="custom-select form-control bg-white border-md" name="RequestType">
+                <option>Request Type</option>
+                <option value="food">Food</option>
+                <option value="clothes">Clothes</option>
+                <option value="education">Education</option>
+                <option value="medicines">Medicines</option>
+                <option value="finance">Finance</option>
+            </select>
+        <!-- </div> -->
+        <!-- <div *ngIf="type === 'Request Type'" class="text-danger">
+            <small>please select Type</small> 
+        </div> -->
+    </div>
+
+    <div class="input-group col-lg-2 col-sm-2 mb-2 mt-2" data-size = "5">
+        <!-- [ngClass]="$event.target.value == 'State'" -->
+        <!-- <div class="input-group-prepend">     -->
+            <select (blur)="onStateChange($event.target.value)" class="custom-select form-control bg-white border-md" name="State">
+                <option>State</option>
+                <option *ngFor="let state of statesList"
+                    [value]="state"> {{ state }}
+                </option>
+            </select>
+        <!-- </div> -->
+    </div>
+
+    <div class="input-group col-lg-2 col-sm-2 mb-4 mt-2">
+        <button class="Submit btn btn-success" (click)="onSubmit()"><strong class="text-center">Submit</strong></button>
+    </div>
+
+    <div class="input-group col-lg-2 col-sm-2 mb-2 mt-2 text-danger" *ngIf="error_class === true">
+        please provide details 
+    </div>    
+</div>
+
+<table class="table table1 table-striped table-responsive-md mt-3 ml-2">
+    <thead class="text-light bg-dark">
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">FirstName</th>
+            <th scope="col">Email</th>
+            <th scope="col">Contact</th>
+            <th scope="col">State</th>
+            <th scope="col">Requests</th>
+            <!-- <th scope="col" ></th> -->
+            <!-- <th scope="col" ></th> -->
+            <!-- <th scope="col" ></th> -->
+            <!-- <th scope="col" ><button class="btn btn-success" (click)="OnClickRequest()"><i>+</i> Request</button> <button class="btn btn-danger ml-2" (click)="OnClickRequest()"><i class="fa fa-trash-o icon-large"></i> Delete</button></th> -->
+        </tr>
+        <!-- <button class="btn btn-success" (click)="OnClickRequest()"><i>+</i> Request</button> <button class="btn btn-danger ml-2" (click)="OnClickRequest()"><i class="fa fa-trash-o icon-large"></i> Delete</button> -->
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let volunteer of volunteersList; index as i">
+            <td>{{ i + 1 }}</td>
+            <!-- <td>{{ request.occupation }}</td> -->
+            <td>{{ volunteer.firstName }}</td>
+            <td>{{ volunteer.email }}</td>
+            <td>{{ volunteer.contact }}</td>
+            <td>{{ volunteer.state }}</td>
+            <td><button class="btn btn-sm btn-primary" (click)="showRecipients(volunteer.email)"><strong>Details</strong></button></td>
+            <!-- <td *ngIf="volunteer.status == 'pending' "><strong>{{ request.handledBy }}</strong></td>
+            <td *ngIf="request.status == 'processing' "><button class="btn btn-sm btn-primary" (click)="showVolunteerDetails(request.handledBy)"><strong>Details</strong></button></td> -->
+            <!-- <td>
+                <button class="btn btn-sm btn-danger mr-5 Delete" (click)="OnDeleteRequest(request.email)">Delete</button>
+            </td> -->
+            <!-- <td>
+                <button type="button" class="btn btn-sm btn-success py-0" (click)="selectCheckBox(item, $event.target.checked)">Approve</button>
+            </td> -->
+            <!-- <td>
+                <button type="button" class="btn btn-sm btn-danger py-0" (click)="selectCheckBox(item, $event.target.checked)">Decline</button>
+            </td> -->
+        </tr>        
+    </tbody>
+</table>
+
+<div class="popup-model">
+    <div class="content">
+        <div class="close" (click)="onClickClose()">+</div>
+        <h3 class="popup-header">Details</h3>
+        <table class="table table2 table-striped table-responsive-md mt-2 ml-2">
+            <thead class="text-light bg-dark">
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Amount</th>
+                    <!-- <th scope="col">State</th> -->
+                    <th scope="col">Description</th>
+                    <th scope="col"></th>
+                    <!-- <th scope="col" ></th> -->
+                    <!-- <th scope="col" ></th> -->
+                    <!-- <th scope="col" ></th> -->
+                    <!-- <th scope="col" ><button class="btn btn-success" (click)="OnClickRequest()"><i>+</i> Request</button> <button class="btn btn-danger ml-2" (click)="OnClickRequest()"><i class="fa fa-trash-o icon-large"></i> Delete</button></th> -->
+                </tr>
+                <!-- <button class="btn btn-success" (click)="OnClickRequest()"><i>+</i> Request</button> <button class="btn btn-danger ml-2" (click)="OnClickRequest()"><i class="fa fa-trash-o icon-large"></i> Delete</button> -->
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let request of requestList; index as i">
+                    <td>{{ i + 1 }}</td>
+                    <!-- <td>{{ request.occupation }}</td> -->
+                    <td>{{ request.name }}</td>
+                    <td>{{ request.type }}</td>
+                    <td>{{ request.amount }}</td>
+                    <!-- <td>{{ request.state }}</td> -->
+                    <td>{{ request.description }}</td>
+                    <!-- <td *ngIf="request.status == 'pending' "><strong>{{ request.handledBy }}</strong></td> -->
+                    <!-- <td *ngIf="request.status == 'processing' "><button class="btn btn-sm btn-primary" (click)="showVolunteerDetails(request.handledBy)"><strong>Details</strong></button></td> -->
+                    <!-- <td>
+                        <button class="btn btn-sm btn-danger mr-5 Delete" (click)="OnDeleteRequest(request.email)">Delete</button>
+                    </td> -->
+                    <td *ngIf="showDonor(request)"><button class="btn btn-sm btn-success mr-5 Delete" (click)="donate(request)">Donate</button></td>
+                    <td *ngIf="!showDonor(request)">Processing</td>
+                    <!-- <td>
+                        <button type="button" class="btn btn-sm btn-success py-0" (click)="selectCheckBox(item, $event.target.checked)">Approve</button>
+                    </td> -->
+                    <!-- <td>
+                        <button type="button" class="btn btn-sm btn-danger py-0" (click)="selectCheckBox(item, $event.target.checked)">Decline</button>
+                    </td> -->
+                </tr>        
+            </tbody>            
+        </table>
+    </div>
+</div>

@@ -16,6 +16,7 @@
             <th scope="col">Amount</th>
             <th scope="col">Description</th>
             <th scope="col">Status</th>
+            <th scope="col">Assigned</th>
             <th scope="col"></th>
             <!-- <th scope="col" ></th> -->
             <!-- <th scope="col" ></th> -->
@@ -30,9 +31,11 @@
             <td>{{ i + 1 }}</td>
             <!-- <td>{{ request.occupation }}</td> -->
             <td>{{ request.type }}</td>
-            <td>{{ request.amount}}</td>
-            <td>{{ request.description}}</td>
-            <td>{{ request.status}}</td>
+            <td>{{ request.amount }}</td>
+            <td>{{ request.description }}</td>
+            <td>{{ request.status }}</td>
+            <td *ngIf="request.status == 'pending' "><strong>{{ request.handledBy }}</strong></td>
+            <td *ngIf="request.status == 'processing' "><button class="btn btn-sm btn-primary" (click)="showVolunteerDetails(request.handledBy)"><strong>Details</strong></button></td>
             <td>
                 <button class="btn btn-sm btn-danger mr-5 Delete" (click)="OnDeleteRequest(request.email)">Delete</button>
             </td>
@@ -48,7 +51,7 @@
 <div class="bg-model">
     <div class="model-content">
         <div class="close" (click)="onClickClose()">+</div>
-        <h3 class="header">REQUEST FORM</h3>
+        <h3 class="popup-header">REQUEST FORM</h3>
         <hr>
         <form action="#">
             <!-- occupation -->
@@ -64,7 +67,8 @@
                     <option value="food">Food</option>
                     <option value="clothes">Clothes</option>
                     <option value="education">Education</option>
-                    <option value="agriculture">Agriculture</option>
+                    <option value="medicines">Medicines</option>
+                    <option value="finance">Finance</option>
                 </select>
             </div>       
             <!-- Amount -->
@@ -85,3 +89,41 @@
         </form>  
     </div>   
 </div>
+
+<div class="popup-model">
+    <div class="content">
+        <div class="close" (click)="onClickClose()">+</div>
+        <h3 class="popup-header">Volunteer Details</h3>
+        <hr>
+        <form action="#">
+            <div *ngFor="let volunteerDetail of volunteerDetails; index as i">
+                <label class="col-lg-12">Name : {{ volunteerDetail[0].firstName }}</label><br>
+                <label class="col-lg-12">Email : {{ volunteerDetail[0].email }}</label><br>
+                <label class="col-lg-12">Phone : {{ volunteerDetail[0].contact }}</label>
+            </div>
+            <!-- occupation -->
+            <!-- <div class="input-group1">
+                <input id="occupation" required="required" type="text" name="occupation" (blur)="onOccupationChange($event.target.value)" [ngClass]="occupation.disabled == false ? 'form-control bg-white border-md':'is-invalid'" placeholder="Occupation" class="form-control bg-white border-md">    
+                <div *ngIf="occupation.disabled == true" id="error-class" class="text-danger">
+                    <small>please enter occupation</small>    
+                </div>    
+            </div>        -->
+            <!-- Amount -->
+            <!-- <div class="input-group1">
+                <input id="amount" required="required" type="text" name="amount" (blur)="onAmountChange($event.target.value)" [ngClass]="amount.disabled == false ? 'form-control bg-white border-md':'is-invalid'" placeholder="Amount" class="form-control bg-white border-md">    
+                <div *ngIf="amount.disabled == true" id="error-class" class="text-danger">
+                    <small>please enter amount</small>    
+                </div>    
+            </div> -->
+            <!-- description -->
+            <!-- <div class="input-group1">
+                <textarea class="form-control" required="required" rows="5" (blur)="onDescriptionChange($event.target.value)" [ngClass]="description.disabled == false ? 'form-control':'is-invalid'" placeholder="Description"></textarea>
+                <div *ngIf="description.disabled == true" id="eroor-class" class="text-danger">
+                    <small>please enter details</small>    
+                </div>    
+            </div> -->
+            <!-- <button class="btn btn-primary mt-4 submit" (click)="saveDetails()">Submit</button> -->
+        </form>  
+    </div>
+</div>
+

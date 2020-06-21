@@ -16,7 +16,9 @@ export const apiUrls = {
   donorManager: apiServer + 'donorManager',
   requestManager: apiServer + 'requestManager',
   getUserByEmail: apiServer + 'userRegisterationManager/getUserByEmail',
-  getRequestsByEmail: apiServer + 'requestManager/getRequestsByEmail'
+  getRequestsByEmail: apiServer + 'requestManager/getRequestsByEmail',
+  getVolunteerByEmail: apiServer + 'volunteerManager/getVolunteerByEmail',
+  getRequestsByHandledBy: apiServer + 'requestManager/getRequestsByHandledBy'
 };
 
 /*

@@ -1,6 +1,6 @@
 let mongoose = require('mongoose');
 let db = require('./mongoConnect');
-let uuid = require('uuid');
+let uuid = require('uuid').v4;
 let config = require('../../config')
 let Schema = mongoose.Schema;
 let recipientModel = require('./recipient');
@@ -33,6 +33,9 @@ let volunteerSchema = Schema({
         type: String,
         trim: true
     },
+    approved: {
+        type: Boolean
+    },
     city: {
         type: String,
         trim: true,
@@ -40,6 +43,11 @@ let volunteerSchema = Schema({
     country: {
         type: String,
         trim: true
+    },
+    requestType: {
+        type: String,
+        enum: ['None','food', 'clothes', 'education', 'medicines', 'finance'],
+        required: [true, "required"]
     }
 }, {
     collection: config.collections.volunteers
@@ -117,5 +125,16 @@ volunteerSchema.statics.getAllVolunteers = function (callback) {
         }
     })
 };
+
+volunteerSchema.statics.getVolunteerByEmail = function (email, callback) {
+    this.find({ email: email }, projectionsDefaults).lean().exec(function (err, volunteer) {
+        if (err) {
+            return callback(err);
+        }
+        if (volunteer) {
+            return callback(null, volunteer)
+        }
+    })
+}
 
 module.exports = db.model('volunteers', volunteerSchema);

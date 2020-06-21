@@ -11,6 +11,10 @@ let RequestSchema = Schema({
         unique: true,
         type: String
     },
+    state: {
+        type: String,
+        trim: true
+    },
     name: {
         type: String
     },
@@ -46,6 +50,9 @@ let RequestSchema = Schema({
     handledBy: {
         type: String,
         trim: true
+    },
+    donor: {
+        type: String
     }
 }, {
     collection: config.collections.request
@@ -84,6 +91,17 @@ RequestSchema.statics.getAllrequests = function (callback) {
 
 RequestSchema.statics.getRequestsByEmail = function (email, callback) {
     this.find({ email: email }, projectionsDefaults).lean().exec(function (err, Requests) {
+        if (err) {
+            return callback(err);
+        }
+        if (Requests) {
+            return callback(null, Requests)
+        }
+    })
+}
+
+RequestSchema.statics.getRequestsByHandledBy = function (handledBy,callback) {
+    this.find({ handledBy: handledBy }, projectionsDefaults).lean().exec(function (err, Requests) {
         if (err) {
             return callback(err);
         }

@@ -6,6 +6,7 @@ let requestModel = require('../db/models/request');
 router.post('/', async function (req, res, next) {
     data = {
         name: req.body.name,
+        state: req.body.state,
         email: req.body.email,
         contact: req.body.contact,
         occupation: req.body.occupation,
@@ -13,7 +14,8 @@ router.post('/', async function (req, res, next) {
         amount: req.body.amount,
         description: req.body.description,
         status: req.body.status,
-        handledBy: req.body.handledBy 
+        handledBy: req.body.handledBy,
+        donor: req.body.donor
     };
 
     try {
@@ -60,9 +62,17 @@ router.get('/getRequestsByEmail', async function (req, res, next) {
     return res.status(200).json(requests);
 })
 
+router.get('/getRequestsByHandledBy', async function (req, res, next) {
+    let handledBy= req.body['handledBy'] || req.query['handledBy']
+    let requests = await new Promise((resolve, reject) =>
+    requestModel.getRequestsByHandledBy(handledBy, (err, docs) => err ? reject(err) : resolve(docs)));
+    return res.status(200).json(requests);
+})
+
 router.put('/', async function (req, res, next) {
     data = {
         id: req.body.id,
+        state: req.body.state,
         name: req.body.name,
         email: req.body.email,
         contact: req.body.contact,
@@ -71,7 +81,8 @@ router.put('/', async function (req, res, next) {
         amount: req.body.amount,
         descrition: req.body.descrition,
         status: req.body.status,
-        handledBy: req.body.handledBy
+        handledBy: req.body.handledBy,
+        donor: req.body.donor
     };
     console.log(req.query.email)
     try {

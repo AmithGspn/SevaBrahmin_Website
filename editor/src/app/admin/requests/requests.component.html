@@ -38,9 +38,12 @@
             <div class="input-group1">
                 <select (blur)="onVolunteerChange($event.target.value)" class="custom-select form-control bg-white border-md " name="VolunteerList">
                     <option> Select</option>
-                    <option *ngFor="let volunteer of volunteers"
-                        [value]="volunteer.firstName">{{volunteer.firstName}}
-                    </option>
+                    <ng-container *ngFor="let volunteer of volunteers">
+                        <option *ngIf="showVolunteer(volunteer)"
+                            [value]="volunteer.email">
+                                {{volunteer.firstName}}
+                        </option>
+                    </ng-container>
                 </select>
             </div>       
             <button class="btn btn-primary mt-4 submit" (click)="saveDetails()">OK</button>

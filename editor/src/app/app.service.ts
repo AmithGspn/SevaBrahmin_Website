@@ -18,6 +18,8 @@ export class AppService {
     private requestManagerUrl = apiUrls.requestManager;
     private getUserByEmailUrl = apiUrls.getUserByEmail;
     private getRequestsByEmailUrl = apiUrls.getRequestsByEmail;
+    private getVolunteerByEmailUrl = apiUrls.getVolunteerByEmail;
+    private getRequestsByHandledByUrl = apiUrls.getRequestsByHandledBy;
 
     handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
@@ -34,6 +36,14 @@ export class AppService {
                 'Content-Type': 'application/json',
             })
         }
+    }
+
+    getVolunteerByEmail(emailId) {
+        console.log(emailId)
+        return this.httpClient.get(this.getVolunteerByEmailUrl + '?emailId='+emailId, this.httpOptions)
+        .pipe(
+            catchError(this.handleError)
+        );
     }
 
     getUserByEmail(emailId) {
@@ -71,6 +81,13 @@ export class AppService {
         );
     }
 
+    putVolunteer(formData) {
+        return this.httpClient.put( this.volunteerManagerUrl, formData, this.httpOptions )
+        .pipe(
+            catchError(this.handleError)
+        );
+    }
+    
     postLogin(formData) {
         return this.httpClient.post( this.loginManagerUrl, formData, this.httpOptions )
         .pipe(
@@ -103,6 +120,13 @@ export class AppService {
         return this.httpClient.get(this.getRequestsByEmailUrl + '?emailId='+emailId, this.httpOptions)
         .pipe(
             catchError(this.handleError)
+        );
+    }
+
+    getRequestsByHandledBy(handledBy) {
+        return this.httpClient.get(this.getRequestsByHandledByUrl + '?handledBy='+handledBy, this.httpOptions)
+        .pipe(
+          catchError(this.handleError)  
         );
     }
 

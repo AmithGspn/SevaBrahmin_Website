@@ -5,6 +5,7 @@ let registerationModel = require('../db/models/registeration');
 
 router.post('/', async function (req, res, next) {
     data = {
+        state: req.body.state,
         email: req.body.email,
         name: req.body.name,
         userType: req.body.userType,
@@ -58,6 +59,7 @@ router.get('/', async function (req, res, next) {
 
 router.put('/', async function (req, res, next) {
     data = {
+        state: req.body.state,
         email: req.body.email,
         name: req.body.name,
         userType: req.body.userType,

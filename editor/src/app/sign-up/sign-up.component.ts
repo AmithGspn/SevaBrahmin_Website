@@ -215,6 +215,7 @@ export class SignUpComponent implements OnInit {
 
     signup() {
         let formData = {
+            state: this.state.value,
             email: this.emailAddress.value,
             contact: this.countrycode + this.contact.value,
             password: this.password.value,
@@ -223,7 +224,7 @@ export class SignUpComponent implements OnInit {
             age: this.age.value,
             gender: this.gender,
             address: this.address1.value + this.address2.value,
-            pinCode: this.pinCode.value
+            pinCode: this.pinCode.value,
         }
         
         let volunteerData = {
@@ -233,7 +234,8 @@ export class SignUpComponent implements OnInit {
             contact: this.countrycode + this.contact.value,
             city: this.city,
             country: this.country.value,
-            state: this.state
+            state: this.state,
+            requestType: "None"
         };
 
         if ( this.checkedValue === "Volunteer") {

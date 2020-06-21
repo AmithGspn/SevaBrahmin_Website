@@ -43,10 +43,13 @@ export class RequestsComponent implements OnInit {
     this.selectedRequest = [];
     this.selectedRequest.push(request);
     console.log(this.selectedRequest);
-    this.appService.getVolunteer().subscribe((data:any) => {
+    this.appService.getVolunteer().subscribe(async(data:any) => {
       console.log(data);
       for(let volunteer of data) {
-        this.volunteers.push(volunteer);
+        if (volunteer.approved == true) {
+          console.log(volunteer)
+          await this.volunteers.push(volunteer);
+        }
       }
       console.log(this.volunteers);
     })
@@ -57,21 +60,36 @@ export class RequestsComponent implements OnInit {
     document.querySelector('.bg-model').setAttribute("style","display:none;");
   }
 
-  saveDetails() {
+  showVolunteer(volunteer) {
+    if (volunteer.requestType == "None") {
+      return true
+    }
+    return false
+  }
 
+  saveDetails() {
     console.log(this.name)
     let formData = {
+      state: this.selectedRequest[0].state,
+      name: this.selectedRequest[0].name,
       id: this.selectedRequest[0].id,
       email: this.selectedRequest[0].email,
       occupation: this.selectedRequest[0].occupation,
       type: this.selectedRequest[0].type,
       amount: this.selectedRequest[0].amount,
       handledBy: this.name,
-      status: "processing"
+      status: "processing",
+      donor: "None"
     }
     this.appService.putRequests(formData).subscribe((data:any) => {
-      document.querySelector('.bg-model').setAttribute("style","display:none;");
-      window.location.reload();
+      this.appService.getVolunteerByEmail(this.name).subscribe((data:any) => {
+        data[0].requestType = this.selectedRequest[0].type;
+        console.log(data)
+        this.appService.putVolunteer(data[0]).subscribe((data) => {
+          document.querySelector('.bg-model').setAttribute("style","display:none;");
+          window.location.reload();
+        })
+      })
     })
   }
 }

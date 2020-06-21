@@ -23,12 +23,13 @@ router.post('/', async function (req, res, next) {
     // jwt.verify(req.token, 'secretKey', async(err, authData) => {
         try {
             data = {
+                approved: req.body.approved || false,
                 email: req.body.email,
                 contact: req.body.contact,
                 firstName: req.body.firstName,
                 familyName: req.body.familyName,
                 state: req.body.state,
-                // gothram: req.body.gothram,
+                requestType: req.body.requestType,
                 city: req.body.city,
                 country: req.body.country,
             };
@@ -66,5 +67,55 @@ router.get('/', async function (req, res, next) {
         }
     // });
 });
+
+router.put('/', async function (req, res, next) {
+    data = {
+        approved: req.body.approved,
+        email: req.body.email,
+        contact: req.body.contact,
+        firstName: req.body.firstName,
+        familyName: req.body.familyName,
+        state: req.body.state,
+        requestType: req.body.requestType,
+        city: req.body.city,
+        country: req.body.country,
+    };
+
+    try {
+        let updateDoc = await volunteerModel.findOneAndUpdate(
+            { email: req.body.email},
+            { $set: data, $inc: { __v: 1 } },
+            { new: true, runValidators: true }
+        );
+
+        if (!updateDoc) {
+            e = new Error();
+            e.status = 404;
+            e.message = 'user not found';
+
+            return next(e);
+        } else {
+            return res.status(200).json(updateDoc.transform());
+        }
+    } catch (err) {
+        if (err.name === 'MongoError' && err.code === 11000) {
+            e = new Error();
+            e.status = 409;
+            e.message = "name already in use, choose a different one";
+            return next(e);
+        }
+
+        return next(err);
+    }
+});
+
+router.get('/getVolunteerByEmail', async function (req, res, next) {
+    let email= req.body['emailId'] || req.query['emailId']
+    console.log(email)
+    let user = await new Promise((resolve, reject) =>
+    volunteerModel.getVolunteerByEmail(email, (err, docs) => err ? reject(err) : resolve(docs)));
+    return res.status(200).json(user);
+})
+
 
 module.exports = router;

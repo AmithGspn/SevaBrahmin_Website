@@ -37,6 +37,16 @@ export class UnApprovedUsersComponent implements OnInit {
 
   selectCheckBox(user) {
     console.log(user)
+    if (user.userType == 'Volunteer') {
+      this.appService.getVolunteerByEmail(user.email).subscribe((data:any) => {
+        console.log(data)
+        data[0].approved = true;
+        console.log(data);
+        this.appService.putVolunteer(data[0]).subscribe((data) => {
+            window.location.reload();
+        })
+      })
+    }
     user.approved = true;
     this.appService.putUser(user).subscribe((data) => {
       window.location.reload();

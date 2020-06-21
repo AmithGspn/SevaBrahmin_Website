@@ -10,6 +10,7 @@ import { AppService } from '../app.service';
 })
 export class RecipientComponent implements OnInit {
     role = '';
+    volunteerDetails: any= [];
     type:any ="food";
     email:any = "";
     amount:any ={disabled: false, value: ""};
@@ -50,6 +51,7 @@ export class RecipientComponent implements OnInit {
 
     onClickClose() {
         document.querySelector('.bg-model').setAttribute("style","display:none;");
+        document.querySelector('.popup-model').setAttribute("style","display:none;");
     }
 
     onTypeChange(event) {
@@ -87,13 +89,15 @@ export class RecipientComponent implements OnInit {
         let formData = {
             occupation: this.occupation.value,
             type: this.type,
+            state: this.loginData[0].state,
             amount: this.amount.value,
             description: this.description.value,
             status: "pending",
             handledBy: "None",
             name: this.loginData[0].name,
             email: this.loginData[0].email,
-            contact: this.loginData[0].contact
+            contact: this.loginData[0].contact,
+            donor: "None"
         }
         console.log(formData);
 
@@ -106,6 +110,15 @@ export class RecipientComponent implements OnInit {
         console.log(email)
         this.appService.deleteRequest(email).subscribe((data) => {
             window.location.reload();
+        })
+    }
+
+    showVolunteerDetails(email){
+        this.volunteerDetails = [];
+        this.appService.getVolunteerByEmail(email).subscribe((data) => {
+            console.log(data)
+            this.volunteerDetails.push(data);
+            document.querySelector('.popup-model').setAttribute("style","display:flex;");
         })
     }
 }
