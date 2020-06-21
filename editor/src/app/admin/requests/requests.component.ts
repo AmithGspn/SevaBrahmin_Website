@@ -92,4 +92,12 @@ export class RequestsComponent implements OnInit {
       })
     })
   }
+
+  showAssignButton(event) {
+    if(event === 'pending') {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
