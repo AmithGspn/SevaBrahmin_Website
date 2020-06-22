@@ -32,9 +32,9 @@ export class NavbarService {
   }
 
   volunteerTabs() {
-    this.removeItem({  text: 'Recipients' })
+    // this.removeItem({  text: 'Recipients' })
     this.removeItem({  text: 'Add Recipients' })
-    this.addItem({ text: 'Recipients', path: 'volunteer/showrecipients' });
+    // this.addItem({ text: 'Recipients', path: 'volunteer/showrecipients' });
     this.addItem({ text: 'Add Recipients', path: 'volunteer/addrecipients'});
   }
 
@@ -48,10 +48,10 @@ export class NavbarService {
   }
 
   donorTabs() {
-    this.removeItem({  text: 'Volunteers' })
-    this.removeItem({  text: 'Recipients' })
-    this.addItem({ text: 'Volunteers', path: 'donor/showvolunteers' });
-    this.addItem({ text: 'Recipients', path: 'donor/showrecipients' });
+    // this.removeItem({  text: 'Volunteers' })
+    // this.removeItem({  text: 'Recipients' })
+    // this.addItem({ text: 'Volunteers', path: 'donor/showvolunteers' });
+    // this.addItem({ text: 'Recipients', path: 'donor/showrecipients' });
   }
 
   updateNavAfterAuth(role: string): void {
@@ -67,19 +67,19 @@ export class NavbarService {
     }
     else if (role === 'volunteer') {
       this.volunteerTabs();
-    } else if (role === 'volunteer/showrecipients') {
-      this.volunteerTabs();
+    // } else if (role === 'volunteer/showrecipients') {
+    //   this.volunteerTabs();
     } else if (role === 'volunteer/addrecipients') {
       this.volunteerTabs();
     }
       // this.addItem({ text: 'Add-recipients', path: 'recipient/addrecipients'});
       else if (role === 'donor') {
-      this.donorTabs();
-    } else if (role === 'donor/showvolunteers') {
-      this.donorTabs();
-    } else if (role === 'donor/showrecipients') {
-      this.donorTabs();
-    }
+      this.donorTabs();}
+    // } else if (role === 'donor/showvolunteers') {
+    //   this.donorTabs();
+    // } else if (role === 'donor/showrecipients') {
+    //   this.donorTabs();
+    // }
   }
 
   addItem({ text, path }) {

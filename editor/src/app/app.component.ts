@@ -33,13 +33,13 @@ export class AppComponent {
       { path: 'admin/unapprovedusers', component: UnApprovedUsersComponent, canActivate: [AuthGuard]},
       { path: 'admin/approvedusers', component: ApprovedUsersComponent, canActivate: [AuthGuard]},
       { path: 'admin/requests', component: RequestsComponent, canActivate: [AuthGuard] },
-      { path: 'volunteer/registeration', component: VolunteerRegisterationComponent, canActivate: [AuthGuard] },
+      // { path: 'volunteer/registeration', component: VolunteerRegisterationComponent, canActivate: [AuthGuard] },
       { path: 'volunteer/addrecipients', component: AddRecipientsComponent, canActivate: [AuthGuard] },
-      { path: 'volunteer/showrecipients', component: VolunteerShowRecipientsComponent, canActivate: [AuthGuard] },
-      { path: 'recipient/registeration', component: RecipientRegisterationComponent, canActivate: [AuthGuard] },
-      { path: 'donor/registeration', component: DonorRegisterationComponent, canActivate: [AuthGuard] },
-      { path: 'donor/showrecipients', component: DonorShowRecipientsComponent, canActivate: [AuthGuard] },
-      { path: 'donor/showvolunteers', component: ShowVolunteersComponent, canActivate: [AuthGuard] },
+      // { path: 'volunteer/showrecipients', component: VolunteerShowRecipientsComponent, canActivate: [AuthGuard] },
+      // { path: 'recipient/registeration', component: RecipientRegisterationComponent, canActivate: [AuthGuard] },
+      // { path: 'donor/registeration', component: DonorRegisterationComponent, canActivate: [AuthGuard] },
+      // { path: 'donor/showrecipients', component: DonorShowRecipientsComponent, canActivate: [AuthGuard] },
+      // { path: 'donor/showvolunteers', component: ShowVolunteersComponent, canActivate: [AuthGuard] },
     );
   }
  
