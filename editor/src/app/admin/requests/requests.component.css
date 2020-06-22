@@ -44,3 +44,9 @@
     margin-top: 0.3rem;
     font-family: Arial, Helvetica;
 }
+
+th {
+    font-size: 2vh;
+    text-align: center;
+}
+

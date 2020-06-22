@@ -24,7 +24,7 @@ router.post('/', async function (req, res, next) {
         email: req.body.email,
         firstName: req.body.firstName,
         familyName: req.body.familyName,
-        // gothram: req.body.gothram,
+        referedBy: req.body.referedBy,
         bankAccountNumber: req.body.bankAccountNumber,
         IFSC: req.body.IFSC,
         state: req.body.state,

@@ -17,11 +17,11 @@
     <tbody>
         <tr *ngFor="let request of requests; index as i">
             <td>{{ i+1 }}</td>
-            <td>{{ request.name }}</td>
+            <td class="text-center">{{ request.name }}</td>
             <td>{{ request.contact }}</td>
             <td>{{ request.email }}</td>
             <td>{{ request.type }}</td>
-            <td>{{ request.amount }}</td>
+            <td class="text-center">{{ request.amount }}</td>
             <td>{{ request.description}}</td>
             <td>{{ request.status }}</td>
             <td>
@@ -52,7 +52,7 @@
                     </ng-container>
                 </select>
             </div>       
-            <button class="btn btn-primary mt-4 submit" (click)="saveDetails()">OK</button>
+            <button class="btn btn-primary mt-2 submit" (click)="saveDetails()">OK</button>
         </form>  
     </div>   
 </div>
