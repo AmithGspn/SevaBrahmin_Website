@@ -41,6 +41,7 @@ export class RequestsComponent implements OnInit {
 
   onClickAssign(request) {
     this.selectedRequest = [];
+    this.volunteers = [];
     this.selectedRequest.push(request);
     console.log(this.selectedRequest);
     this.appService.getVolunteer().subscribe(async(data:any) => {
@@ -61,6 +62,7 @@ export class RequestsComponent implements OnInit {
   }
 
   showVolunteer(volunteer) {
+    console.log(volunteer)
     if (volunteer.requestType == "None") {
       return true
     }

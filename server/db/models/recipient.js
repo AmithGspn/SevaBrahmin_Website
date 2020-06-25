@@ -51,6 +51,10 @@ let recipientSchema = Schema({
     country: {
         type: String,
         trim: true
+    },
+    referedBy: {
+        type: String,
+        trim: true
     }
 }, {
     collection: config.collections.recipients
