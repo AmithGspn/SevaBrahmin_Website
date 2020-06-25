@@ -78,7 +78,7 @@ export class RequestsComponent implements OnInit {
       type: this.selectedRequest[0].type,
       amount: this.selectedRequest[0].amount,
       handledBy: this.name,
-      status: "processing",
+      status: "Processing",
       donor: "None"
     }
     this.appService.putRequests(formData).subscribe((data:any) => {
@@ -94,7 +94,7 @@ export class RequestsComponent implements OnInit {
   }
 
   showAssignButton(event) {
-    if(event === 'pending') {
+    if(event === 'Pending') {
       return true;
     } else {
       return false;

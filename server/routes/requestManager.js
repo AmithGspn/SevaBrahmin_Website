@@ -15,7 +15,8 @@ router.post('/', async function (req, res, next) {
         description: req.body.description,
         status: req.body.status,
         handledBy: req.body.handledBy,
-        donor: req.body.donor
+        donor: req.body.donor,
+        id: req.body.id
     };
 
     try {
@@ -116,10 +117,9 @@ router.put('/', async function (req, res, next) {
 
 /* Delete a request */
 router.delete('/', async function (req, res, next) {
-    let userId = req.query['emailId'] || req.body['emailId'];
-    console.log(userId)
+    let requestId = req.query['id'] || req.body['id'];
     try {
-        let delDoc = await requestModel.findOneAndRemove({ email: userId });
+        let delDoc = await requestModel.findOneAndRemove({ id: requestId });
 
         if (!delDoc) {
             e = new Error();
@@ -128,7 +128,7 @@ router.delete('/', async function (req, res, next) {
 
             return next(e);
         } else {
-            return res.status(200).json({ emailId: userId, "deleted": true });
+            return res.status(200).json({ id: requestId, "deleted": true });
         }
     } catch (err) {
         return next(err);

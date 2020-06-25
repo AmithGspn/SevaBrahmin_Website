@@ -145,8 +145,8 @@ export class AppService {
         );
     }
 
-    deleteRequest(emailId) {
-        return this.httpClient.delete(this.requestManagerUrl + '?emailId='+emailId, this.httpOptions)
+    deleteRequest(id) {
+        return this.httpClient.delete(this.requestManagerUrl + '?id='+id, this.httpOptions)
         .pipe(
             catchError(this.handleError)
         );

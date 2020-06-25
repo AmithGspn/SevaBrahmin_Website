@@ -46,7 +46,7 @@ let volunteerSchema = Schema({
     },
     requestType: {
         type: String,
-        enum: ['None','food', 'clothes', 'education', 'medicines', 'finance'],
+        // enum: ['None','food', 'clothes', 'education', 'medicines', 'finance'],
         required: [true, "required"]
     }
 }, {

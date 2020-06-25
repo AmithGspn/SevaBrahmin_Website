@@ -34,10 +34,12 @@
             <td>{{ request.amount }}</td>
             <td>{{ request.description }}</td>
             <td>{{ request.status }}</td>
-            <td *ngIf="request.status == 'pending' "><strong>{{ request.handledBy }}</strong></td>
-            <td *ngIf="request.status == 'processing' "><button class="btn btn-sm btn-primary" (click)="showVolunteerDetails(request.handledBy)"><strong>Details</strong></button></td>
+            <!-- == 'processing'  -->
+            <!-- request.status == 'pending'  -->
+            <td *ngIf="statusChange1(request.status)"><strong>{{ request.handledBy }}</strong></td>
+            <td *ngIf="statusChange(request.status)"><button class="btn btn-sm btn-primary" (click)="showVolunteerDetails(request.handledBy)"><strong>Details</strong></button></td>
             <td>
-                <button class="btn btn-sm btn-danger mr-5 Delete" (click)="OnDeleteRequest(request.email)">Delete</button>
+                <button class="btn btn-sm btn-danger mr-5 Delete" (click)="OnDeleteRequest(request.id)">Delete</button>
             </td>
             <!-- <td>
                 <button type="button" class="btn btn-sm btn-success py-0" (click)="selectCheckBox(item, $event.target.checked)">Approve</button>
@@ -48,6 +50,14 @@
         </tr>        
     </tbody>
 </table>
+<div class="alert alert-danger" role="alert">
+    <h3>Are you sure ?</h3>
+    <div class="row">
+        <button class="btn btn-primary" (click)="onConfirm()">Confirm</button>
+        <button class="btn btn-light" (click)="onCancel()">Cancel</button>
+    </div>
+</div>
+
 <div class="bg-model">
     <div class="model-content">
         <div class="close" (click)="onClickClose()">+</div>
@@ -64,13 +74,21 @@
             <!-- Type of Help -->
             <div class="input-group1">
                 <select (blur)="onTypeChange($event.target.value)" class="custom-select form-control bg-white border-md" name="Type">
-                    <option value="food">Food</option>
-                    <option value="clothes">Clothes</option>
-                    <option value="education">Education</option>
-                    <option value="medicines">Medicines</option>
-                    <option value="finance">Finance</option>
+                    <option>Type of Help</option>
+                    <option value="Food">SwayamPakam</option>
+                    <option value="Education">Education</option>
+                    <option value="Medicines">Medicines</option>
+                    <option value="Finance">Finance</option>
+                    <!-- <option value="Others">Others</option> -->
                 </select>
-            </div>       
+            </div>
+            
+            <!-- <div class="input-group1" *ngIf="flag === true">
+                <input type="text" name="type" (blur)="onSelectOthers($event.target.value)" [ngClass]="othersType.disabled == false ? 'form-control bg-white border-md':'is-invalid'" placeholder="Other Type" class="form-control bg-white border-md">
+                <div *ngIf="othersType.disabled == true" id="error-class" class="text-danger">
+                    <small>please provide type</small>    
+                </div>                
+            </div> -->
             <!-- Amount -->
             <div class="input-group1">
                 <input id="amount" required="required" type="text" name="amount" (blur)="onAmountChange($event.target.value)" [ngClass]="amount.disabled == false ? 'form-control bg-white border-md':'is-invalid'" placeholder="Amount" class="form-control bg-white border-md">    

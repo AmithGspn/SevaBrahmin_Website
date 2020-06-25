@@ -11,11 +11,15 @@ import { AppService } from '../app.service';
 export class RecipientComponent implements OnInit {
     role = '';
     volunteerDetails: any= [];
-    type:any ="food";
+    type:any ="SwayamPakam";
     email:any = "";
+    alert:any = false;
+    flag:any = false;
+    othersType:any = {disabled: false, value: ""};
     amount:any ={disabled: false, value: ""};
     RequestsList:any=[];
     loginData: any = [];
+    requestType: any = ['None','SwayamPakam', 'Clothes', 'Education', 'Medicines', 'Finance']; 
     occupation:any ={disabled: false, value: ""};
     description:any ={disabled: false, value: ""};
     constructor(private appService: AppService, private router: Router, private navbarService: NavbarService) { }
@@ -56,8 +60,16 @@ export class RecipientComponent implements OnInit {
 
     onTypeChange(event) {
         console.log(event)
-        this.type = event
+        // if (event === 'Others') {
+        //     this.flag = true;
+        // } else {
+            this.type = event;
+        // }
     }
+
+    // onSelectOthers(event) {
+    //     this.type = event;
+    // }
 
     onAmountChange(event) {
         if(event == '') {
@@ -92,7 +104,7 @@ export class RecipientComponent implements OnInit {
             state: this.loginData[0].state,
             amount: this.amount.value,
             description: this.description.value,
-            status: "pending",
+            status: "Pending",
             handledBy: "None",
             name: this.loginData[0].name,
             email: this.loginData[0].email,
@@ -106,11 +118,42 @@ export class RecipientComponent implements OnInit {
         })
     }
 
-    OnDeleteRequest(email) {
-        console.log(email)
-        this.appService.deleteRequest(email).subscribe((data) => {
-            window.location.reload();
-        })
+    OnDeleteRequest(id) {
+        console.log(id)
+        // this.alert = true;
+        // window.confirm("Are you sure?")
+        document.querySelector(".alert").setAttribute("style","display:flex; justify-content:center; align-items:center");
+        if(this.alert) {
+            this.appService.deleteRequest(id).subscribe((data) => {
+                window.location.reload();
+            })
+        }
+    }
+
+    onConfirm() {
+        this.alert = true;
+        document.querySelector(".alert").setAttribute("style","display:none");
+    }
+
+    onCancel() {
+        this.alert = false;
+        document.querySelector(".alert").setAttribute("style","display:none");
+    }
+
+    statusChange(status) {
+        if (status === 'Processing') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    statusChange1(status) {
+        if (status === 'Pending') {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     showVolunteerDetails(email){
