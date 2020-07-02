@@ -10,14 +10,14 @@
             <th scope="col">City</th>
             <!-- <th scope="col">recipients</th> -->
             <!-- <th>hello world</th> -->
-            <th></th>
+            <!-- <th></th> -->
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let recipient of addedRecipients; index as i">
             <td>{{ i+1 }}</td>
             <td>{{ recipient.firstName }}</td>
-            <td>{{ recipient.contact }}</td>
+            <td>{{ recipientContact }}</td>
             <td>{{ recipient.email }}</td>
             <td>{{ recipient.country }}</td>
             <td>{{ recipient.state }}</td>
@@ -26,10 +26,10 @@
                 <!-- <button type="button" class="btn btn-sm btn-success py-0" (click)="showDescription(recipient.description)">View</button> -->
             </td>
             <!-- <td>{{ recipient.status}}</td> -->
-            <td>
+            <!-- <td> -->
                 <!-- *ngIf="showRequestsButton(recipient.status)" -->
-                <button type="button" class="btn btn-sm btn-success py-0" (click)="showRequestsButton(recipient)">View Requests</button>
-            </td>
+                <!-- <button type="button" class="btn btn-sm btn-success py-0" (click)="showRequestsButton(recipient)">View Requests</button>
+            </td> -->
         </tr>        
     </tbody>
 </table>

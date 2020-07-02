@@ -23,6 +23,8 @@ export class RecipientComponent implements OnInit {
     occupation:any ={disabled: false, value: ""};
     description:any ={disabled: false, value: ""};
     descriptionContent: any = "";
+    ReferedBy :any = "None";
+    STATUS:any = "";
     constructor(private appService: AppService, private router: Router, private navbarService: NavbarService) { }
 
     ngOnInit() {
@@ -30,6 +32,10 @@ export class RecipientComponent implements OnInit {
         this.router.navigateByUrl('/recipient')
         this.email = localStorage.getItem('email')
         console.log(this.email)
+        this.appService.getRecipientByEmail(this.email).subscribe((data:any) => {
+            console.log(data[0].referedBy);
+            this.ReferedBy = data[0].referedBy;
+        })
         this.appService.getUserByEmail(this.email).subscribe((data:any) => {
             this.loginData = [];
             this.loginData = data
@@ -100,14 +106,19 @@ export class RecipientComponent implements OnInit {
 
     saveDetails() {
         console.log(this.loginData)
+        if(this.ReferedBy == "None") {
+            this.STATUS = "Pending"
+        } else {
+            this.STATUS = "Processing"
+        }
         let formData = {
             occupation: this.occupation.value,
             type: this.type,
             state: this.loginData[0].state,
             amount: this.amount.value,
             description: this.description.value,
-            status: "Pending",
-            handledBy: "None",
+            status: this.STATUS,
+            handledBy: this.ReferedBy,
             name: this.loginData[0].name,
             email: this.loginData[0].email,
             contact: this.loginData[0].contact,

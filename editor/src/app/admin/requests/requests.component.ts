@@ -90,17 +90,33 @@ export class RequestsComponent implements OnInit {
   }
 
   onAssigned(request) {
+    this.referedRecipient = [];
     console.log(this.status)
-    this.appService.getRecipientByEmail(request.email).subscribe((data:any) => {
-      console.log(data);
-      this.referedRecipient.push(data[0]);
-    })
-    if(request.status == "Processing" || "completed") {
+    console.log(request.email)
+    if (request.status == "Processing" || "completed") {
       return false;
     } else {
       return true;
     }
   }
+  //   this.appService.getRecipientByEmail(request.email).subscribe((data:any) => {
+  //     console.log(data);
+  //     this.referedRecipient.push(data[0]);
+  //   });
+  //   if (this.referedRecipient[0].referedBy === "None") {      
+  //     if (request.status == "Processing" || "completed") {
+  //       return false;
+  //     } else {
+  //       return true;
+  //     }
+  //   } else {
+  //     request.status = "Processing";
+  //     this.appService.putRequests(request).subscribe((data:any) => {
+  //       console.log(request);
+  //     })
+  //     return false;
+  //   }
+  // }
 
   onClickAssign(volunteer) {
     // this.volunteers = [];

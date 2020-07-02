@@ -15,6 +15,8 @@ export class MyRecipientsComponent implements OnInit {
   email: any = "";
   addedRecipients = [];
   requests = [];
+  recipientEmail: any = "";
+  recipientContact: any = "";
   constructor(private appService: AppService,private router: Router, private navbarService: NavbarService) { }
 
   ngOnInit() {
@@ -24,7 +26,13 @@ export class MyRecipientsComponent implements OnInit {
     console.log(this.email)
     this.appService.getRecipientsByReferedBy(this.email).subscribe(async(data:any) => {
       console.log(data);
-      await this.addedRecipients.push(data);
+      for(let recipient of data) {
+        this.recipientEmail = recipient.email;
+        await this.addedRecipients.push(recipient);
+        this.appService.getUserByEmail(this.recipientEmail).subscribe(async(data:any) => {
+          this.recipientContact = data[0].contact;
+        })
+      }
     })
     console.log(this.addedRecipients);
   }

@@ -26,7 +26,7 @@ export class VolunteerComponent implements OnInit {
           this.loginData = data;
           console.log(this.loginData[0]);
           console.log(this.loginData[0].email)
-      })
+        })
         this.appService.getRequests().subscribe((data:any) => {
             console.log(data)
             for (let request of data) {

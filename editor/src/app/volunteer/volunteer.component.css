@@ -31,11 +31,12 @@ label{
     justify-content: center;
     align-items: center;
     display:none;
+    overflow: scroll;
 }
 
 .content{
     width:40vh;
-    height:22vh;
+    /* height:22vh; */
     background-color: white;
     border-radius: 4px;
     text-align: center;
