@@ -1,5 +1,5 @@
 <!-- <h1 class="display-3 text-center">Welcome to Donor Portal</h1> -->
-<h1 class="display-5 text-center" *ngFor="let login of loginData">Welcome {{ login.name }}</h1>
+<h1 class="display-5 text-center mt-3" *ngFor="let login of loginData">Welcome {{ login.name }}</h1>
 <div class="row">
     <div id="request-type" class="input-group col-lg-2 col-sm-2 mb-2 mt-2" data-size = "5">
         <!-- <div class="input-group-prepend"> -->
@@ -38,6 +38,8 @@
     </div>    
 </div>
 
+<h1 class="text-center noResult" style="color:darkgray; align-items: center;" *ngIf="result">No Volunteers Available</h1>
+
 <table class="table table1 table-striped table-responsive-md mt-3 ml-2">
     <thead class="text-light bg-dark">
         <tr>
@@ -63,7 +65,7 @@
             <td>{{ volunteer.email }}</td>
             <td>{{ volunteer.contact }}</td>
             <td>{{ volunteer.state }}</td>
-            <td><button class="btn btn-sm btn-primary" (click)="showRecipients(volunteer.email)"><strong>Details</strong></button></td>
+            <td><button type="button" class="btn btn-sm btn-primary py-0" (click)="showRecipients(volunteer.email)"><strong>Details</strong></button></td>
             <!-- <td *ngIf="volunteer.status == 'pending' "><strong>{{ request.handledBy }}</strong></td>
             <td *ngIf="request.status == 'processing' "><button class="btn btn-sm btn-primary" (click)="showVolunteerDetails(request.handledBy)"><strong>Details</strong></button></td> -->
             <!-- <td>
@@ -109,13 +111,15 @@
                     <td>{{ request.type }}</td>
                     <td>{{ request.amount }}</td>
                     <!-- <td>{{ request.state }}</td> -->
-                    <td>{{ request.description }}</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-secondary py-0" (click)="showDescription(request.description)">View</button>
+                    </td>
                     <!-- <td *ngIf="request.status == 'pending' "><strong>{{ request.handledBy }}</strong></td> -->
                     <!-- <td *ngIf="request.status == 'processing' "><button class="btn btn-sm btn-primary" (click)="showVolunteerDetails(request.handledBy)"><strong>Details</strong></button></td> -->
                     <!-- <td>
                         <button class="btn btn-sm btn-danger mr-5 Delete" (click)="OnDeleteRequest(request.email)">Delete</button>
                     </td> -->
-                    <td *ngIf="showDonor(request)"><button class="btn btn-sm btn-success mr-5 Delete" (click)="donate(request)">Donate</button></td>
+                    <td *ngIf="showDonor(request)"><button type="button" class="btn btn-sm btn-success mr-5 py-0" (click)="donate(request)">Donate</button></td>
                     <td *ngIf="!showDonor(request)">Processing</td>
                     <!-- <td>
                         <button type="button" class="btn btn-sm btn-success py-0" (click)="selectCheckBox(item, $event.target.checked)">Approve</button>
@@ -126,5 +130,16 @@
                 </tr>        
             </tbody>            
         </table>
+    </div>
+</div>
+
+<div class="popup-descriptionModel">
+    <div class="descriptionContent">
+        <div class="close" (click)="onDescriptionClose()">+</div>
+        <h3 class="popup-header">Description</h3>
+        <hr>
+        <div>
+            <label>{{ description }}</label>        
+        </div>
     </div>
 </div>

@@ -14,6 +14,7 @@ export class VolunteerComponent implements OnInit {
     constructor(private appService: AppService,private router: Router, private navbarService: NavbarService) { }
     loginData = [];
     email:any = "";
+    description: any = "";
 
     ngOnInit() {
         this.loginVolunteer();
@@ -23,6 +24,8 @@ export class VolunteerComponent implements OnInit {
         this.appService.getUserByEmail(this.email).subscribe((data:any) => {
           this.loginData = [];
           this.loginData = data;
+          console.log(this.loginData[0]);
+          console.log(this.loginData[0].email)
       })
         this.appService.getRequests().subscribe((data:any) => {
             console.log(data)
@@ -50,6 +53,15 @@ export class VolunteerComponent implements OnInit {
             // window.location.reload();
             console.log(data)
         })
+    }
+
+    showDescription(description) {
+        this.description = description;
+        document.querySelector(".popup-model").setAttribute("style","display:flex;");
+    }
+
+    onClickClose() {
+        document.querySelector(".popup-model").setAttribute("style","display:none;");
     }
 
     showUpdateButton(status) {

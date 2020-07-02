@@ -22,6 +22,7 @@ export class RecipientComponent implements OnInit {
     requestType: any = ['None','SwayamPakam', 'Clothes', 'Education', 'Medicines', 'Finance']; 
     occupation:any ={disabled: false, value: ""};
     description:any ={disabled: false, value: ""};
+    descriptionContent: any = "";
     constructor(private appService: AppService, private router: Router, private navbarService: NavbarService) { }
 
     ngOnInit() {
@@ -56,6 +57,7 @@ export class RecipientComponent implements OnInit {
     onClickClose() {
         document.querySelector('.bg-model').setAttribute("style","display:none;");
         document.querySelector('.popup-model').setAttribute("style","display:none;");
+        document.querySelector('.popup-descriptionModel').setAttribute("style","display:none;");
     }
 
     onTypeChange(event) {
@@ -122,22 +124,27 @@ export class RecipientComponent implements OnInit {
         console.log(id)
         // this.alert = true;
         // window.confirm("Are you sure?")
-        document.querySelector(".alert").setAttribute("style","display:flex; justify-content:center; align-items:center");
-        if(this.alert) {
-            this.appService.deleteRequest(id).subscribe((data) => {
-                window.location.reload();
-            })
-        }
+        // document.querySelector(".alert").setAttribute("style","display:flex; justify-content:center; align-items:center");
+        // if(this.alert) {
+        //     this.appService.deleteRequest(id).subscribe((data) => {
+        //         window.location.reload();
+        //     })
+        // }
+        this.alert = id;
+        document.querySelector(".alert-model").setAttribute("style","display:flex;");
     }
 
     onConfirm() {
-        this.alert = true;
-        document.querySelector(".alert").setAttribute("style","display:none");
+        // this.alert = true;
+        document.querySelector(".alert-model").setAttribute("style","display:none");
+        this.appService.deleteRequest(this.alert).subscribe((data) => {
+            window.location.reload();
+        })
     }
 
     onCancel() {
-        this.alert = false;
-        document.querySelector(".alert").setAttribute("style","display:none");
+        // this.alert = false;
+        document.querySelector(".alert-model").setAttribute("style","display:none");
     }
 
     statusChange(status) {
@@ -163,5 +170,11 @@ export class RecipientComponent implements OnInit {
             this.volunteerDetails.push(data);
             document.querySelector('.popup-model').setAttribute("style","display:flex;");
         })
+        console.log(this.volunteerDetails);
+    }
+
+    showDescription(description) {
+        this.descriptionContent = description;
+        document.querySelector('.popup-descriptionModel').setAttribute("style","display:flex;");
     }
 }

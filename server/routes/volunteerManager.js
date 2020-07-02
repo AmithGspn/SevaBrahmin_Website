@@ -32,6 +32,7 @@ router.post('/', async function (req, res, next) {
                 requestType: req.body.requestType,
                 city: req.body.city,
                 country: req.body.country,
+                requests_handled: req.body.requests_handled
             };
 
             let newDoc = await volunteerModel.create(data);
@@ -79,6 +80,7 @@ router.put('/', async function (req, res, next) {
         requestType: req.body.requestType,
         city: req.body.city,
         country: req.body.country,
+        requests_handled: req.body.requests_handled
     };
 
     try {

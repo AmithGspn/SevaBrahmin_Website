@@ -34,8 +34,10 @@ export class NavbarService {
   volunteerTabs() {
     // this.removeItem({  text: 'Recipients' })
     this.removeItem({  text: 'Add Recipients' })
+    this.removeItem({ text: 'My Recipients' })
     // this.addItem({ text: 'Recipients', path: 'volunteer/showrecipients' });
     this.addItem({ text: 'Add Recipients', path: 'volunteer/addrecipients'});
+    this.addItem({ text: 'My Recipients', path: 'volunteer/myrecipients'});
   }
 
   adminTabs(){
@@ -69,6 +71,8 @@ export class NavbarService {
       this.volunteerTabs();
     // } else if (role === 'volunteer/showrecipients') {
     //   this.volunteerTabs();
+    } else if (role === 'volunteer/myrecipients') {
+      this.volunteerTabs();
     } else if (role === 'volunteer/addrecipients') {
       this.volunteerTabs();
     }

@@ -19,6 +19,20 @@ function verifyToken(req, res, next) {
     next()
 }
 
+router.get('/getRecipientsByReferedBy', async function (req, res, next) {
+    let referedBy= req.body['referedBy'] || req.query['referedBy']
+    let user = await new Promise((resolve, reject) =>
+    recipientModel.getRecipientsByReferedBy(referedBy, (err, docs) => err ? reject(err) : resolve(docs)));
+    return res.status(200).json(user);
+})
+
+router.get('/getRecipientByEmail', async function (req, res, next) {
+    let email= req.body['email'] || req.query['email']
+    let user = await new Promise((resolve, reject) =>
+    recipientModel.getRecipientByEmail(email, (err, docs) => err ? reject(err) : resolve(docs)));
+    return res.status(200).json(user);
+})
+
 router.post('/', async function (req, res, next) {
     data = {
         email: req.body.email,
@@ -30,7 +44,8 @@ router.post('/', async function (req, res, next) {
         state: req.body.state,
         city: req.body.city,
         country: req.body.country,
-        volunteerNo: req.body.volunteerNo || " "
+        volunteerNo: req.body.volunteerNo || " ",
+        referedBy: req.body.referedBy
     };
 
     try {

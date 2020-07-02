@@ -18,6 +18,8 @@ export class DonorComponent implements OnInit {
   state:any = "State";
   type:any = "Request Type";
   email:any = "";
+  result: any = "";
+  description: any = "";
   constructor(private appService: AppService, private router: Router, private navbarService: NavbarService) { }
 
   ngOnInit() {
@@ -28,14 +30,15 @@ export class DonorComponent implements OnInit {
       this.appService.getUserByEmail(this.email).subscribe((data:any) => {
         this.loginData = [];
         this.loginData = data
-        // this.appService.getVolunteer().subscribe((data:any) => {
-        //     for(let volunteer of data) {
-        //         if (volunteer.approved == true) {
-        //           this.volunteersList.push(volunteer);
-        //         }
-        //     }
-        // })
+        this.appService.getVolunteer().subscribe(async(data:any) => {
+            for(let volunteer of data) {
+                if (volunteer.approved == true) {
+                  await this.volunteersList.push(volunteer);
+                }
+            }
+        })
     })
+    console.log(this.volunteersList)
   }
 
   loginDonor() {
@@ -48,6 +51,7 @@ export class DonorComponent implements OnInit {
     this.requestList = [];
     console.log(handledBy)
     this.appService.getRequestsByHandledBy(handledBy).subscribe((data:any) => {
+      console.log("hellobro")
       console.log(data);
       for (let request of data) {
         console.log(request)
@@ -55,6 +59,7 @@ export class DonorComponent implements OnInit {
         document.querySelector('.popup-model').setAttribute("style","display:flex;");
       }
     })
+    console.log(this.requestList);
   }
 
   donate(request) {
@@ -79,27 +84,59 @@ export class DonorComponent implements OnInit {
     this.state = event;
   }
 
-  onSubmit() {
+  async onSubmit() {
+    document.querySelector('.table1').setAttribute("style","display:none");
     this.volunteersList = [];
-    if(this.type === 'Request Type' || this.state === 'State') {
-      this.error_class = true;
-    } else {
-      this.appService.getVolunteer().subscribe((data:any) => {
-        for (let volunteer of data) {
-          if(volunteer.state === this.state && volunteer.requestType === this.type) {
-            this.volunteersList.push(volunteer);
+    if(this.type === 'Request Type' && this.state === 'State') {
+      // this.error_class = true;
+      await this.appService.getVolunteer().subscribe((data:any) => {
+        for(let volunteer of data) {
+          while(this.volunteersList.length < 3) {
+            this.volunteersList.push(volunteer)
+            this.Validation()
           }
         }
-      document.querySelector('.table1').setAttribute("style","display:inline-table");
-    })
-  }
+      })
+    } else {
+      console.log("hgkhslfglskg");
+      await this.appService.getVolunteer().subscribe(async(data:any) => {
+        console.log(data)
+        data.forEach(async volunteer => {
+          if(volunteer.state === this.state && volunteer.requestType === this.type && volunteer.approved === true) {
+            await this.volunteersList.push(volunteer);
+            this.Validation()
+          }
+        });
+      })
+    }
+    console.log(this.volunteersList);
 }
 
+  Validation() {
+    if(this.volunteersList.length == 0) {
+      this.result = true;
+    } else {
+      this.result = false;
+      document.querySelector('.table1').setAttribute("style","display:inline-table");
+    }
+  }
+
+  // disablebutton() {
+  //   if(this.type == )
+  // }
 
   onClickClose() {
     // document.querySelector('.bg-model').setAttribute("style","display:none;");
     document.querySelector('.popup-model').setAttribute("style","display:none;");
-}
+  }
 
+  onDescriptionClose() {
+    document.querySelector('.popup-descriptionModel').setAttribute("style","display:none;")
+  }
+
+  showDescription(description) {
+    this.description = description;
+    document.querySelector('.popup-descriptionModel').setAttribute("style","display:flex;")
+  }
 
 }

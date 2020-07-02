@@ -7,26 +7,34 @@
             <th scope="col">Email</th>
             <th scope="col">Type</th>
             <th scope="col">Amount</th>
-            <th scope="col" class="text-center">Description</th>
             <th scope="col">Status</th>
+            <th></th>
+            <th></th>
             <!-- <th scope="col">Handled By</th> -->
-            <th></th>
-            <th></th>
+            <!-- <th></th> -->
+            <!-- <th></th> -->
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let request of requests; index as i">
             <td>{{ i+1 }}</td>
-            <td class="text-center">{{ request.name }}</td>
+            <td>{{ request.name }}</td>
             <td>{{ request.contact }}</td>
             <td>{{ request.email }}</td>
             <td>{{ request.type }}</td>
-            <td class="text-center">{{ request.amount }}</td>
-            <td>{{ request.description}}</td>
+            <td>{{ request.amount }}</td>
             <td>{{ request.status }}</td>
             <td>
-                <button type="button" class="btn btn-sm btn-success py-0" (click)="onClickAssign(request)" *ngIf="showAssignButton(request.status)">Assign</button>
+                <!-- *ngIf="showAssignButton(request.status)" -->
+                <button type="button" class="btn btn-sm btn-info py-0" (click)="onClickDetails(request)">View Details</button>
             </td>
+            <td *ngIf="onAssigned(request)">
+                <button type="button" class="btn btn-sm btn-success py-0" (click)="onShowVolunteers(request)">Volunteers</button>
+            </td>
+            <td *ngIf="!(onAssigned(request))">{{ request.handledBy }}</td>
+            <!-- <td>
+                <button type="button" class="btn btn-sm btn-success py-0" (click)="onClickAssign(request)" *ngIf="showAssignButton(request.status)">Assign</button>
+            </td> -->
             <!-- <td>
                 <button type="button" class="btn btn-sm btn-danger py-0" (click)="selectCheckBox(item, $event.target.checked)">Decline</button>
             </td> -->
@@ -37,11 +45,29 @@
 <div class="bg-model">
     <div class="model-content">
         <div class="close" (click)="onClickClose()">+</div>
-        <h3 class="header mr-auto">Assign Volunteer</h3>
+        <div class="Details">
+            <h3 class="header mr-auto">Details</h3>
+            <hr>
+            <form action="#">
+                <div class="row">
+                    <div *ngFor="let recipient of recipients">
+                            <label class="col-lg-12">Country : {{ recipient.country }}</label>
+                            <label class="col-lg-12">State : {{ recipient.state }}</label>
+                            <label class="col-lg-12">City : {{ recipient.city }}</label>
+                        <!-- </div>         -->
+                    </div>
+                    <div *ngFor="let request of request_details">
+                        <label class="col-lg-12">Occupation : {{ request.occupation }}</label>
+                        <label class="col-lg-12">Description : {{ request.description }}</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- <h3 class="header mr-auto">Assign Volunteer</h3>
         <hr>
-        <form action="#">
+        <form action="#"> -->
             <!-- Volunteers list -->
-            <div class="input-group1">
+            <!-- <div class="input-group1">
                 <select (blur)="onVolunteerChange($event.target.value)" class="custom-select form-control bg-white border-md " name="VolunteerList">
                     <option> Select</option>
                     <ng-container *ngFor="let volunteer of volunteers">
@@ -53,6 +79,75 @@
                 </select>
             </div>       
             <button class="btn btn-primary mt-2 submit" (click)="saveDetails()">OK</button>
-        </form>  
+        </form>   -->
     </div>   
+</div>
+
+
+<div class="popup-model">
+    <div class="content">
+        <div class="close" (click)="onClickClose()">+</div>
+        <h2 class="mt-3">Volunteer Details</h2>
+        <hr>
+        <!-- <input type="text" name="state" () -->
+        <div class="row filter">
+            <!-- <div> -->
+                <input type="text" name="country" placeholder="Country" (blur)="onCountryChange()" class="col-lg-1 col-sm-1 ml-5">
+            <!-- </div> -->
+                <input type="text" name="state" placeholder="State" (blur)="onCountryChange()" class="col-lg-1 col-sm-1 ml-5">
+            <!-- <div class="col-lg-4"> -->
+                <input type="text" name="city" placeholder="City" (blur)="onCountryChange()" class="col-lg-1 col-sm-1 ml-5">
+            <!-- </div> -->
+                <!-- <div class="input-group col-lg-2 col-sm-2 mb-4 mt-2"> -->
+                <button class="Submit btn btn-success ml-5" (click)="onSubmit()"><strong class="text-center">Submit</strong></button>
+                <!-- </div> -->
+            <!-- <div class="col-lg-4"> -->
+
+            <!-- </div> -->
+        </div>
+        <table class="table table-dark table-responsive-md mt-4 table-pos" style="border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Volunteer Name</th>
+                    <th scope="col">Contact</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Country</th>
+                    <th scope="col">State</th>
+                    <th scope="col">City</th>
+                    <th scope="col">Requests Handled</th>
+                    <!-- <th></th> -->
+                    <th></th>
+                    <!-- <th scope="col">Handled By</th> -->
+                    <!-- <th></th> -->
+                    <!-- <th></th> -->
+                </tr>
+            </thead>            
+            <tbody>
+                <tr *ngFor="let volunteer of volunteers; index as i">
+                    <td>{{ i+1 }}</td>
+                    <td>{{ volunteer.firstName }}</td>
+                    <td>{{ volunteer.contact }}</td>
+                    <td>{{ volunteer.email }}</td>
+                    <td>{{ volunteer.country }}</td>
+                    <td>{{ volunteer.state }}</td>
+                    <td>{{ volunteer.city }}</td>
+                    <td>{{ volunteer.requests_handled }}</td>
+                    <!-- <td> -->
+                        <!-- *ngIf="showAssignButton(request.status)" -->
+                        <!-- <button type="button" class="btn btn-sm btn-info py-0" (click)="onClickDetails(request)">View Details</button>
+                    </td> -->
+                    <td>
+                        <button type="button" class="btn btn-sm btn-success py-0" (click)="onClickAssign(volunteer)">Assign</button>
+                    </td>
+                    <!-- <td>
+                        <button type="button" class="btn btn-sm btn-success py-0" (click)="onClickAssign(request)" *ngIf="showAssignButton(request.status)">Assign</button>
+                    </td> -->
+                    <!-- <td>
+                        <button type="button" class="btn btn-sm btn-danger py-0" (click)="selectCheckBox(item, $event.target.checked)">Decline</button>
+                    </td> -->
+                </tr>        
+            </tbody>
+        </table>
+    </div>
 </div>

@@ -1,46 +1,7 @@
-/*
-*
-* ==========================================
-* CUSTOM UTIL CLASSES
-* ==========================================
-*
-*/
 
 .border-md {
     border-width: 2px;
 }
-/* 
-.btn-facebook {
-    background: #405D9D;
-    border: none;
-}
-
-.btn-facebook:hover, .btn-facebook:focus {
-    background: #314879;
-}
-
-.btn-twitter {
-    background: #42AEEC;
-    border: none;
-}
-
-.btn-twitter:hover, .btn-twitter:focus {
-    background: #1799e4;
-}
-
-.alertClass {
-    margin-top: 20px;
-    padding-left: 15px;
-    width: 555px;
-} */
-
-/*
-*
-* ==========================================
-* FOR DEMO PURPOSES
-* ==========================================
-*
-*/
 
 body {
     min-height: 100vh;
@@ -120,28 +81,6 @@ select.form-control {
     cursor: pointer;
 }
 
-/* 
-input {
-    width:75%;
-    margin:3rem 0 3rem 4.3rem;
-}
-
-select{
-    width: 0;
-    margin-left: 4rem;
-}
-.tarea{
-    width: 75%;
-    margin-top: 10rem;
-    margin-left: 4.5rem;
-} */
-
-/* .input-group{
-    width: 85%;
-    margin-top: 1.5rem;
-    margin-left: 4rem;
-} */
-
 .input-group1{
     width:90%;
     margin-top: 1.5rem;
@@ -178,11 +117,9 @@ table{
 td{
     width:10%;
     text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
-
-/* .Delete{
-    margin-left: 40rem;
-} */
 
 :required  {  
     background: url("../../assets/asterisk.jpeg") no-repeat;
@@ -194,11 +131,70 @@ td{
     margin-left: 90%;
 }
 
+.alert-content{
+    width:35vh;
+    height:15vh;
+    background-color: white;
+    border-radius: 4px;
+    text-align: center;
+    position: relative;
+}
 
-/* .header{
-    /* margin-left: 0.5rem;
-    text-align: left; */
+.alert-model{
+    width:100%;
+    height:100%;
+    background-color: rgba(0,0,0,0.7);
+    position: absolute;
+    top:1rem;
+    display:flex;
+    justify-content: center;
+    display:none;    
+}
 
-.alert {
-    display: none;
+.row{
+    margin-top: 2.5rem;
+    justify-content: center;
+}
+
+.delete{
+    margin-left: 2rem;
+}
+
+.popup-descriptionModel{
+    width:100%;
+    height:100%;
+    background-color: rgba(0,0,0,0.7);
+    position: absolute;
+    top:0;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    display:none;
+    /* overflow: scroll; */
+}
+
+label{
+    text-align: left;
+    margin-left: 0.8rem;
+    width: 35vh;
+    overflow-wrap: break-word;
+}
+
+.descriptionContent{
+    width:40vh;
+    /* height:22vh; */
+    background-color: white;
+    border-radius: 4px;
+    text-align: justify;
+    padding-left: 10px;
+    padding-right: 10px;
+    position: relative;
+    /* overflow: visible; */
+    /* overflow-y: auto; */
+    /* margin-right: 2px; */
+}
+
+.popup-descriptionHeader{
+    text-align: center;
+    margin-bottom: 0;
 }

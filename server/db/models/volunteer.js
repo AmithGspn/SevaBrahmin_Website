@@ -48,6 +48,9 @@ let volunteerSchema = Schema({
         type: String,
         // enum: ['None','food', 'clothes', 'education', 'medicines', 'finance'],
         required: [true, "required"]
+    },
+    requests_handled: {
+        type: Number
     }
 }, {
     collection: config.collections.volunteers

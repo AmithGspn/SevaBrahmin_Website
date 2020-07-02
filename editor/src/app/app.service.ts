@@ -20,6 +20,8 @@ export class AppService {
     private getRequestsByEmailUrl = apiUrls.getRequestsByEmail;
     private getVolunteerByEmailUrl = apiUrls.getVolunteerByEmail;
     private getRequestsByHandledByUrl = apiUrls.getRequestsByHandledBy;
+    private getRecipientsByReferedByUrl = apiUrls.getRecipientsByReferedBy;
+    private getRecipientByEmailUrl = apiUrls.getRecipientsByEmail;
 
     handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
@@ -38,6 +40,22 @@ export class AppService {
         }
     }
 
+    getRecipientsByReferedBy(referedBy) {
+        console.log(referedBy)
+        return this.httpClient.get(this.getRecipientsByReferedByUrl + '?referedBy='+referedBy, this.httpOptions)
+        .pipe(
+            catchError(this.handleError)
+        );
+    }
+
+    getRecipientByEmail(email) {
+        console.log(email)
+        return this.httpClient.get(this.getRecipientByEmailUrl + '?email='+email, this.httpOptions)
+        .pipe(
+            catchError(this.handleError)
+        );
+    }
+    
     getVolunteerByEmail(emailId) {
         console.log(emailId)
         return this.httpClient.get(this.getVolunteerByEmailUrl + '?emailId='+emailId, this.httpOptions)

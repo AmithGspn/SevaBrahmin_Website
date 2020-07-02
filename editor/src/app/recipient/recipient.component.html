@@ -5,7 +5,7 @@
     <i class="fa fa-trash-o icon-large"></i> Delete</a> -->
     
 <h1 class="display-5 text-center" *ngFor= "let item of loginData">Welcome {{ item.name }}</h1>
-<div class="row mt--3">
+<div class="row mt-0">
     <button class="btn btn-success request" (click)="OnClickRequest()"><i>+</i> Request</button>
 </div>
 <table class="table table-striped table-responsive-md mt-3 ml-2">
@@ -32,29 +32,37 @@
             <!-- <td>{{ request.occupation }}</td> -->
             <td>{{ request.type }}</td>
             <td>{{ request.amount }}</td>
-            <td>{{ request.description }}</td>
+            <td>
+                <button type="button" class="btn btn-sm btn-secondary py-0" (click)="showDescription(request.description)"><strong>View</strong></button>
+            </td>
             <td>{{ request.status }}</td>
             <!-- == 'processing'  -->
             <!-- request.status == 'pending'  -->
             <td *ngIf="statusChange1(request.status)"><strong>{{ request.handledBy }}</strong></td>
-            <td *ngIf="statusChange(request.status)"><button class="btn btn-sm btn-primary" (click)="showVolunteerDetails(request.handledBy)"><strong>Details</strong></button></td>
+            <td *ngIf="statusChange(request.status)"><button type="button" class="btn btn-sm btn-primary py-0" (click)="showVolunteerDetails(request.handledBy)"><strong>Details</strong></button></td>
             <td>
-                <button class="btn btn-sm btn-danger mr-5 Delete" (click)="OnDeleteRequest(request.id)">Delete</button>
+                <button class="btn btn-sm btn-danger mr-5 Delete py-0" (click)="OnDeleteRequest(request.id)">Delete</button>
             </td>
-            <!-- <td>
-                <button type="button" class="btn btn-sm btn-success py-0" (click)="selectCheckBox(item, $event.target.checked)">Approve</button>
-            </td> -->
-            <!-- <td>
-                <button type="button" class="btn btn-sm btn-danger py-0" (click)="selectCheckBox(item, $event.target.checked)">Decline</button>
-            </td> -->
         </tr>        
     </tbody>
 </table>
-<div class="alert alert-danger" role="alert">
+<!-- <div class="alert alert-danger" role="alert">
     <h3>Are you sure ?</h3>
     <div class="row">
         <button class="btn btn-primary" (click)="onConfirm()">Confirm</button>
         <button class="btn btn-light" (click)="onCancel()">Cancel</button>
+    </div>
+</div> -->
+
+<div class="alert-model">
+    <div class="alert-content">
+        <h3>Are you sure ?</h3>
+        <form action="#">
+            <div class="row">
+                <button class="btn btn-primary confirm py-0" (click)="onConfirm()">Confirm</button>
+                <button class="btn btn-light delete py-0" (click)="onCancel()">Cancel</button>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -142,6 +150,17 @@
             </div> -->
             <!-- <button class="btn btn-primary mt-4 submit" (click)="saveDetails()">Submit</button> -->
         </form>  
+    </div>
+</div>
+
+<div class="popup-descriptionModel">
+    <div class="descriptionContent">
+        <div class="close" (click)="onClickClose()">+</div>
+        <h3 class="popup-descriptionHeader">Description</h3>
+        <hr>
+        <div>
+            <label>{{ descriptionContent }}</label>        
+        </div>
     </div>
 </div>
 

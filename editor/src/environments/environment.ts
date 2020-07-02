@@ -18,7 +18,9 @@ export const apiUrls = {
   getUserByEmail: apiServer + 'userRegisterationManager/getUserByEmail',
   getRequestsByEmail: apiServer + 'requestManager/getRequestsByEmail',
   getVolunteerByEmail: apiServer + 'volunteerManager/getVolunteerByEmail',
-  getRequestsByHandledBy: apiServer + 'requestManager/getRequestsByHandledBy'
+  getRequestsByHandledBy: apiServer + 'requestManager/getRequestsByHandledBy',
+  getRecipientsByReferedBy: apiServer + 'recipientManager/getRecipientsByReferedBy',
+  getRecipientsByEmail: apiServer + 'recipientManager/getRecipientByEmail'
 };
 
 /*

@@ -92,4 +92,26 @@ recipientSchema.statics.getAllRecipients = function (callback) {
     })
 };
 
+recipientSchema.statics.getRecipientsByReferedBy = function (referedBy,callback) {
+    this.find({ referedBy: referedBy }, projectionsDefaults).lean().exec(function (err, Recipients) {
+        if (err) {;
+            return callback(err);
+        }
+        if (Recipients) {
+            return callback(null, Recipients);
+        }
+    })
+};
+
+recipientSchema.statics.getRecipientByEmail = function (email,callback) {
+    this.find({ email: email }, projectionsDefaults).lean().exec(function (err, Recipients) {
+        if (err) {;
+            return callback(err);
+        }
+        if (Recipients) {
+            return callback(null, Recipients);
+        }
+    })
+};
+
 module.exports = db.model('recipients', recipientSchema);

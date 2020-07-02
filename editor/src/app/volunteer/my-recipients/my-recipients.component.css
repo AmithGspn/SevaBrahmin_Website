@@ -1,0 +1,19 @@
+th{
+    font-size: 2vh;
+    text-align: center;
+}
+
+td{
+    width:10%;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+table{
+    width: 99%;
+}
+
+.width-th {
+    width: 15rem;
+}

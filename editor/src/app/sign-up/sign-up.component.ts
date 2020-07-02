@@ -280,7 +280,8 @@ export class SignUpComponent implements OnInit {
             city: this.city,
             country: this.country.value,
             state: this.state,
-            requestType: "None"
+            requestType: "None",
+            requests_handled: 0
         };
 
         if ( this.checkedValue === "Volunteer") {
@@ -338,7 +339,8 @@ export class SignUpComponent implements OnInit {
             country: this.country.value,
             state: this.state,
             bankAccountNumber: this.bankDetails,
-            IFSC: this.ifsc
+            IFSC: this.ifsc,
+            referedBy: "None"
         }
 
         console.log(recipientData)

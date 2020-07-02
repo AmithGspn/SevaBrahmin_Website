@@ -15,6 +15,7 @@ import { AuthGuard } from './auth.guard';
 import { AppService } from './app.service';
 import { ApprovedUsersComponent } from './admin/approved-users/approved-users.component';
 import { RequestsComponent } from './admin/requests/requests.component';
+import { MyRecipientsComponent } from './volunteer/my-recipients/my-recipients.component';
 
 @Component({
   selector: 'app-root',
@@ -35,7 +36,7 @@ export class AppComponent {
       { path: 'admin/requests', component: RequestsComponent, canActivate: [AuthGuard] },
       // { path: 'volunteer/registeration', component: VolunteerRegisterationComponent, canActivate: [AuthGuard] },
       { path: 'volunteer/addrecipients', component: AddRecipientsComponent, canActivate: [AuthGuard] },
-      // { path: 'volunteer/showrecipients', component: VolunteerShowRecipientsComponent, canActivate: [AuthGuard] },
+      { path: 'volunteer/myrecipients', component: MyRecipientsComponent, canActivate: [AuthGuard] },
       // { path: 'recipient/registeration', component: RecipientRegisterationComponent, canActivate: [AuthGuard] },
       // { path: 'donor/registeration', component: DonorRegisterationComponent, canActivate: [AuthGuard] },
       // { path: 'donor/showrecipients', component: DonorShowRecipientsComponent, canActivate: [AuthGuard] },

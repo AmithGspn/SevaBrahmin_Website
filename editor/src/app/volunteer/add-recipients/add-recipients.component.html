@@ -1,1 +1,216 @@
-<p>add-recipients works!</p>
+<div class="container mt-2">
+    <div class="row align-items-center">
+        <!-- Registeration Form -->
+        <div class="col-md-7 col-lg-6 mr-auto">
+            <form action="#">
+                <div class="row">
+                    <div class="form-group col-lg-12 mx-auto d-flex align-items-center my-3">
+                        <div class="border-bottom w-25 ml-5 border border-dark"></div>
+                        <span class="px-2 large text-muted font-weight-bold text-muted">Please fill the details</span>
+                        <div class="border-bottom w-25 mr-0 border border-dark"></div>
+                    </div>
+                    <div class="text-start col-lg-12">
+                        <p class="text-muted font-weight-bold"><sup><img src="../../assets/asterisk.jpeg" alt="asterisk" height="10px" width="10px"></sup> indicates a required field</p>
+                    </div>
+                    <!-- FirstName -->
+                    <div class="input-group col-lg-6 mb-4">
+                        <div class="input-group-prepend w-100">
+                            <input id="firstName" type="text" required="required" name="firstname" [ngClass]="firstName.disabled == false ? 'form-control bg-white border-md' : 'is-invalid' " (blur)="onFirstNameChange($event.target.value)" placeholder="First Name" class="form-control bg-white border-md">                
+                        </div>
+                        <div *ngIf="firstName.disabled == true" class="text-danger">
+                            <small>please enter Name</small>    
+                        </div>
+                    </div>
+                    <!-- FamilyName -->
+                    <div class="input-group col-lg-6 mb-4">
+                        <div class="input-group-prepend w-100">
+                            <input id="familyname" type="text" required="required" name="familyname" [ngClass]="familyName.disabled == false ? 'form-control bg-white border-md' : 'is-invalid' " (blur)="onFamilyNameChange($event.target.value)" placeholder="Family Name" class="form-control bg-white border-md">
+                        </div>
+                        <div *ngIf="familyName.disabled == true" class="text-danger">
+                            <small>please enter Name</small>    
+                        </div>
+                    </div>                    
+                    <!-- Email Address -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend w-100">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-envelope text-muted"></i>
+                            </span>
+                            <input id="email" type="email" name="email" required="required" placeholder="Email Address" (blur)="onEmailChange($event.target.value)" [ngClass]="emailAddress.disabled == false ? 'form-control bg-white border-left-0 border-md' : 'is-invalid'" class="form-control bg-white border-left-0 border-md">
+                        </div>
+                        <div *ngIf="emailAddress.disabled == true" class="text-danger">
+                            <small> please provide a valid email</small>
+                        </div>
+                    </div>
+
+                    <!-- Phone Number -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend w-100">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-phone-square text-muted"></i>
+                            </span>
+                            <select id="countryCode" name="countryCode" (click)="updateList($event.target.value)" style="max-width: 80px"  class="custom-select form-control bg-white border-left-0 border-md font-weight-bold text-muted">
+                                <option value="91">+91</option>
+                                <option value="1">+1</option>
+                            </select>
+                            <input id="phoneNumber" type="tel" required="required" name="phone" placeholder="Phone Number" [ngClass]="contact.disabled == false ? 'form-control bg-white border-md border-left-0 pl-3' : 'is-invalid'" (blur)="onContactChange($event.target.value)" class="form-control bg-white border-md border-left-0 pl-3">
+                        </div>
+                        <div *ngIf="contact.disabled == true" class="text-danger">
+                            please provide a valid contact number
+                        </div>
+                    </div>
+
+                    <!-- Age -->
+                    <div class="input-group col-lg-6 mb-4">
+                        <div class="input-group-prepend w-100">
+                            <input id="age" type="number" min="18" max="90" name="age" onkeydown="return event.keyCode !== 69" (blur)="onAgeChange($event.target.value)" [ngClass]="age" placeholder="Age" class="form-control bg-white  border-md">                
+                        </div>
+                        <div *ngIf="age.disabled == true" class="text-danger">
+                            Age must be between 18 to 90
+                        </div>
+                    </div>
+                    <!-- Gender -->
+                    <div class="input-group col-lg-6 mb-4">
+                        <div class="input-group-prepend">
+                        </div>
+                        <select (blur)="onGenderChange($event.target.value)" class="custom-select h-120 form-control bg-white border-md " name="Gender">
+                            <option value="male"> Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <!-- Password -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend w-100">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-lock text-muted"></i>
+                            </span>
+                            <input id="password" type="password" required="required" name="password" placeholder="Password" [ngClass]="password.disabled == false ? 'form-control bg-white border-md border-left-0' : 'is-invalid'" (blur)="onPasswordChange($event.target.value)" class="form-control bg-white border-left-0 border-md">
+                        </div>
+                        <div *ngIf="password.disabled == true" class="text-danger">
+                            password must be atleast 8 characters long 
+                        </div>                    
+                    </div>
+                    <!-- Password Confirmation -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend w-100">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0 h-80">
+                                <i class="fa fa-lock text-muted"></i>
+                            </span>
+                            <input id="passwordConfirmation" type="password" required="required" name="passwordConfirmation" [ngClass]="rePassword.disabled == false ? 'form-control bg-white border-left-0 border-md' : 'is-invalid'"  (keyup)="onRePasswordChange($event.target.value)" placeholder="Confirm Password" class="form-control bg-white border-left-0 border-md">
+                        </div>
+                        <div *ngIf="rePassword.disabled == true" class="text-danger">
+                            passwords are not matching
+                        </div>
+                        <div *ngIf="rePassword.value == password.value && rePassword.value != ''" class="text-success">
+                            passwords match
+                        </div> 
+                    </div>
+                    <!-- Submit Button -->
+                    <div class="form-group col-lg-12 mx-auto mb-0">
+                        <div *ngIf="checkedValue === 'recipient'">
+
+                        </div>
+                        <button class="btn btn-primary btn-block py-2 font-weight-bold" (click)="signup()">Add Recipient</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- *ngIf="checkedValue === 'Recipient'" -->
+        <div class="col-md-8 col-lg-6">
+            <form action="#" class="pos">
+                <div class="row">
+                    <!-- Address 1 -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend w-100">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-user text-muted"></i>
+                            </span>
+                            <input id="address1" type="text" required="required" name="address1" (blur)="onAddress1Change($event.target.value)" [ngClass]="address1.disabled == false ? 'form-control bg-white border-left-0 border-md':'is-invalid'" placeholder="Address 1" class="form-control bg-white border-left-0 border-md">
+                        </div>
+                        <div *ngIf="address1.disabled == true" class="text-danger">
+                            <small>please enter address</small>    
+                        </div>    
+                    </div>
+                    <!-- Address 2 -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-user text-muted"></i>
+                            </span>
+                        </div>
+                        <input id="address2" type="text" name="address2" (blur)="onAddress2Change($event.target.value)" placeholder="Address 2" class="form-control bg-white border-left-0 border-md">
+                    </div>
+                    <!-- State -->
+                    <div class="input group col-lg-6 mb-4">
+                        <select (blur)="onStateChange($event.target.value)" class="custom-select form-control bg-white border-md" name="State">
+                            <option>State</option>
+                            <option *ngFor="let state of statesList"
+                                [value]="state"> {{ state }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- City -->
+                    <div class="input group col-lg-6 mb-4">
+                        <select (blur)="onCityChange($event.target.value)" class="custom-select form-control bg-white border-md" name="City">
+                            <option>City</option>
+                            <option *ngFor="let city of selectedCity"
+                                [value]="city"> {{ city }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- Country -->    
+                    <div class="input group col-lg-6 mb-4">
+                        <div class="input-group-prepend">
+                            <input id="country" type="text" required="required" name="country"  (blur)="onCountryChange($event.target.value)" [ngClass]="country.disabled == false ? 'form-control bg-white border-md' : 'is-invalid'" placeholder="Country" class="form-control bg-white border-md">    
+                        </div>
+                        <div *ngIf="country.disabled == true" class="text-danger">
+                        <small>please enter country</small>    
+                        </div>    
+                    </div>
+                    <!-- Pin/Zipcode -->
+                    <div class="input-group col-lg-6 mb-4">
+                        <div class="input-group-prepend w-100">
+                            <input id="zip" type="text" required="required" name="zip" (blur)="onPinChange($event.target.value)" placeholder="Pin/Zip Code" class="form-control bg-white border-md">
+                        </div>
+                        <div *ngIf="pinCode.disabled == true" class="text-danger">
+                        <small>please enter pincode</small>    
+                        </div>
+                    </div>
+                    <!-- Bank Acc No -->
+                    <div class="input-group col-lg-6 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-bank text-muted"></i>
+                            </span>
+                            <input id="bankaccountdetails" type="email" name="bankaccountdetails" (blur)="onBankDetailsChange($event.target.value)" placeholder="Bank Account No" class="form-control bg-white border-left-0 border-md">    
+                        </div>
+                    </div>
+                    <!-- IFSC -->
+                    <div class="input-group col-lg-6 mb-4">
+                        <div class="input-group-prepend w-100">
+                            <input id="bankaccountdetails" type="email" name="ifsc" (blur)="onIfscChange($event.target.value)" placeholder="IFSC" class="form-control bg-white border-md">    
+                        </div>
+                    </div>
+                    <!-- checkboxes -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div style="margin-top: 0px" (click)="selectCheckBox1($event.target.checked)" class="custom-control custom-checkbox custom-control-inline"> <input id="chk2" type="checkbox" name="chk" class="custom-control-input"> <label for="chk2" class="custom-control-label text-sm">I am in genuine need of help</label> </div>
+                        <div style="margin-top: 15px" (click)="selectCheckBox2($event.target.checked)" class="custom-control custom-checkbox custom-control-inline"> <input id="chk1" type="checkbox" name="chk" class="custom-control-input"> <label for="chk1" class="custom-control-label text-sm">I will follow all the rules of respective government</label> </div>
+                        <div style="margin-top: 15px" (click)="selectCheckBox3($event.target.checked)" class="custom-control custom-checkbox custom-control-inline"> <input id="chk3" type="checkbox" name="chk" class="custom-control-input"> <label for="chk3" class="custom-control-label text-sm">I consent to not hold sevaBrahm and the team responsible for any issues that may arise</label> </div>
+                    </div>
+
+                    <span class="alert-container alertClass">
+                        <alert type="success" *ngIf="statusMessage.success">
+                          <strong>{{statusMessage.message}}</strong>
+                        </alert>
+                        <alert type="danger" *ngIf="statusMessage.error">
+                          <strong>{{statusMessage.message}}</strong>
+                        </alert>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
