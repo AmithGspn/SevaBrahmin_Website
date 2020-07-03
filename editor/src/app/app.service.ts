@@ -22,6 +22,7 @@ export class AppService {
     private getRequestsByHandledByUrl = apiUrls.getRequestsByHandledBy;
     private getRecipientsByReferedByUrl = apiUrls.getRecipientsByReferedBy;
     private getRecipientByEmailUrl = apiUrls.getRecipientsByEmail;
+    private getDonorByEmailUrl = apiUrls.getDonorbyEmail;
 
     handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
@@ -55,6 +56,14 @@ export class AppService {
             catchError(this.handleError)
         );
     }
+
+    getDonorByEmail(email) {
+        console.log(email)
+        return this.httpClient.get(this.getDonorByEmailUrl + '?email='+email, this.httpOptions)
+        .pipe(
+            catchError(this.handleError)
+        );
+    }    
     
     getVolunteerByEmail(emailId) {
         console.log(emailId)

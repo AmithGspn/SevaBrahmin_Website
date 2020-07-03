@@ -20,7 +20,8 @@ export const apiUrls = {
   getVolunteerByEmail: apiServer + 'volunteerManager/getVolunteerByEmail',
   getRequestsByHandledBy: apiServer + 'requestManager/getRequestsByHandledBy',
   getRecipientsByReferedBy: apiServer + 'recipientManager/getRecipientsByReferedBy',
-  getRecipientsByEmail: apiServer + 'recipientManager/getRecipientByEmail'
+  getRecipientsByEmail: apiServer + 'recipientManager/getRecipientByEmail',
+  getDonorbyEmail: apiServer + 'donorManager/getDonorByEmail'
 };
 
 /*

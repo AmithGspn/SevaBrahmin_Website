@@ -11,6 +11,10 @@ import { NavbarService } from 'src/app/services/navbar.service';
 export class UnApprovedUsersComponent implements OnInit {
   unApprovedUsers: any = [];
   role: any = "";
+  city: any = "";
+  country: any = "";
+  state: any = "";
+
 
   constructor(private appService: AppService, private router: Router, private navbarService: NavbarService) { }
 
@@ -33,6 +37,54 @@ export class UnApprovedUsersComponent implements OnInit {
     this.navbarService.updateNavAfterAuth('admin/unapprovedusers');
     this.navbarService.updateLoginStatus(true);
     this.role = 'admin/unapprovedusers';
+  }
+
+  extractVolunteer(email) {
+    this.appService.getVolunteerByEmail(email).subscribe((data:any) => {
+      for(let volunteer of data) {
+        this.city = volunteer.city;
+        this.country = volunteer.country;
+        this.state = volunteer.state;
+      }
+    });
+  }
+
+  extractRecipient(email) {
+    this.appService.getRecipientByEmail(email).subscribe((data:any) => {
+      for(let recipient of data) {
+        this.city = recipient.city;
+        this.country = recipient.country;
+        this.state = recipient.state;
+      }
+    });
+  }
+
+  extractDonor(email) {
+    this.appService.getDonorByEmail(email).subscribe((data:any) => {
+      for(let donor of data) {  
+        this.city = donor.city;
+        console.log(this.city)
+        this.country = donor.country;
+        this.state = donor.state;
+      }
+    });
+  }
+
+  viewDetails(detail) {
+    console.log(detail)
+    if (detail.userType === "Volunteer") {
+      console.log(detail.email)
+      this.extractVolunteer(detail.email);
+    } else if (detail.userType === "Recipient") {
+      this.extractRecipient(detail.email);
+    } else {
+      this.extractDonor(detail.email);
+    }
+    document.querySelector('.popup-model').setAttribute("style","display:flex;");
+  }
+
+  onClickClose() {
+    document.querySelector('.popup-model').setAttribute("style","display:none;");
   }
 
   selectCheckBox(user) {

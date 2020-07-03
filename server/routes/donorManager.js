@@ -19,6 +19,13 @@ function verifyToken(req, res, next) {
     next()
 }
 
+router.get('/getDonorByEmail', async function (req, res, next) {
+    let email= req.body['email'] || req.query['email']
+    let user = await new Promise((resolve, reject) =>
+    donorModel.getDonorByEmail(email, (err, docs) => err ? reject(err) : resolve(docs)));
+    return res.status(200).json(user);
+})
+
 router.post('/', async function (req, res, next) {
     try {
         data = {

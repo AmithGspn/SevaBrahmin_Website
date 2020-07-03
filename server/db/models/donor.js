@@ -60,50 +60,61 @@ donorSchema.method('transform', function () {
     return obj;
 });
 
+// donorSchema.statics.getAllDonors = function (callback) {
+//     try {
+//         this.find({ }, projectionsDefaults).lean().exec(function (err, allDonors) {
+//         if (err) {;
+//             return callback(err);
+//         }
+//         let donors = [];
+
+//         async.each(
+//             allDonors,
+//             function (doc, cb) {
+//                 doc.recipients = [];
+//                 recipients = [];
+//                 recipientModel.getAllRecipients( function (err, recipients) {
+//                     if (err) {
+//                         return callback(err);
+//                     }
+//                     async.each(recipients,
+//                         function (recipient, fcb) {
+//                             if (doc.contact === recipient.volunteerNo) {
+//                                 doc.recipients.push(recipient);
+//                                 fcb();
+//                             }
+//                         }, function (err) {
+//                             if (err) {
+//                                 return callback(err);
+//                             }
+//                             donors.push(doc);
+//                         });
+//                     });
+//             }, function (err) {
+//                 if (err) {
+//                     return callback(err);
+//                 }
+//                 return callback(null, donors);
+//             });
+//         })
+//     } catch (err) {
+//         return callback(err);
+//     }
+
+
+//     this.find({ }, projectionsDefaults).lean().exec(function (err, allDonors) {
+//         if (err) {;
+//             return callback(err);
+//         }
+//         if (allDonors) {
+//             return callback(null, allDonors);
+//         }
+//     })
+// };
+
 donorSchema.statics.getAllDonors = function (callback) {
-    try {
-        this.find({ }, projectionsDefaults).lean().exec(function (err, allDonors) {
-        if (err) {;
-            return callback(err);
-        }
-        let donors = [];
-
-        async.each(
-            allDonors,
-            function (doc, cb) {
-                doc.recipients = [];
-                recipients = [];
-                recipientModel.getAllRecipients( function (err, recipients) {
-                    if (err) {
-                        return callback(err);
-                    }
-                    async.each(recipients,
-                        function (recipient, fcb) {
-                            if (doc.contact === recipient.volunteerNo) {
-                                doc.recipients.push(recipient);
-                                fcb();
-                            }
-                        }, function (err) {
-                            if (err) {
-                                return callback(err);
-                            }
-                            donors.push(doc);
-                        });
-                    });
-            }, function (err) {
-                if (err) {
-                    return callback(err);
-                }
-                return callback(null, donors);
-            });
-        })
-    } catch (err) {
-        return callback(err);
-    }
-
-
     this.find({ }, projectionsDefaults).lean().exec(function (err, allDonors) {
-        if (err) {;
+        if (err) {
             return callback(err);
         }
         if (allDonors) {
@@ -111,5 +122,17 @@ donorSchema.statics.getAllDonors = function (callback) {
         }
     })
 };
+
+donorSchema.statics.getDonorByEmail = function (email,callback) {
+    this.find({ email: email }, projectionsDefaults).lean().exec(function (err, Donors) {
+        if (err) {;
+            return callback(err);
+        }
+        if (Donors) {
+            return callback(null, Donors);
+        }
+    })
+};
+
 
 module.exports = db.model('donors', donorSchema);
