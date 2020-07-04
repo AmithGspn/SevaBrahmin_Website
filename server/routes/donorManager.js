@@ -58,7 +58,7 @@ router.post('/', async function (req, res, next) {
 router.get('/', async function (req, res, next) {
     try {
         let volunteers = await new Promise((resolve, reject) =>
-        donorModel.getAllVolunteers( (err, docs) => err ? reject(err) : resolve(docs)));
+        donorModel.getAllDonors( (err, docs) => err ? reject(err) : resolve(docs)));
         return res.status(200).json(volunteers);
     }
     catch (err) {

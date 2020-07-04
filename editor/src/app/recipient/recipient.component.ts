@@ -25,6 +25,7 @@ export class RecipientComponent implements OnInit {
     descriptionContent: any = "";
     ReferedBy :any = "None";
     STATUS:any = "";
+    denomination: any = "₹";
     constructor(private appService: AppService, private router: Router, private navbarService: NavbarService) { }
 
     ngOnInit() {
@@ -68,18 +69,36 @@ export class RecipientComponent implements OnInit {
 
     onTypeChange(event) {
         console.log(event)
-        // if (event === 'Others') {
-        //     this.flag = true;
-        // } else {
+        if (event === 'Others') {
+            this.flag = true;
+        } else {
             this.type = event;
-        // }
+            this.flag = false;
+        }
     }
 
-    // onSelectOthers(event) {
-    //     this.type = event;
-    // }
+    showOthers() {
+        if(this.flag === true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    onSelectOthers(event) {
+        if(event == '') {
+            this.othersType = {disabled: true,value:''}
+        } else {
+            this.othersType = {disabled: false,value:event}
+        }
+    }
+
+    onDenominationChange(denomination){
+        this.denomination = denomination;
+    }
 
     onAmountChange(event) {
+        console.log(event);
         if(event == '') {
             this.amount = {disabled: true,value:''}
         } else {
@@ -106,7 +125,7 @@ export class RecipientComponent implements OnInit {
 
     saveDetails() {
         console.log(this.loginData)
-        if(this.ReferedBy == "None") {
+        if(this.ReferedBy === "None") {
             this.STATUS = "Pending"
         } else {
             this.STATUS = "Processing"
@@ -115,7 +134,7 @@ export class RecipientComponent implements OnInit {
             occupation: this.occupation.value,
             type: this.type,
             state: this.loginData[0].state,
-            amount: this.amount.value,
+            amount: this.denomination + this.amount.value,
             description: this.description.value,
             status: this.STATUS,
             handledBy: this.ReferedBy,
@@ -159,7 +178,7 @@ export class RecipientComponent implements OnInit {
     }
 
     statusChange(status) {
-        if (status === 'Processing') {
+        if (status === 'Processing' || status === 'completed') {
             return true;
         } else {
             return false;

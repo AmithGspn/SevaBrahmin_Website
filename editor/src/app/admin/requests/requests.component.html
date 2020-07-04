@@ -1,3 +1,39 @@
+<div class="row">
+    <div id="request-type" class="input-group col-lg-2 col-sm-2 mb-2 mt-2" data-size = "5">
+        <!-- <div class="input-group-prepend"> -->
+            <select (blur)="onStatusChange($event.target.value)" class="custom-select form-control bg-white border-md" name="RequestStatus">
+                <option>Request Status</option>
+                <option value="Pending">Pending</option>
+                <option value="Processing">Processing</option>
+                <option value="Completed">Completed</option>
+            </select>
+    </div>
+
+    <!-- <div class="input-group col-lg-2 col-sm-2 mb-2 mt-2" data-size = "5"> -->
+        <!-- [ngClass]="$event.target.value == 'State'" -->
+        <!-- <div class="input-group-prepend">     -->
+            <!-- <select (blur)="onStateChange($event.target.value)" class="custom-select form-control bg-white border-md" name="State">
+                <option>State</option>
+                <option *ngFor="let state of statesList"
+                    [value]="state"> {{ state }}
+                </option>
+            </select> -->
+        <!-- </div> -->
+    <!-- </div> -->
+
+    <div class="input-group col-lg-2 col-sm-2 mb-4 mt-2">
+        <button class="Submit btn btn-success" (click)="onSubmit()"><strong class="text-center">Submit</strong></button>
+    </div>
+
+    <!-- <div class="input-group col-lg-2 col-sm-2 mb-2 mt-2 text-danger" *ngIf="error_class === true">
+        please provide details 
+    </div>     -->
+</div>
+
+
+
+
+
 <table class="table table-dark table-responsive-md">
     <thead>
         <tr>
@@ -16,7 +52,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let request of requests; index as i">
+        <tr *ngFor="let request of selectedStatus; index as i">
             <td>{{ i+1 }}</td>
             <td>{{ request.name }}</td>
             <td>{{ request.contact }}</td>
@@ -31,7 +67,7 @@
             <td *ngIf="onAssigned(request)">
                 <button type="button" class="btn btn-sm btn-success py-0" (click)="onShowVolunteers(request)">Volunteers</button>
             </td>
-            <td *ngIf="!(onAssigned(request))">{{ request.handledBy }}</td>
+            <td *ngIf="!onAssigned(request)">{{ request.handledBy }}</td>
             <!-- <td>
                 <button type="button" class="btn btn-sm btn-success py-0" (click)="onClickAssign(request)" *ngIf="showAssignButton(request.status)">Assign</button>
             </td> -->
@@ -92,20 +128,32 @@
         <!-- <input type="text" name="state" () -->
         <div class="row filter">
             <!-- <div> -->
-                <input type="text" name="country" placeholder="Country" (blur)="onCountryChange()" class="col-lg-1 col-sm-1 ml-5">
+                <!-- <input type="text" name="country" placeholder="Country" (blur)="onCountryChange()" class="col-lg-1 col-sm-1 ml-5"> -->
             <!-- </div> -->
-                <input type="text" name="state" placeholder="State" (blur)="onCountryChange()" class="col-lg-1 col-sm-1 ml-5">
+                <div class="input-group col-lg-2 col-sm-2 mb-2 mt-2" data-size = "5">
+                    <!-- [ngClass]="$event.target.value == 'State'" -->
+                    <!-- <div class="input-group-prepend">     -->
+                        <select (blur)="onStateChange($event.target.value)" class="custom-select form-control bg-white border-md" name="State">
+                            <option>State</option>
+                            <option *ngFor="let state of statesList"
+                                [value]="state"> {{ state }}
+                            </option>
+                        </select>
+                    <!-- </div> -->
+                </div>
+            <!-- <input type="text" name="state" placeholder="State" (blur)="onCountryChange()" class="col-lg-1 col-sm-1 ml-5"> -->
             <!-- <div class="col-lg-4"> -->
-                <input type="text" name="city" placeholder="City" (blur)="onCountryChange()" class="col-lg-1 col-sm-1 ml-5">
+                <!-- <input type="text" name="city" placeholder="City" (blur)="onCountryChange()" class="col-lg-1 col-sm-1 ml-5"> -->
             <!-- </div> -->
                 <!-- <div class="input-group col-lg-2 col-sm-2 mb-4 mt-2"> -->
-                <button class="Submit btn btn-success ml-5" (click)="onSubmit()"><strong class="text-center">Submit</strong></button>
-                <!-- </div> -->
+                <div class="input-group col-lg-2 col-sm-2 mb-4 mt-2">
+                    <button class="btn btn-success" (click)="onSubmit1()"><strong class="text-center">Submit</strong></button>
+                </div>                <!-- </div> -->
             <!-- <div class="col-lg-4"> -->
 
             <!-- </div> -->
         </div>
-        <table class="table table-dark table-responsive-md mt-4 table-pos" style="border-collapse: collapse;">
+        <table class="table table-dark table-responsive-md mt-2 table-pos" style="border-collapse: collapse;">
             <thead>
                 <tr>
                     <th scope="col">No</th>
@@ -124,7 +172,7 @@
                 </tr>
             </thead>            
             <tbody>
-                <tr *ngFor="let volunteer of volunteers; index as i">
+                <tr *ngFor="let volunteer of searchVolunteer; index as i">
                     <td>{{ i+1 }}</td>
                     <td>{{ volunteer.firstName }}</td>
                     <td>{{ volunteer.contact }}</td>

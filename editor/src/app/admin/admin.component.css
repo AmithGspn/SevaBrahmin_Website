@@ -1,0 +1,36 @@
+.dashboard {
+    height: 25vh;
+    border-radius: 15px;
+    box-shadow: 5px 10px #e6e6e6;
+}
+
+.row {
+    margin: 10vh 0 0 30vh;
+}
+
+.box {
+    margin: 0 47.2vh;
+}
+
+.box-margin {
+    margin-left: 7vh;
+}
+
+.content-align {
+    display:flex;
+    justify-content: center;
+    margin-top: 6vh;
+    /* 17vh; */
+}
+
+.fontMaker {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+    font-size: x-large;
+}
+
+.count {
+    display:flex;
+    justify-content: center;
+    margin-top: 6vh;
+}

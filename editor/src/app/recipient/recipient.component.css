@@ -57,7 +57,7 @@ select.form-control {
 
 .model-content{
     width:50vh;
-    height:72vh;
+    height:80vh;
     background-color: white;
     border-radius: 4px;
     text-align: center;
@@ -85,6 +85,24 @@ select.form-control {
     width:90%;
     margin-top: 1.5rem;
     margin-left: 1.5rem;
+}
+
+/* .input-group2{
+    width:90%;
+    margin-top: 1.5rem;
+    margin-left: 1.5rem;
+} */
+
+.amt{
+    /* width:90%; */
+    margin-top: 1rem;
+    margin-left: 1.5rem;
+}
+
+.WIDTH{
+    /* width: 85%; */
+    width: 38vh;
+    margin-right: 2.2rem;
 }
 
 .header{

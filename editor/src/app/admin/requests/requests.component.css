@@ -1,7 +1,26 @@
-.submit{
+.form-control:not(select) {
+    padding: 1.5rem 0.5rem;
+}
+
+select.form-control {
+    /* height: 52px; */
+    padding-left: 0.5rem;
+}
+
+.form-control::placeholder {
+    color:darkgray;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-left: 5px;
+}
+.form-control:focus {
+    box-shadow: none;
+}
+
+/* .submit{
     width:20%;
     margin-left:auto;
-}
+} */
 
 .input-group1{
     width:90%;
@@ -118,4 +137,13 @@ label{
 .table-pos{
     width: 118vh;
     margin-left: 1vh;
+}
+
+#request-type {
+    margin-left: 25vh;
+}
+
+.row {
+    justify-content: center;
+    margin-top: 2vh;
 }

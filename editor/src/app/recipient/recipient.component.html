@@ -87,25 +87,35 @@
                     <option value="Education">Education</option>
                     <option value="Medicines">Medicines</option>
                     <option value="Finance">Finance</option>
-                    <!-- <option value="Others">Others</option> -->
+                    <option value="Others">Others</option>
                 </select>
             </div>
             
-            <!-- <div class="input-group1" *ngIf="flag === true">
-                <input type="text" name="type" (blur)="onSelectOthers($event.target.value)" [ngClass]="othersType.disabled == false ? 'form-control bg-white border-md':'is-invalid'" placeholder="Other Type" class="form-control bg-white border-md">
+            <div class="input-group1" *ngIf="showOthers()">
+                <input type="text" name="type" required="required" (blur)="onSelectOthers($event.target.value)" [ngClass]="othersType.disabled == false ? 'form-control bg-white border-md':'is-invalid'" placeholder="Other Type" class="form-control bg-white border-md">
                 <div *ngIf="othersType.disabled == true" id="error-class" class="text-danger">
                     <small>please provide type</small>    
                 </div>                
-            </div> -->
-            <!-- Amount -->
-            <div class="input-group1">
+            </div>
+            <!-- <div class="input-group1">
                 <input id="amount" required="required" type="text" name="amount" (blur)="onAmountChange($event.target.value)" [ngClass]="amount.disabled == false ? 'form-control bg-white border-md':'is-invalid'" placeholder="Amount" class="form-control bg-white border-md">    
                 <div *ngIf="amount.disabled == true" id="error-class" class="text-danger">
                     <small>please enter amount</small>    
                 </div>    
+            </div> -->
+            <!-- Amount -->
+            <div class="row amt">
+                <!-- <span class="input-group-text bg-white px-4 border-md border-right-0">
+                    <i class="fa fa-phone-square text-muted"></i>
+                </span> -->
+                <select id="currencyDenomination" name="currencyDenomination" (click)="onDenominationChange($event.target.value)" style="max-width: 7.1vh;" class="custom-select form-control bg-white border-md font-weight-bold text-muted">
+                    <option value="₹">₹</option>
+                    <option value="$">$</option>
+                </select>
+                <input id="amount" type="text" required="required" name="amount" [ngClass]="amount.disabled == false ? 'form-control bg-white border-md border-left-0 max-width:80%':'is-invalid'" placeholder="Amount" class="form-control bg-white border-md WIDTH" (blur)="onAmountChange($event.target.value)">
             </div>
             <!-- description -->
-            <div class="input-group1">
+            <div class="input-group1 mt-5">
                 <textarea class="form-control" required="required" rows="5" (blur)="onDescriptionChange($event.target.value)" [ngClass]="description.disabled == false ? 'form-control':'is-invalid'" placeholder="Description"></textarea>
                 <div *ngIf="description.disabled == true" id="eroor-class" class="text-danger">
                     <small>please enter details</small>    

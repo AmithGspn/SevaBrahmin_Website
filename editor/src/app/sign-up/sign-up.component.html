@@ -399,23 +399,36 @@
                             please enter the address
                         </div> -->
                     </div>
-                    <!-- City -->
-                    <div class="input group col-lg-6 mb-4">
-                        <div class="input-group-prepend">
-                            <!-- <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-user text-muted"></i>
-                            </span> -->
-                            <input id="city" type="text" name="city" (blur)="onCityChange($event.target.value)" placeholder="City" class="form-control bg-white border-md">    
-                        </div>
-                    </div>
                     <!-- State -->
                     <div class="input group col-lg-6 mb-4">
-                        <div class="input-group-prepend">
+                        <!-- <div class="input-group-prepend"> -->
                             <!-- <span class="input-group-text bg-white px-4 border-md border-right-0">
                                 <i class="fa fa-user text-muted"></i>
                             </span> -->
-                            <input id="state" type="textbox" name="state" (blur)="onStateChange($event.target.value)" placeholder="State" class="form-control bg-white border-md">
-                        </div>
+                            <!-- <input id="state" type="textbox" name="state" (blur)="onStateChange($event.target.value)" placeholder="State" class="form-control bg-white border-md"> -->
+                        <!-- </div> -->
+                        <select (blur)="onStateChange($event.target.value)" class="custom-select form-control bg-white border-md" name="State">
+                            <option>State</option>
+                            <option *ngFor="let state of statesList"
+                                [value]="state"> {{ state }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- City -->
+                    <div class="input group col-lg-6 mb-4">
+                        <!-- <div class="input-group-prepend"> -->
+                            <!-- <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-user text-muted"></i>
+                            </span> -->
+                            <!-- <input id="city" type="text" name="city" (blur)="onCityChange($event.target.value)" placeholder="City" class="form-control bg-white border-md">     -->
+                        <!-- </div> -->
+                        <select (blur)="onCityChange($event.target.value)" class="custom-select form-control bg-white border-md" name="City">
+                            <option>City</option>
+                            <option *ngFor="let city of selectedCity"
+                                [value]="city"> {{ city }}
+                            </option>
+                        </select>
                     </div>
                     <!-- Country -->    
                     <div class="input group col-lg-6 mb-4">
@@ -513,23 +526,36 @@
                             please enter the address
                         </div> -->
                     </div>
-                    <!-- City -->
-                    <div class="input group col-lg-6 mb-4">
-                        <div class="input-group-prepend">
-                            <!-- <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-user text-muted"></i>
-                            </span> -->
-                            <input id="city" type="text" name="city" (blur)="onCityChange($event.target.value)" placeholder="City" class="form-control bg-white border-md">    
-                        </div>
-                    </div>
                     <!-- State -->
                     <div class="input group col-lg-6 mb-4">
-                        <div class="input-group-prepend">
+                        <!-- <div class="input-group-prepend"> -->
                             <!-- <span class="input-group-text bg-white px-4 border-md border-right-0">
                                 <i class="fa fa-user text-muted"></i>
                             </span> -->
-                            <input id="state" type="textbox" name="state" (blur)="onStateChange($event.target.value)" placeholder="State" class="form-control bg-white border-md">
-                        </div>
+                            <!-- <input id="state" type="textbox" name="state" (blur)="onStateChange($event.target.value)" placeholder="State" class="form-control bg-white border-md"> -->
+                        <!-- </div> -->
+                        <select (blur)="onStateChange($event.target.value)" class="custom-select form-control bg-white border-md" name="State">
+                            <option>State</option>
+                            <option *ngFor="let state of statesList"
+                                [value]="state"> {{ state }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- City -->
+                    <div class="input group col-lg-6 mb-4">
+                        <!-- <div class="input-group-prepend"> -->
+                            <!-- <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-user text-muted"></i>
+                            </span> -->
+                            <!-- <input id="city" type="text" name="city" (blur)="onCityChange($event.target.value)" placeholder="City" class="form-control bg-white border-md">     -->
+                        <!-- </div> -->
+                        <select (blur)="onCityChange($event.target.value)" class="custom-select form-control bg-white border-md" name="City">
+                            <option>City</option>
+                            <option *ngFor="let city of selectedCity"
+                                [value]="city"> {{ city }}
+                            </option>
+                        </select>
                     </div>
                     <!-- Country -->    
                     <div class="input group col-lg-6 mb-4">

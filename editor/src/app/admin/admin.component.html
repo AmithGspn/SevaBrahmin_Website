@@ -1,1 +1,50 @@
-<h1 class="display-3 text-center">Welcome to Admin Portal</h1>
+<div class="row">
+    <div class="col-sm-6 col-lg-3">
+        <div class="card text-black dashboard" style="background-color: #bfbfbf;">
+          <div class="card-body pb-0">
+                <!-- <div class="text-value">9.823</div> -->
+                <div class="text-value">
+                    <span class="count display-4 mt-4">{{ no_of_recipients }}</span>
+                </div>
+                <div class="fontMaker  content-align">Recipients</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3 box-margin">
+        <div class="card text-black dashboard" style="background-color: #ccf2ff;">
+          <div class="card-body pb-0">
+            <!-- <div class="text-value">9.823</div> -->
+            <!-- <div class="text-value">{{ no_of_volunteers }}</div> -->
+            <div class="text-value">
+                <span class="count display-4 mt-4">{{ no_of_volunteers }}</span>
+            </div>
+            <div class="fontMaker  content-align">Volunteers</div>
+          </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3 box-margin">
+        <div class="card text-black dashboard" style="background-color: #ffebcc;">
+          <div class="card-body pb-0">
+            <div class="text-value">
+                <span class="count display-4 mt-4">{{ no_of_donors }}</span>
+            </div>
+            <!-- <div class="text-value">9.823</div> -->
+            <div class="fontMaker content-align">Donors</div>
+          </div>
+        </div>
+    </div>  
+</div>
+
+<div class="row">
+    <div class="col-sm-6 col-lg-3 box">
+        <div class="card text-black dashboard" style="background-color: lightblue;">
+          <div class="card-body pb-0">
+            <div class="text-value">
+                <span class="count display-4 mt-4">{{ no_of_requests }}</span>
+            </div>
+            <!-- <div class="text-value">9.823</div> -->
+            <div class="fontMaker content-align">Requests</div>
+          </div>
+        </div>
+    </div>
+</div>

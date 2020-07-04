@@ -46,7 +46,7 @@ export class VolunteerComponent implements OnInit {
     }
 
     onClickUpdate(request) {
-        request.status = 'completed';
+        request.status = 'Completed';
         console.log('dddddddddd')
         this.appService.putRequests(request).subscribe((data) => {
             console.log('rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr')
@@ -65,7 +65,7 @@ export class VolunteerComponent implements OnInit {
     }
 
     showUpdateButton(status) {
-        if (status === 'completed') {
+        if (status === 'Completed') {
             return false;
         } else {
             return true;

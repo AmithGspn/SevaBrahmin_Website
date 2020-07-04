@@ -18,6 +18,14 @@ export class RequestsComponent implements OnInit {
   role: any = "";
   name:any = "Select";
   status:any = "";
+  searchStatus: any = "";
+  selectedStatus: any = [];
+  PendingStatus: any = [];
+  ProcessingStatus: any = [];
+  CompletedStatus: any = [];
+  state:any = [];
+  searchVolunteer: any = [];
+  statesList:any = ["Andaman & Nicobar", "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chandigarh", "Chhattisgarh", "Dadra & Nagar Haveli", "Daman & Diu", "Delhi", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jammu & Kashmir", "Jharkhand", "Karnataka", "Kerala", "Lakshadweep", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Orissa", "Pondicherry", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Tripura", "Uttar Pradesh", "Uttaranchal", "West Bengal"];
   constructor(private appService: AppService,private router: Router, private navbarService: NavbarService) { }
 
   ngOnInit() {
@@ -28,6 +36,8 @@ export class RequestsComponent implements OnInit {
       for (let request of data) {
           this.requests.push(request);
         }
+      this.selectedStatus = this.requests;  
+      console.log(this.selectedStatus)
       console.log(this.requests)
     })    
   }
@@ -84,18 +94,36 @@ export class RequestsComponent implements OnInit {
           await this.volunteers.push(volunteer);
         }
       }
+      this.searchVolunteer = this.volunteers;
+      console.log(this.searchVolunteer);
       console.log(this.volunteers);
     })
     document.querySelector('.popup-model').setAttribute("style","display:flex;");    
   }
 
+  onStatusChange(status) {
+    this.searchStatus = status;
+    console.log(this.searchStatus)
+  }  
+
+  onSubmit() {
+    this.selectedStatus = [];
+    for(let request of this.requests) {
+      if(request.status === this.searchStatus) {
+        console.log(this.searchStatus)
+        this.selectedStatus.push(request);
+      } 
+    }
+    console.log(this.selectedStatus)
+  }
+  
+
   onAssigned(request) {
-    this.referedRecipient = [];
-    console.log(this.status)
-    console.log(request.email)
-    if (request.status == "Processing" || "completed") {
+    console.log(request)
+    if (request.status === "Processing" || request.status === "completed") {
+      console.log("lldhktnhknfl")
       return false;
-    } else {
+    } else  {
       return true;
     }
   }
@@ -226,6 +254,21 @@ export class RequestsComponent implements OnInit {
         })
       })
     })
+  }
+
+  onStateChange(event) {
+    this.state = event;
+  }
+
+  onSubmit1() {
+    this.searchVolunteer = [];
+    for(let volunteer of this.volunteers) {
+      if(this.state === volunteer.state) {
+        console.log("sfgergerg")
+        this.searchVolunteer.push(volunteer);
+      }
+    }
+    console.log(this.searchVolunteer)
   }
 
   showAssignButton(event) {

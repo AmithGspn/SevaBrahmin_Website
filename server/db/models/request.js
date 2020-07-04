@@ -35,7 +35,7 @@ let RequestSchema = Schema({
         required: [true,"required"]
     },
     amount: {
-        type: Number,
+        type: String,
         trim: true,
         required: [true,"required"]
     },

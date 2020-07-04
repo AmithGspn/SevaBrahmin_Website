@@ -39,10 +39,6 @@ export class ApprovedUsersComponent implements OnInit {
     this.role = 'admin/approvedusers';
   }
 
-  showDetails(detail) {
-
-  }
-
   extractVolunteer(email) {
     this.appService.getVolunteerByEmail(email).subscribe((data:any) => {
       for(let volunteer of data) {
