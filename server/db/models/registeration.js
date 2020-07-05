@@ -10,7 +10,7 @@ const UserSchema = Schema({
         trim: true,
     },
     contact: {
-        type: Number,
+        type: String,
         unique: true,
         required: [true, "required"],
     },
@@ -52,6 +52,10 @@ const UserSchema = Schema({
         enum: ['male', 'female'],
     },
     pincode: {
+        type: String,
+        trim: true
+    },
+    familyName: {
         type: String,
         trim: true
     }

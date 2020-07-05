@@ -16,7 +16,8 @@ router.post('/', async function (req, res, next) {
         status: req.body.status,
         handledBy: req.body.handledBy,
         donor: req.body.donor,
-        id: req.body.id
+        id: req.body.id,
+        familName: req.body.familyName
     };
 
     try {

@@ -20,6 +20,7 @@ export class DonorComponent implements OnInit {
   email:any = "";
   result: any = "";
   description: any = "";
+  types: any = ['SwayamPakam','Medicines','Education','Finance'];
   constructor(private appService: AppService, private router: Router, private navbarService: NavbarService) { }
 
   ngOnInit() {
@@ -102,9 +103,16 @@ export class DonorComponent implements OnInit {
       await this.appService.getVolunteer().subscribe(async(data:any) => {
         console.log(data)
         data.forEach(async volunteer => {
-          if(volunteer.state === this.state && volunteer.requestType === this.type && volunteer.approved === true) {
-            await this.volunteersList.push(volunteer);
-            this.Validation()
+          if(this.type === "Others") {
+            if(volunteer.state === this.state && !(this.types.includes(volunteer.requestType))  && volunteer.approved === true) {
+              await this.volunteersList.push(volunteer);
+              this.Validation()
+          }} 
+          else {
+             if(volunteer.state === this.state && volunteer.requestType === this.type && volunteer.approved === true) {
+              await this.volunteersList.push(volunteer);
+              this.Validation()
+            }    
           }
         });
       })

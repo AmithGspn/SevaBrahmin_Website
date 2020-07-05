@@ -270,6 +270,7 @@ export class SignUpComponent implements OnInit {
             gender: this.gender,
             address: this.address1.value + this.address2.value,
             pinCode: this.pinCode.value,
+            familyName: this.familyName.value
         }
         
         let volunteerData = {
