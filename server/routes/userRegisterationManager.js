@@ -12,7 +12,7 @@ router.post('/', async function (req, res, next) {
         password: req.body.password,
         age: req.body.age,
         gender: req.body.gender,
-        approved: false,
+        approved: req.body.approved || false,
         contact: req.body.contact,
         age: req.body.age,
         gender: req.body.gender,
