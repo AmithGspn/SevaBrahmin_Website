@@ -17,7 +17,8 @@ router.post('/', async function (req, res, next) {
         age: req.body.age,
         gender: req.body.gender,
         address: req.body.address,
-        pincode: req.body.pincode
+        pincode: req.body.pincode,
+        familName: req.body.familyName
     };
 
     try {
@@ -71,7 +72,8 @@ router.put('/', async function (req, res, next) {
         age: req.body.age,
         gender: req.body.gender,
         address: req.body.address,
-        pincode: req.body.pincode
+        pincode: req.body.pincode,
+        familName: req.body.familyName
     };
 
     try {
