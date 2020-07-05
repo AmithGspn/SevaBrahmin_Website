@@ -23,7 +23,9 @@ let RequestSchema = Schema({
         trim: true
     },
     contact: {
-        type: Number
+        type: String,
+        unique: true,
+        required: [true, "required"],
     },
     occupation: {
         type: String,

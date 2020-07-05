@@ -15,10 +15,9 @@ let volunteerSchema = Schema({
         required: [true, "required"]
     },
     contact: {
-        type: Number,
-        match: /^\+(?:[0-9] ?){6,14}[0-9]$/,
+        type: String,
         unique: true,
-        required: [true, "required"]
+        required: [true, "required"],
     },
     firstName: {
         type: String,
