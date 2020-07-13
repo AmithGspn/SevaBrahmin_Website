@@ -12,7 +12,7 @@ export class DonorComponent implements OnInit {
   role = '';
   volunteersList:any = [];
   requestList:any = [];
-  statesList:any = ["Andaman & Nicobar", "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chandigarh", "Chhattisgarh", "Dadra & Nagar Haveli", "Daman & Diu", "Delhi", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jammu & Kashmir", "Jharkhand", "Karnataka", "Kerala", "Lakshadweep", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Orissa", "Pondicherry", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Tripura", "Uttar Pradesh", "Uttaranchal", "West Bengal"];
+  statesList:any = ["Andaman & Nicobar", "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chandigarh", "Chhattisgarh", "Dadra & Nagar Haveli", "Daman & Diu", "Delhi", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jammu & Kashmir", "Jharkhand", "Karnataka", "Kerala", "Lakshadweep", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Orissa", "Pondicherry", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Tripura","Telangana", "Uttar Pradesh", "Uttaranchal", "West Bengal"];
   loginData = [];
   error_class = false;
   state:any = "State";
@@ -92,7 +92,7 @@ export class DonorComponent implements OnInit {
       // this.error_class = true;
       await this.appService.getVolunteer().subscribe((data:any) => {
         for(let volunteer of data) {
-          while(this.volunteersList.length < 3) {
+          if(this.volunteersList.length < 3 && volunteer.approved === true) {
             this.volunteersList.push(volunteer)
             this.Validation()
           }

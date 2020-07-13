@@ -25,7 +25,8 @@ export class RequestsComponent implements OnInit {
   CompletedStatus: any = [];
   state:any = [];
   searchVolunteer: any = [];
-  statesList:any = ["Andaman & Nicobar", "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chandigarh", "Chhattisgarh", "Dadra & Nagar Haveli", "Daman & Diu", "Delhi", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jammu & Kashmir", "Jharkhand", "Karnataka", "Kerala", "Lakshadweep", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Orissa", "Pondicherry", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Tripura", "Uttar Pradesh", "Uttaranchal", "West Bengal"];
+  volunteerName: any = "";
+  statesList:any = ["Andaman & Nicobar", "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chandigarh", "Chhattisgarh", "Dadra & Nagar Haveli", "Daman & Diu", "Delhi", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jammu & Kashmir", "Jharkhand", "Karnataka", "Kerala", "Lakshadweep", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Orissa", "Pondicherry", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu","Telangana", "Tripura", "Uttar Pradesh", "Uttaranchal", "West Bengal"];
   constructor(private appService: AppService,private router: Router, private navbarService: NavbarService) { }
 
   ngOnInit() {
@@ -40,6 +41,9 @@ export class RequestsComponent implements OnInit {
       console.log(this.selectedStatus)
       console.log(this.requests)
     })    
+    // this.appService.getVolunteer().subscribe(async(data:any) => {
+    //   for(let volunteer)
+    // });
   }
 
   loginAdmin() {
@@ -89,11 +93,12 @@ export class RequestsComponent implements OnInit {
     this.appService.getVolunteer().subscribe(async(data:any) => {
       console.log(data);
       for(let volunteer of data) {
-        if (volunteer.requests_handled < 20) {
-          console.log(volunteer)
-          await this.volunteers.push(volunteer);
-        }
+          if (volunteer.requests_handled < 20 && volunteer.approved === true) {
+            console.log(volunteer)
+            await this.volunteers.push(volunteer);
+          }
       }
+
       this.searchVolunteer = this.volunteers;
       console.log(this.searchVolunteer);
       console.log(this.volunteers);
@@ -119,8 +124,8 @@ export class RequestsComponent implements OnInit {
   
 
   onAssigned(request) {
-    console.log(request)
-    if (request.status === "Processing" || request.status === "completed") {
+    // console.log(request)
+    if (request.status === "Processing" || request.status === "Completed") {
       console.log("lldhktnhknfl")
       return false;
     } else  {
@@ -192,7 +197,7 @@ export class RequestsComponent implements OnInit {
         this.appService.putVolunteer(data[0]).subscribe((data) => {
           document.querySelector('.popup-model').setAttribute("style","display:none;");
           this.onAssigned(this.selectedRequest[0]);
-          // window.location.reload();
+          window.location.reload();
         })
       })
     })

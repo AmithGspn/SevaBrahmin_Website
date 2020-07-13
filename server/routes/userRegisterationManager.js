@@ -12,13 +12,13 @@ router.post('/', async function (req, res, next) {
         password: req.body.password,
         age: req.body.age,
         gender: req.body.gender,
-        approved: req.body.approved || false,
+        approved: false,
         contact: req.body.contact,
         age: req.body.age,
         gender: req.body.gender,
         address: req.body.address,
         pincode: req.body.pincode,
-        familName: req.body.familyName
+        familyName: req.body.familyName
     };
 
     try {
@@ -73,7 +73,7 @@ router.put('/', async function (req, res, next) {
         gender: req.body.gender,
         address: req.body.address,
         pincode: req.body.pincode,
-        familName: req.body.familyName
+        familyName: req.body.familyName
     };
 
     try {

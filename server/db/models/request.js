@@ -8,7 +8,7 @@ const projectionsDefaults = { _id: 0, __v: 0 };
 let RequestSchema = Schema({
     id: {
         trim: true,
-        unique: true,
+        // unique: true,
         type: String
     },
     state: {
@@ -24,7 +24,6 @@ let RequestSchema = Schema({
     },
     contact: {
         type: String,
-        unique: true,
         required: [true, "required"],
     },
     occupation: {

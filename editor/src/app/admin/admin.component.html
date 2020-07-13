@@ -36,15 +36,37 @@
 </div>
 
 <div class="row">
-    <div class="col-sm-6 col-lg-3 box">
-        <div class="card text-black dashboard" style="background-color: lightblue;">
+    <div class="col-sm-6 col-lg-3">
+        <div class="card text-black dashboard" style="background-color: #ffcccc;">
           <div class="card-body pb-0">
             <div class="text-value">
-                <span class="count display-4 mt-4">{{ no_of_requests }}</span>
+                <span class="count display-4 mt-4">{{ no_of_unApprovedUsers }}</span>
             </div>
             <!-- <div class="text-value">9.823</div> -->
-            <div class="fontMaker content-align">Requests</div>
+            <div class="fontMaker content-align">Pending Approvals</div>
           </div>
         </div>
+    </div>
+    <div class="col-sm-6 col-lg-3 box-margin">
+      <div class="card text-black dashboard" style="background-color: lightblue;">
+        <div class="card-body pb-0">
+          <div class="text-value">
+              <span class="count display-4 mt-4">{{ no_of_requests }}</span>
+          </div>
+          <!-- <div class="text-value">9.823</div> -->
+          <div class="fontMaker content-align">Funding Requests</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 col-lg-3 box-margin">
+      <div class="card text-black dashboard" style="background-color: #ffffcc;">
+        <div class="card-body pb-0">
+          <div class="text-value">
+            <span class="count display-4 mt-4">₹ {{ totalDonations }}</span>
+          </div>
+        <!-- <div class="text-value">9.823</div> -->
+          <div class="fontMaker content-align">Total Donations</div>
+        </div>
+      </div>
     </div>
 </div>

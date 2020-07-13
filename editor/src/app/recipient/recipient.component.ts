@@ -134,7 +134,7 @@ export class RecipientComponent implements OnInit {
             occupation: this.occupation.value,
             type: this.type,
             state: this.loginData[0].state,
-            amount: this.denomination + this.amount.value,
+            amount: this.denomination + " " + this.amount.value,
             description: this.description.value,
             status: this.STATUS,
             handledBy: this.ReferedBy,
@@ -178,7 +178,7 @@ export class RecipientComponent implements OnInit {
     }
 
     statusChange(status) {
-        if (status === 'Processing' || status === 'completed') {
+        if (status === 'Processing' || status === 'Completed') {
             return true;
         } else {
             return false;

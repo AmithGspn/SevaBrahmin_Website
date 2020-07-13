@@ -5,7 +5,7 @@
         <!-- <div class="input-group-prepend"> -->
             <select (blur)="onTypeChange($event.target.value)" class="custom-select form-control bg-white border-md" name="RequestType">
                 <option>Request Type</option>
-                <option value="SwayamPakam">SwayamPakam</option>
+                <option value="SwayamPakam">Swayam Pakam</option>
                 <option value="Education">Education</option>
                 <option value="Medicines">Medicines</option>
                 <option value="Finance">Finance</option>
@@ -44,7 +44,7 @@
     <thead class="text-light bg-dark">
         <tr>
             <th scope="col">No</th>
-            <th scope="col">VolunteerName</th>
+            <th scope="col">Volunteer Name</th>
             <th scope="col">Email</th>
             <th scope="col">Contact</th>
             <th scope="col">State</th>
@@ -84,13 +84,13 @@
 <div class="popup-model">
     <div class="content">
         <div class="close" (click)="onClickClose()">+</div>
-        <h3 class="popup-header">Details</h3>
+        <h3 class="popup-header">Requests</h3>
         <table class="table table2 table-striped table-responsive-md mt-2 ml-2">
             <thead class="text-light bg-dark">
                 <tr>
                     <th scope="col">No</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Type</th>
+                    <th scope="col">Recipient Name</th>
+                    <th scope="col">Request Type</th>
                     <th scope="col">Amount</th>
                     <!-- <th scope="col">State</th> -->
                     <th scope="col">Description</th>
@@ -119,8 +119,8 @@
                     <!-- <td>
                         <button class="btn btn-sm btn-danger mr-5 Delete" (click)="OnDeleteRequest(request.email)">Delete</button>
                     </td> -->
-                    <td *ngIf="showDonor(request)"><button type="button" class="btn btn-sm btn-success mr-5 py-0" (click)="donate(request)">Donate</button></td>
-                    <td *ngIf="!showDonor(request)">Processing</td>
+                    <td class="text-center" *ngIf="showDonor(request)"><button type="button" class="btn btn-sm btn-success mr-5 py-0" (click)="donate(request)">Donate</button></td>
+                    <td *ngIf="!showDonor(request)">{{ request.status }}</td>
                     <!-- <td>
                         <button type="button" class="btn btn-sm btn-success py-0" (click)="selectCheckBox(item, $event.target.checked)">Approve</button>
                     </td> -->

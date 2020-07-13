@@ -2,10 +2,11 @@
     <thead>
         <tr>
             <th width="5%">No</th>
-            <th width="12%">Name</th>
+            <th width="12%">First Name</th>
+            <th>Family Name</th>
             <th width="20%">Email</th>
             <th width="15%">Contact</th>
-            <th width="15%">UserType</th>
+            <th width="15%">User Type</th>
             <th></th>
             <th></th>
         </tr>
@@ -14,11 +15,12 @@
         <tr *ngFor="let item of unApprovedUsers; index as i">
             <td>{{ i+1 }}</td>
             <td>{{ item.name }}</td>
+            <td>{{ item.familyName }}</td>
             <td>{{ item.email }}</td>
             <td>{{ item.contact}}</td>
             <td>{{ item.userType }}</td>
             <td>
-                <button type="button" class="btn btn-sm btn-primary py-0" (click)="viewDetails(item)">View Details</button>
+                <button type="button" class="btn btn-sm btn-info py-0" (click)="viewDetails(item)">View Details</button>
             </td>
             <td>
                 <button type="button" class="btn btn-sm btn-success py-0" (click)="selectCheckBox(item)">Approve</button>

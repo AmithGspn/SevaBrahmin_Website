@@ -262,7 +262,7 @@ export class SignUpComponent implements OnInit {
         let formData = {
             state: this.state.value,
             email: this.emailAddress.value,
-            contact: this.countrycode + this.contact.value,
+            contact: this.countrycode + " " + this.contact.value,
             password: this.password.value,
             userType: this.checkedValue,
             name: this.firstName.value,
@@ -277,7 +277,7 @@ export class SignUpComponent implements OnInit {
             email: this.emailAddress.value,
             firstName: this.firstName.value,
             familyName: this.familyName.value,
-            contact: this.countrycode + this.contact.value,
+            contact: this.countrycode + " " + this.contact.value,
             city: this.city,
             country: this.country.value,
             state: this.state,
@@ -306,7 +306,7 @@ export class SignUpComponent implements OnInit {
             email: this.emailAddress.value,
             firstName: this.firstName.value,
             familyName: this.familyName.value,
-            contact: this.countrycode + this.contact.value,
+            contact: this.countrycode + " " + this.contact.value,
             city: this.city,
             country: this.country.value,
             state: this.state

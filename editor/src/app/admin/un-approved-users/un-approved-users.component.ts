@@ -96,6 +96,7 @@ export class UnApprovedUsersComponent implements OnInit {
         console.log(data);
         this.appService.putVolunteer(data[0]).subscribe((data) => {
             window.location.reload();
+            console.log(data);
         })
       })
     }
