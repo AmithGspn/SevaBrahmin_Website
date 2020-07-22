@@ -4,7 +4,7 @@
 <!-- <a class="btn btn-danger delbutton" href="#">
     <i class="fa fa-trash-o icon-large"></i> Delete</a> -->
     
-<h1 class="display-5 text-center" *ngFor= "let item of loginData">Welcome {{ item.name }}</h1>
+<h1 class="display-5 text-center" *ngFor= "let item of loginData">Welcome {{ item.firstName }}</h1>
 <div class="row mt-0">
     <button class="btn btn-success request" (click)="OnClickRequest()"><i>+</i> Request</button>
 </div>
@@ -17,6 +17,7 @@
             <th scope="col">Description</th>
             <th scope="col">Status</th>
             <th scope="col">Assigned</th>
+            <th>Donor</th>
             <th scope="col"></th>
             <!-- <th scope="col" ></th> -->
             <!-- <th scope="col" ></th> -->
@@ -30,7 +31,7 @@
         <tr *ngFor="let request of RequestsList; index as i">
             <td>{{ i + 1 }}</td>
             <!-- <td>{{ request.occupation }}</td> -->
-            <td>{{ request.type }}</td>
+            <td>{{ request.requestType }}</td>
             <td>{{ request.amount }}</td>
             <td>
                 <button type="button" class="btn btn-sm btn-secondary py-0" (click)="showDescription(request.description)"><strong>View</strong></button>
@@ -40,8 +41,9 @@
             <!-- request.status == 'pending'  -->
             <td *ngIf="statusChange1(request.status)"><strong>{{ request.handledBy }}</strong></td>
             <td *ngIf="statusChange(request.status)"><button type="button" class="btn btn-sm btn-primary py-0" (click)="showVolunteerDetails(request.handledBy)"><strong>Details</strong></button></td>
+            <td>{{ request.donor }}</td>
             <td>
-                <button class="btn btn-sm btn-danger mr-5 Delete py-0" (click)="OnDeleteRequest(request.id)">Delete</button>
+                <button class="btn btn-sm btn-danger mr-5 Delete py-0" (click)="OnDeleteRequest(request.request_id)">Delete</button>
             </td>
         </tr>        
     </tbody>

@@ -27,6 +27,7 @@ import { HashLocationStrategy, LocationStrategy} from '@angular/common';
 import { ApprovedUsersComponent } from './admin/approved-users/approved-users.component';
 import { RequestsComponent } from './admin/requests/requests.component';
 import { MyRecipientsComponent } from './volunteer/my-recipients/my-recipients.component';
+import { FilterPipe } from './pipes/pipes';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { MyRecipientsComponent } from './volunteer/my-recipients/my-recipients.c
     ThankYouComponent,
     ApprovedUsersComponent,
     RequestsComponent,
-    MyRecipientsComponent
+    MyRecipientsComponent,
+    FilterPipe
   ],
   imports: [
     AlertModule.forRoot(),

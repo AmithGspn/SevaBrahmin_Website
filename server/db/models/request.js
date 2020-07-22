@@ -6,32 +6,42 @@ let Schema = mongoose.Schema;
 const projectionsDefaults = { _id: 0, __v: 0 };
 
 let RequestSchema = Schema({
-    id: {
+    recipientName: {
+        type: String
+    },
+    familyName: {
+        type: String,
+        trim:true
+    },
+    request_id: {
         trim: true,
-        // unique: true,
         type: String
     },
-    state: {
-        type: String,
-        trim: true
-    },
-    name: {
+    recipient_id: {
+        trim: true,
         type: String
-    },
-    email: {
-        type: String,
-        trim: true
     },
     contact: {
         type: String,
         required: [true, "required"],
     },
-    occupation: {
+    email: {
         type: String,
-        trim: true,
-        required: [true,"required"]
+        trim: true
     },
-    type: {
+    country: {
+        type: String,
+        trime: true
+    },
+    state: {
+        type: String,
+        trim: true
+    },
+    city: {
+        type: String,
+        trim: true
+    },
+    requestType: {
         type: String,
         required: [true,"required"]
     },
@@ -40,13 +50,18 @@ let RequestSchema = Schema({
         trim: true,
         required: [true,"required"]
     },
+    status: {
+        type: String,
+    },
     description: {
         type: String,
         trim: true,
         required: [true,"required"]
     },
-    status: {
+    occupation: {
         type: String,
+        trim: true,
+        required: [true,"required"]
     },
     handledBy: {
         type: String,
@@ -66,7 +81,7 @@ RequestSchema.pre(['save', 'findOneAndUpdate'], function (next) {
         obj = this._update['$set'];
     }
 
-    obj.id = obj.id || uuid();
+    obj.request_id = obj.request_id || uuid();
     next();
 });
 
@@ -90,8 +105,8 @@ RequestSchema.statics.getAllrequests = function (callback) {
     })
 };
 
-RequestSchema.statics.getRequestsByEmail = function (email, callback) {
-    this.find({ email: email }, projectionsDefaults).lean().exec(function (err, Requests) {
+RequestSchema.statics.getRequestsById = function (Id, callback) {
+    this.find({ recipient_id: Id }, projectionsDefaults).lean().exec(function (err, Requests) {
         if (err) {
             return callback(err);
         }

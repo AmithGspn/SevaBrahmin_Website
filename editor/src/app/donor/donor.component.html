@@ -1,5 +1,5 @@
 <!-- <h1 class="display-3 text-center">Welcome to Donor Portal</h1> -->
-<h1 class="display-5 text-center mt-3" *ngFor="let login of loginData">Welcome {{ login.name }}</h1>
+<h1 class="display-5 text-center mt-3" *ngFor="let login of loginData">Welcome {{ login.firstName }}</h1>
 <div class="row">
     <div id="request-type" class="input-group col-lg-2 col-sm-2 mb-2 mt-2" data-size = "5">
         <!-- <div class="input-group-prepend"> -->
@@ -43,12 +43,15 @@
 <table class="table table1 table-striped table-responsive-md mt-3 ml-2">
     <thead class="text-light bg-dark">
         <tr>
-            <th scope="col">No</th>
+            <th width="3%">No</th>
             <th scope="col">Volunteer Name</th>
+            <th>Family Name</th>
             <th scope="col">Email</th>
             <th scope="col">Contact</th>
+            <th>Country</th>
             <th scope="col">State</th>
-            <th scope="col">Requests</th>
+            <th>City</th>
+            <th scope="col">Requests</th>   
             <!-- <th scope="col" ></th> -->
             <!-- <th scope="col" ></th> -->
             <!-- <th scope="col" ></th> -->
@@ -62,10 +65,13 @@
             <td>{{ i + 1 }}</td>
             <!-- <td>{{ request.occupation }}</td> -->
             <td>{{ volunteer.firstName }}</td>
+            <td>{{ volunteer.familyName }}</td>
             <td>{{ volunteer.email }}</td>
             <td>{{ volunteer.contact }}</td>
+            <td>{{ volunteer.country }}</td>
             <td>{{ volunteer.state }}</td>
-            <td><button type="button" class="btn btn-sm btn-primary py-0" (click)="showRecipients(volunteer.email)"><strong>Details</strong></button></td>
+            <td>{{ volunteer.city }}</td>
+            <td><button type="button" class="btn btn-sm btn-primary py-0" (click)="showRecipients(volunteer.volunteer_id)"><strong>Details</strong></button></td>
             <!-- <td *ngIf="volunteer.status == 'pending' "><strong>{{ request.handledBy }}</strong></td>
             <td *ngIf="request.status == 'processing' "><button class="btn btn-sm btn-primary" (click)="showVolunteerDetails(request.handledBy)"><strong>Details</strong></button></td> -->
             <!-- <td>
@@ -85,15 +91,17 @@
     <div class="content">
         <div class="close" (click)="onClickClose()">+</div>
         <h3 class="popup-header">Requests</h3>
-        <table class="table table2 table-striped table-responsive-md mt-2 ml-2">
+        <table id="myTable" class="table table2 table-striped table-responsive-md mt-2 ml-2">
             <thead class="text-light bg-dark">
                 <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Recipient Name</th>
-                    <th scope="col">Request Type</th>
+                    <th scope="col" width="2%">No</th>
+                    <th scope="col" width="15%">Recipient Name</th>
+                    <th>Family Name</th>
+                    <th>Occupation</th>
+                    <th scope="col" width="15%">Request Type</th>
                     <th scope="col">Amount</th>
                     <!-- <th scope="col">State</th> -->
-                    <th scope="col">Description</th>
+                    <!-- <th scope="col">Description</th> -->
                     <th scope="col"></th>
                     <!-- <th scope="col" ></th> -->
                     <!-- <th scope="col" ></th> -->
@@ -104,16 +112,18 @@
             </thead>
 
             <tbody>
-                <tr *ngFor="let request of requestList; index as i">
+                <tr *ngFor="let request of requestList; index as i" (dblclick)="viewDescription(request,i)" title="double click to view description">
                     <td>{{ i + 1 }}</td>
                     <!-- <td>{{ request.occupation }}</td> -->
-                    <td>{{ request.name }}</td>
-                    <td>{{ request.type }}</td>
+                    <td>{{ request.recipientName }}</td>
+                    <td>{{ request.familyName }}</td>
+                    <td>{{ request.occupation }}</td>
+                    <td>{{ request.requestType }}</td>
                     <td>{{ request.amount }}</td>
                     <!-- <td>{{ request.state }}</td> -->
-                    <td>
+                    <!-- <td>
                         <button type="button" class="btn btn-sm btn-secondary py-0" (click)="showDescription(request.description)">View</button>
-                    </td>
+                    </td> -->
                     <!-- <td *ngIf="request.status == 'pending' "><strong>{{ request.handledBy }}</strong></td> -->
                     <!-- <td *ngIf="request.status == 'processing' "><button class="btn btn-sm btn-primary" (click)="showVolunteerDetails(request.handledBy)"><strong>Details</strong></button></td> -->
                     <!-- <td>

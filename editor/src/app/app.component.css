@@ -1,4 +1,10 @@
 .navbar-default {
-    background-color:black;
+    background-color:  #001433;
     border-color: #E7E7E7;
 }
+
+.nav-item:hover {
+    background-color:#ffebcc;
+    color: black;
+}
+

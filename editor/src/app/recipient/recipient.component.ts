@@ -12,7 +12,8 @@ export class RecipientComponent implements OnInit {
     role = '';
     volunteerDetails: any= [];
     type:any ="SwayamPakam";
-    email:any = "";
+    // email:any = "";
+    Id:any = "";
     alert:any = false;
     flag:any = false;
     othersType:any = {disabled: false, value: ""};
@@ -31,16 +32,18 @@ export class RecipientComponent implements OnInit {
     ngOnInit() {
         this.loginRecipient();
         this.router.navigateByUrl('/recipient')
-        this.email = localStorage.getItem('email')
-        console.log(this.email)
-        this.appService.getRecipientByEmail(this.email).subscribe((data:any) => {
+        this.Id = localStorage.getItem('Id')
+        console.log(this.Id)
+        this.appService.getRecipientById(this.Id).subscribe((data:any) => {
             console.log(data[0].referedBy);
             this.ReferedBy = data[0].referedBy;
         })
-        this.appService.getUserByEmail(this.email).subscribe((data:any) => {
+        this.appService.getUserById(this.Id).subscribe((data:any) => {
+            console.log(data);
             this.loginData = [];
             this.loginData = data
-            this.appService.getRequestsByEmail(this.loginData[0].email).subscribe((data:any) => {
+            this.appService.getRequestsById(this.loginData[0].user_id).subscribe((data:any) => {
+                console.log(data);
                 for(let request of data) {
                     this.RequestsList.push(request);
                 }
@@ -90,6 +93,7 @@ export class RecipientComponent implements OnInit {
             this.othersType = {disabled: true,value:''}
         } else {
             this.othersType = {disabled: false,value:event}
+            this.type = event;
         }
     }
 
@@ -131,16 +135,20 @@ export class RecipientComponent implements OnInit {
             this.STATUS = "Processing"
         }
         let formData = {
-            occupation: this.occupation.value,
-            type: this.type,
-            state: this.loginData[0].state,
-            amount: this.denomination + " " + this.amount.value,
-            description: this.description.value,
-            status: this.STATUS,
-            handledBy: this.ReferedBy,
-            name: this.loginData[0].name,
-            email: this.loginData[0].email,
+            recipientName: this.loginData[0].firstName,
+            familyName: this.loginData[0].familyName,
+            recipient_id: this.loginData[0].user_id,
             contact: this.loginData[0].contact,
+            email: this.loginData[0].email,
+            country: this.loginData[0].country,
+            state: this.loginData[0].state,
+            city: this.loginData[0].city,
+            requestType: this.type,
+            amount: this.denomination + " " + this.amount.value,
+            status: this.STATUS,
+            description: this.description.value,
+            occupation: this.occupation.value,
+            handledBy: this.ReferedBy,
             donor: "None"
         }
         console.log(formData);
@@ -193,9 +201,9 @@ export class RecipientComponent implements OnInit {
         }
     }
 
-    showVolunteerDetails(email){
+    showVolunteerDetails(Id){
         this.volunteerDetails = [];
-        this.appService.getVolunteerByEmail(email).subscribe((data) => {
+        this.appService.getVolunteerById(Id).subscribe((data:any) => {
             console.log(data)
             this.volunteerDetails.push(data);
             document.querySelector('.popup-model').setAttribute("style","display:flex;");

@@ -28,10 +28,12 @@ router.post('/', async function (req, res, next) {
                 contact: req.body.contact,
                 firstName: req.body.firstName,
                 familyName: req.body.familyName,
-                state: req.body.state,
-                requestType: req.body.requestType,
-                city: req.body.city,
                 country: req.body.country,
+                state: req.body.state,
+                city: req.body.city,
+                volunteer_id: req.body.volunteer_id,
+                requests: req.body.requests,
+                // requestType: req.body.requestType,
                 requests_handled: req.body.requests_handled
             };
 
@@ -72,16 +74,18 @@ router.get('/', async function (req, res, next) {
 router.put('/', async function (req, res, next) {
     data = {
         approved: req.body.approved,
+        // approved: req.body.approved || false,
         email: req.body.email,
         contact: req.body.contact,
         firstName: req.body.firstName,
         familyName: req.body.familyName,
-        state: req.body.state,
-        requestType: req.body.requestType,
-        city: req.body.city,
         country: req.body.country,
+        state: req.body.state,
+        city: req.body.city,
+        volunteer_id: req.body.volunteer_id,
+        requests: req.body.requests,
         requests_handled: req.body.requests_handled
-    };
+};
 
     try {
         let updateDoc = await volunteerModel.findOneAndUpdate(
@@ -111,13 +115,30 @@ router.put('/', async function (req, res, next) {
     }
 });
 
-router.get('/getVolunteerByEmail', async function (req, res, next) {
-    let email= req.body['emailId'] || req.query['emailId']
-    console.log(email)
+router.get('/getVolunteerById', async function (req, res, next) {
+    let Id= req.body['volunteer_id'] || req.query['volunteer_id']
+    console.log(Id)
     let user = await new Promise((resolve, reject) =>
-    volunteerModel.getVolunteerByEmail(email, (err, docs) => err ? reject(err) : resolve(docs)));
+    volunteerModel.getVolunteerById(Id, (err, docs) => err ? reject(err) : resolve(docs)));
     return res.status(200).json(user);
-})
+});
 
+router.delete('/', async function (req, res, next) {
+    let volunteerId = req.query['volunteer_id'] || req.body['volunteer_id'];
+    try {
+        let delDoc = await volunteerModel.findOneAndRemove({ volunteer_id: volunteer_id });
+        if (!delDoc) {
+            e = new Error();
+            e.status = 404;
+            e.message = 'user not found';
+
+            return next(e);
+        } else {
+            return res.status(200).json({ volunteer_id: volunteer_id, "deleted": true });
+        }
+    } catch (err) {
+        return next(err);
+    }
+});
 
 module.exports = router;

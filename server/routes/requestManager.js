@@ -5,18 +5,22 @@ let requestModel = require('../db/models/request');
 
 router.post('/', async function (req, res, next) {
     data = {
-        name: req.body.name,
+        recipientName: req.body.recipientName,
+        familyName: req.body.familyName,
+        country: req.body.country,
         state: req.body.state,
+        city: req.body.city,
         email: req.body.email,
         contact: req.body.contact,
         occupation: req.body.occupation,
-        type: req.body.type,
+        requestType: req.body.requestType,
         amount: req.body.amount,
         description: req.body.description,
         status: req.body.status,
         handledBy: req.body.handledBy,
         donor: req.body.donor,
-        id: req.body.id
+        request_id: req.body.request_id,
+        recipient_id: req.body.recipient_id
     };
 
     try {
@@ -56,10 +60,10 @@ router.get('/', async function (req, res, next) {
     return res.status(200).json(requests);
 });
 
-router.get('/getRequestsByEmail', async function (req, res, next) {
-    let email= req.body['emailId'] || req.query['emailId']
+router.get('/getRequestsById', async function (req, res, next) {
+    let Id= req.body['recipient_id'] || req.query['recipient_id']
     let requests = await new Promise((resolve, reject) =>
-    requestModel.getRequestsByEmail(email, (err, docs) => err ? reject(err) : resolve(docs)));
+    requestModel.getRequestsById(Id, (err, docs) => err ? reject(err) : resolve(docs)));
     return res.status(200).json(requests);
 })
 
@@ -72,27 +76,31 @@ router.get('/getRequestsByHandledBy', async function (req, res, next) {
 
 router.put('/', async function (req, res, next) {
     data = {
-        id: req.body.id,
-        state: req.body.state,
-        name: req.body.name,
-        email: req.body.email,
+        recipientName: req.body.recipientName,
+        familyName: req.body.familyName,
         contact: req.body.contact,
-        occupation: req.body.occupation,
-        type: req.body.type,
+        email: req.body.email,
+        country: req.body.country,
+        state: req.body.state,
+        city: req.body.city,
+        requestType: req.body.requestType,
         amount: req.body.amount,
-        description: req.body.description,
         status: req.body.status,
+        description: req.body.description,
+        occupation: req.body.occupation,
         handledBy: req.body.handledBy,
-        donor: req.body.donor
+        donor: req.body.donor,
+        request_id: req.body.request_id,
+        recipeint_id: req.body.recipeint_id,
     };
-    console.log(req.query.email)
     try {
+        console.log('ddddddddddddddd')
         let updateDoc = await requestModel.findOneAndUpdate(
-            { id: req.body.id},
+            { request_id: req.body.request_id},
             { $set: data, $inc: { __v: 1 } },
             { new: true, runValidators: true }
         );
-        console.log(updateDoc)
+        console.log(updateDoc, "lllllllllllllllll")
 
         if (!updateDoc) {
             e = new Error();
@@ -117,10 +125,9 @@ router.put('/', async function (req, res, next) {
 
 /* Delete a request */
 router.delete('/', async function (req, res, next) {
-    let requestId = req.query['id'] || req.body['id'];
+    let requestId = req.query['request_id'] || req.body['request_id'];
     try {
-        let delDoc = await requestModel.findOneAndRemove({ id: requestId });
-
+        let delDoc = await requestModel.findOneAndRemove({ request_id: requestId });
         if (!delDoc) {
             e = new Error();
             e.status = 404;
@@ -128,7 +135,7 @@ router.delete('/', async function (req, res, next) {
 
             return next(e);
         } else {
-            return res.status(200).json({ id: requestId, "deleted": true });
+            return res.status(200).json({ request_id: requestId, "deleted": true });
         }
     } catch (err) {
         return next(err);

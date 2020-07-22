@@ -280,12 +280,6 @@
 
                     <!-- City -->
                     <div class="input group col-lg-6 mb-4">
-                        <!-- <div class="input-group-prepend"> -->
-                            <!-- <span class="input-group-text bg-white px-4 border-md border-right-0">
-                                <i class="fa fa-user text-muted"></i>
-                            </span> -->
-                            <!-- <input id="city" type="text" name="city" (blur)="onCityChange($event.target.value)" placeholder="City" class="form-control bg-white border-md">     -->
-                        <!-- </div> -->
                         <select (blur)="onCityChange($event.target.value)" class="custom-select form-control bg-white border-md" name="City">
                             <option>City</option>
                             <option *ngFor="let city of selectedCity"
@@ -328,7 +322,7 @@
                             </span> -->
                             <input id="zip" type="text" required="required" name="zip" (blur)="onPinChange($event.target.value)" placeholder="Pin/Zip Code" class="form-control bg-white border-md">
                         </div>
-                        <div *ngIf="pinCode.disabled == true" class="text-danger">
+                        <div *ngIf="pincode.disabled == true" class="text-danger">
                         <small>please enter pincode</small>    
                         </div>
                     </div>

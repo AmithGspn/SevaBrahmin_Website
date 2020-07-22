@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
         this.appService.postLogin(formData).subscribe((data: any) => {
             console.log(data)
             localStorage.setItem('token', data.token)
-            localStorage.setItem('email', data.user.email)
+            localStorage.setItem('Id', data.user.user_id)
             if (data.user.userType === 'Admin') {
                 this.router.navigateByUrl('/admin');
             } else if (data.user.userType === 'Volunteer'){

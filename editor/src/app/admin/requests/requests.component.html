@@ -22,7 +22,7 @@
     <!-- </div> -->
 
     <div class="input-group col-lg-2 col-sm-2 mb-4 mt-2">
-        <button class="Submit btn btn-success" (click)="onSubmit()"><strong class="text-center">Submit</strong></button>
+        <button class="btn btn-success" (click)="onSubmit()"><strong class="text-center">Submit</strong></button>
     </div>
 
     <!-- <div class="input-group col-lg-2 col-sm-2 mb-2 mt-2 text-danger" *ngIf="error_class === true">
@@ -31,20 +31,31 @@
 </div>
 
 
+<div class="row textbox-width mb-1 ml-1">
+    <input
+    type="text"
+    class="form-control"
+    name="searchString"
+    placeholder="Type to search..."
+    [(ngModel)]="searchString"
+  /></div>
 
 
-
-<table class="table table-dark table-responsive-md">
-    <thead>
+<table id="myTable" class="table table-striped table-responsive-md">
+    <thead class="table-dark text-light">
         <tr>
-            <th scope="col">No</th>
-            <th scope="col">Recipient Name</th>
+            <th width="3%">No</th>
+            <th width="10%">Recipient Name</th>
+            <th width="8%">Occupation</th>
             <th scope="col">Contact</th>
-            <th scope="col">Email</th>
+            <th width="8%" class="align-start">Email</th>
+            <th>Country</th>
+            <th>State</th>
+            <th>City</th>
             <th scope="col">Request Type</th>
             <th scope="col">Amount</th>
             <th scope="col">Status</th>
-            <th></th>
+            <!-- <th></th> -->
             <th></th>
             <!-- <th scope="col">Handled By</th> -->
             <!-- <th></th> -->
@@ -52,22 +63,25 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let request of selectedStatus; index as i">
+        <tr *ngFor="let request of selectedStatus | filter : searchString; index as i" (dblclick)="viewDescription(request,i)" title="double click to view description">
             <td>{{ i+1 }}</td>
-            <td>{{ request.name }}</td>
+            <td>{{ request.recipientName }}</td>
+            <td>{{ request.occupation }}</td>
             <td>{{ request.contact }}</td>
-            <td>{{ request.email }}</td>
-            <td>{{ request.type }}</td>
+            <td class="align-start">{{ request.email }}</td>
+            <td>{{ request.country }}</td>
+            <td>{{ request.state }}</td>
+            <td>{{ request.city }}</td>
+            <td>{{ request.requestType }}</td>
             <td>{{ request.amount }}</td>
             <td>{{ request.status }}</td>
-            <td>
-                <!-- *ngIf="showAssignButton(request.status)" -->
-                <button type="button" class="btn btn-sm btn-info py-0" (click)="onClickDetails(request)">View Details</button>
-            </td>
+            <!-- <td> -->
+                <!-- <button type="button" class="btn btn-sm btn-info py-0" (click)="onClickDetails(request)">View Details</button>
+            </td> -->
             <td *ngIf="onAssigned(request)">
                 <button type="button" class="btn btn-sm btn-success py-0" (click)="onShowVolunteers(request)">Volunteers</button>
             </td>
-            <td *ngIf="!onAssigned(request)">{{ request.handledBy }}</td>
+            <td *ngIf="!onAssigned(request)">{{ request.volName }}</td>
             <!-- <td>
                 <button type="button" class="btn btn-sm btn-success py-0" (click)="onClickAssign(request)" *ngIf="showAssignButton(request.status)">Assign</button>
             </td> -->
@@ -82,20 +96,20 @@
     <div class="model-content">
         <div class="close" (click)="onClickClose()">+</div>
         <div class="Details">
-            <h3 class="header mr-auto">Details</h3>
+            <h3 class="header mr-auto">Description</h3>
             <hr>
             <form action="#">
                 <div class="row">
-                    <div *ngFor="let recipient of recipients">
-                            <label class="col-lg-12">Country : {{ recipient.country }}</label>
-                            <label class="col-lg-12">State : {{ recipient.state }}</label>
-                            <label class="col-lg-12">City : {{ recipient.city }}</label>
+                    <!-- <div *ngFor="let recipient of recipients"> -->
                         <!-- </div>         -->
-                    </div>
-                    <div *ngFor="let request of request_details">
-                        <label class="col-lg-12">Occupation : {{ request.occupation }}</label>
-                        <label class="col-lg-12">Description : {{ request.description }}</label>
-                    </div>
+                        <!-- </div> -->
+                        <div *ngFor="let request of request_details">
+                            <!-- <label class="col-lg-12">Country : {{ request.country }}</label>
+                            <label class="col-lg-12">State : {{ request.state }}</label>
+                            <label class="col-lg-12">City : {{ request.city }}</label>
+                            <label class="col-lg-12">Occupation : {{ request.occupation }}</label> -->
+                            <label class="col-lg-12">{{ request.description }}</label>
+                        </div>
                 </div>
             </form>
         </div>
@@ -137,6 +151,18 @@
                             <option>State</option>
                             <option *ngFor="let state of statesList"
                                 [value]="state"> {{ state }}
+                            </option>
+                        </select>
+                    <!-- </div> -->
+                </div>
+
+                <div class="input-group col-lg-2 col-sm-2 mb-2 mt-2" data-size = "5">
+                    <!-- [ngClass]="$event.target.value == 'State'" -->
+                    <!-- <div class="input-group-prepend">     -->
+                        <select (blur)="onCityChange($event.target.value)" class="custom-select form-control bg-white border-md" name="City">
+                            <option>City</option>
+                            <option *ngFor="let city of selectedCity"
+                                [value]="city"> {{ city }}
                             </option>
                         </select>
                     <!-- </div> -->

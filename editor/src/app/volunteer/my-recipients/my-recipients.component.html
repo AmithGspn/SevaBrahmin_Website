@@ -17,10 +17,10 @@
         <tr *ngFor="let recipient of addedRecipients; index as i">
             <td>{{ i+1 }}</td>
             <td>{{ recipient.firstName }}</td>
-            <td>{{ recipientContact }}</td>
+            <td>{{ recipient.contact }}</td>
             <td>{{ recipient.email }}</td>
-            <td>{{ recipient.country }}</td>
-            <td>{{ recipient.state }}</td>
+            <td>{{ recipient.country}}</td>
+            <td>{{ recipient.state}}</td>
             <td>
                 {{ recipient.city }}
                 <!-- <button type="button" class="btn btn-sm btn-success py-0" (click)="showDescription(recipient.description)">View</button> -->

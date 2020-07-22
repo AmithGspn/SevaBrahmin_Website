@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavbarService } from 'src/app/services/navbar.service';
 import { AppService } from '../../app.service';
+import {v4 as uuid} from 'uuid';
 
 @Component({
   selector: 'app-add-recipients',
@@ -22,14 +23,14 @@ export class AddRecipientsComponent implements OnInit {
   familyName: any = {disabled: false, value: ""};
   address1: any={disabled: false, value: ""};
   address2: any={disabled: false, value: ""};
-  pinCode: any={disabled: false, value: ""};
+  pincode: any={disabled: false, value: ""};
   gender:any="male";
   state: any = "";
   city: any = "";
   stateIndex: any = ""; 
   selectedCity: any = [];
   check:any ={disabled:false,value: ""}
-  country: any={disabled: false, value: ""};
+  country: any= "";
   bankDetails: any = "";
   ifsc: any = "";
   checkedValue1: any = false;
@@ -74,23 +75,25 @@ export class AddRecipientsComponent implements OnInit {
       " Almora | Bageshwar | Bhatwari | Chakrata | Chamoli | Champawat | Dehradun | Deoprayag | Dharchula | Dunda | Haldwani | Haridwar | Joshimath | Karan Prayag | Kashipur | Khatima | Kichha | Lansdown | Munsiari | Mussoorie | Nainital | Pantnagar | Partapnagar | Pauri Garhwal | Pithoragarh | Purola | Rajgarh | Ranikhet | Roorkee | Rudraprayag | Tehri Garhwal | Udham Singh Nagar | Ukhimath | Uttarkashi ",
       " Adra | Alipurduar | Amlagora | Arambagh | Asansol | Balurghat | Bankura | Bardhaman | Basirhat | Berhampur | Bethuadahari | Birbhum | Birpara | Bishanpur | Bolpur | Bongoan | Bulbulchandi | Burdwan | Calcutta | Canning | Champadanga | Contai | Cooch Behar | Daimond Harbour | Dalkhola | Dantan | Darjeeling | Dhaniakhali | Dhuliyan | Dinajpur | Dinhata | Durgapur | Gangajalghati | Gangarampur | Ghatal | Guskara | Habra | Haldia | Harirampur | Harishchandrapur | Hooghly | Howrah | Islampur | Jagatballavpur | Jalpaiguri | Jhalda | Jhargram | Kakdwip | Kalchini | Kalimpong | Kalna | Kandi | Karimpur | Katwa | Kharagpur | Khatra | Krishnanagar | Mal Bazar | Malda | Manbazar | Mathabhanga | Medinipur | Mekhliganj | Mirzapur | Murshidabad | Nadia | Nagarakata | Nalhati | Nayagarh | Parganas | Purulia | Raiganj | Rampur Hat | Ranaghat | Seharabazar | Siliguri | Suri | Takipur | Tamluk"
   ];
-  email: any ="";
-  passwordformat= /[0-9a-zA-Z@$!%*#?&]{6,}/;
-  contactformat = /^\d{10}$/;
-  mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  statusMessage: any = {
-      success: false,
-      error: false,
-      message: ''
-  };
+//   email: any ="";
+    Id:any = "";
+    user_id: any = uuid();
+    passwordformat= /[0-9a-zA-Z@$!%*#?&]{6,}/;
+    contactformat = /^\d{10}$/;
+    mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    statusMessage: any = {
+        success: false,
+        error: false,
+        message: ''
+    };
 
   constructor(private appService: AppService,private router: Router, private navbarService: NavbarService) { }
 
     ngOnInit() {
         this.loginVolunteer();
         this.router.navigateByUrl('/volunteer/addrecipients');
-        this.email = localStorage.getItem('email')
-        console.log(this.email)
+        this.Id = localStorage.getItem('Id')
+        console.log(this.Id)
     }
 
     loginVolunteer() {
@@ -99,12 +102,12 @@ export class AddRecipientsComponent implements OnInit {
         this.role = 'volunteer/addrecipients';
     }
 
-    onStateChange(event) {
-        this.state = event;
-        this.stateIndex=this.statesList.indexOf(this.state);
-        this.selectedCity = this.cityList[this.stateIndex+1].split("|");
-        console.log(this.selectedCity);
-    }
+    // onStateChange(event) {
+    //     this.state = event;
+    //     this.stateIndex=this.statesList.indexOf(this.state);
+    //     this.selectedCity = this.cityList[this.stateIndex+1].split("|");
+    //     console.log(this.selectedCity);
+    // }
 
     onFamilyNameChange(event) {
         if(event == ''){
@@ -137,9 +140,9 @@ export class AddRecipientsComponent implements OnInit {
 
     onPinChange(event){
         if(event == ''){
-            this.pinCode = {value: '',disabled: true}
+            this.pincode = {value: '',disabled: true}
         }else{
-            this.pinCode = {value: event,disabled: false}
+            this.pincode = {value: event,disabled: false}
         }
     }
 
@@ -184,16 +187,16 @@ export class AddRecipientsComponent implements OnInit {
             this.contact = {value: '', disabled: true}
         }
     }
-    onCityChange(event){
-        this.city=event;
-    }
-    onCountryChange(event){
-        if(event == ''){
-            this.country={disabled: true, value: ''}
-        } else{
-            this.country={disabled:false,value:event}
-        }
-    }
+    // onCityChange(event){
+    //     this.city=event;
+    // }
+    // onCountryChange(event){
+    //     if(event == ''){
+    //         this.country={disabled: true, value: ''}
+    //     } else{
+    //         this.country={disabled:false,value:event}
+    //     }
+    // }
     onPasswordChange(event) {
         if(event.match(this.passwordformat)){
             this.password = {disabled: false, value: event}
@@ -241,47 +244,55 @@ export class AddRecipientsComponent implements OnInit {
     }
 
   signup() {
-      let formData = {
-          state: this.state.value,
-          email: this.emailAddress.value,
-          contact: this.countrycode + this.contact.value,
-          password: this.password.value,
-          userType: "Recipient",
-          name: this.firstName.value,
-          age: this.age.value,
-          gender: this.gender,
-          address: this.address1.value + this.address2.value,
-          pinCode: this.pinCode.value,
-      }
-
-      let recipientData = {
-        firstName: this.firstName.value,
-        familyName: this.familyName.value,
-        email: this.emailAddress.value,
-        city: this.city,
-        country: this.country.value,
-        state: this.state,
-        bankAccountNumber: this.bankDetails,
-        IFSC: this.ifsc,
-        referedBy: this.email
-      }
-    console.log(recipientData)
-    // console.log(this.checkedValue)
-    // if (this.checkedValue === "Recipient" ) {
-        if(this.checkedValue1 === true && this.checkedvalue2 === true && this.checkedvalue3 === true) {
-            this.appService.postRecipient(recipientData).subscribe((data) => {
-                this.appService.postUser(formData).subscribe((data: any) => {
-                    console.log(data)
-                    this.router.navigateByUrl('/volunteer/myrecipients');
-                });
-            });
-        } else {
-            this.statusMessage = {
-                success: false,
-                error: true,
-                message: "Please agree to the terms and conditions"
-            };
+    this.appService.getVolunteerById(this.Id).subscribe((data:any) => {
+        this.city = data[0].city;
+        this.country = data[0].country;
+        this.state = data[0].state;
+        let formData = {
+            firstName: this.firstName.value,
+            familyName: this.familyName.value,
+            email: this.emailAddress.value,
+            contact: '+' + this.countrycode + " " + this.contact.value,
+            userType: 'Recipient',
+            country: this.country,
+            state: this.state,
+            city: this.city,
+            password: this.password.value,
+            address: this.address1.value + this.address2.value,
+            age: this.age.value,
+            gender: this.gender,
+            user_id: this.user_id,
+            pincode: this.pincode.value,
+            referedBy: this.Id,
+            approved: true
         }
+        
+              let recipientData = {
+                firstName: this.firstName.value,
+                familyName: this.familyName.value,
+                email: this.emailAddress.value,
+                contact: '+' + this.countrycode + " " + this.contact.value,
+                recipient_id: this.user_id,
+                bankAccountNumber: this.bankDetails,
+                IFSC: this.ifsc,
+                referedBy: this.Id
+              }
+            console.log(recipientData)
+                if(this.checkedValue1 === true && this.checkedvalue2 === true && this.checkedvalue3 === true) {
+                    this.appService.postRecipient(recipientData).subscribe((data) => {
+                        this.appService.postUser(formData).subscribe((data: any) => {
+                            console.log(data)
+                            this.router.navigateByUrl('/volunteer/myrecipients');
+                        });
+                    });
+                } else {
+                    this.statusMessage = {
+                        success: false,
+                        error: true,
+                        message: "Please agree to the terms and conditions"
+                    };
+                }
+    })
     // }
   }
 }

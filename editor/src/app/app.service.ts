@@ -16,13 +16,14 @@ export class AppService {
     private loginManagerUrl = apiUrls.loginManager;
     private donorManagerUrl = apiUrls.donorManager;
     private requestManagerUrl = apiUrls.requestManager;
-    private getUserByEmailUrl = apiUrls.getUserByEmail;
-    private getRequestsByEmailUrl = apiUrls.getRequestsByEmail;
-    private getVolunteerByEmailUrl = apiUrls.getVolunteerByEmail;
+    private getUserByIdUrl = apiUrls.getUserById;
+    private getUserByReferedByUrl = apiUrls.getUserByReferedBy;
+    private getRequestsByIdUrl = apiUrls.getRequestsById;
+    private getVolunteerByIdUrl = apiUrls.getVolunteerById;
     private getRequestsByHandledByUrl = apiUrls.getRequestsByHandledBy;
     private getRecipientsByReferedByUrl = apiUrls.getRecipientsByReferedBy;
-    private getRecipientByEmailUrl = apiUrls.getRecipientsByEmail;
-    private getDonorByEmailUrl = apiUrls.getDonorbyEmail;
+    private getRecipientByIdUrl = apiUrls.getRecipientsById;
+    private getDonorByIdUrl = apiUrls.getDonorbyId;
 
     handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
@@ -49,32 +50,40 @@ export class AppService {
         );
     }
 
-    getRecipientByEmail(email) {
-        console.log(email)
-        return this.httpClient.get(this.getRecipientByEmailUrl + '?email='+email, this.httpOptions)
+    getUserByReferedBy(referedBy) {
+        console.log(referedBy)
+        return this.httpClient.get(this.getUserByReferedByUrl + '?referedBy='+referedBy, this.httpOptions)
         .pipe(
             catchError(this.handleError)
         );
     }
 
-    getDonorByEmail(email) {
-        console.log(email)
-        return this.httpClient.get(this.getDonorByEmailUrl + '?email='+email, this.httpOptions)
+    getRecipientById(Id) {
+        console.log(Id)
+        return this.httpClient.get(this.getRecipientByIdUrl + '?recipient_id='+Id, this.httpOptions)
+        .pipe(
+            catchError(this.handleError)
+        );
+    }
+
+    getDonorById(Id) {
+        console.log(Id)
+        return this.httpClient.get(this.getDonorByIdUrl + '?donor_id='+Id, this.httpOptions)
         .pipe(
             catchError(this.handleError)
         );
     }    
     
-    getVolunteerByEmail(emailId) {
-        console.log(emailId)
-        return this.httpClient.get(this.getVolunteerByEmailUrl + '?emailId='+emailId, this.httpOptions)
+    getVolunteerById(Id) {
+        console.log(Id)
+        return this.httpClient.get(this.getVolunteerByIdUrl + '?volunteer_id='+Id, this.httpOptions)
         .pipe(
             catchError(this.handleError)
         );
     }
 
-    getUserByEmail(emailId) {
-        return this.httpClient.get(this.getUserByEmailUrl + '?emailId='+emailId, this.httpOptions)
+    getUserById(Id) {
+        return this.httpClient.get(this.getUserByIdUrl + '?user_id='+Id, this.httpOptions)
         .pipe(
             catchError(this.handleError)
         );
@@ -129,6 +138,13 @@ export class AppService {
         );
     }
 
+    deleteUser(id) {
+        return this.httpClient.delete(this.userRegisterationUrl + '?user_id='+id, this.httpOptions)
+        .pipe(
+            catchError(this.handleError)
+        );
+    }
+
     postVolunteer(formData) {
         return this.httpClient.post( this.volunteerManagerUrl, formData, this.httpOptions )
         .pipe(
@@ -143,8 +159,8 @@ export class AppService {
         );
     }
     
-    getRequestsByEmail(emailId) {
-        return this.httpClient.get(this.getRequestsByEmailUrl + '?emailId='+emailId, this.httpOptions)
+    getRequestsById(Id) {
+        return this.httpClient.get(this.getRequestsByIdUrl + '?recipient_id='+Id, this.httpOptions)
         .pipe(
             catchError(this.handleError)
         );
@@ -173,7 +189,7 @@ export class AppService {
     }
 
     deleteRequest(id) {
-        return this.httpClient.delete(this.requestManagerUrl + '?id='+id, this.httpOptions)
+        return this.httpClient.delete(this.requestManagerUrl + '?request_id='+id, this.httpOptions)
         .pipe(
             catchError(this.handleError)
         );
@@ -185,6 +201,13 @@ export class AppService {
             catchError(this.handleError)
         );
     }
+
+    deleteDonor(id) {
+        return this.httpClient.delete(this.donorManagerUrl + '?donor_id='+id, this.httpOptions)
+        .pipe(
+            catchError(this.handleError)
+        );        
+    }    
 
     postDonor(formData) {
         return this.httpClient.post( this.donorManagerUrl, formData, this.httpOptions )
@@ -200,6 +223,13 @@ export class AppService {
         );
     }
 
+    deleteVolunteer(id) {
+        return this.httpClient.delete(this.volunteerManagerUrl + '?volunteer_id='+id, this.httpOptions)
+        .pipe(
+            catchError(this.handleError)
+        );        
+    }
+
     postRecipient(formData) {
         return this.httpClient.post( this.recipientManagerUrl, formData, this.httpOptions )
         .pipe(
@@ -213,4 +243,11 @@ export class AppService {
             catchError(this.handleError)
         );
     }
+
+    deleteRecipient(id) {
+        return this.httpClient.delete(this.recipientManagerUrl + '?recipient_id='+id, this.httpOptions)
+        .pipe(
+            catchError(this.handleError)
+        );        
+    }    
 }

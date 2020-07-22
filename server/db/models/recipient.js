@@ -6,12 +6,6 @@ let Schema = mongoose.Schema;
 const projectionsDefaults = { _id: 0, __v: 0 };
 
 let recipientSchema = Schema({
-    email: {
-        type: String,
-        required: true,
-        unique: true,
-        required: [true, "required"]
-    },
     firstName: {
         type: String,
         trim: true,
@@ -21,10 +15,19 @@ let recipientSchema = Schema({
         type: String,
         trim: true
     },
-    // gothram: {
-    //     type: String,
-    //     trim: true
-    // },
+    contact: {
+        type: String,
+        unique: true,
+        required: [true, "required"],
+    },
+    email: {
+        type: String,
+        unique: true,
+        required: [true, "required"]
+    },
+    recipient_id: {
+        type: String
+    },
     bankAccountNumber: {
         type: Number,
         match: /^\d{11}$/,
@@ -34,23 +37,6 @@ let recipientSchema = Schema({
     },
     IFSC: {
         type: String,
-        // match: /^[A-Za-z]{4}[a-zA-Z0-9]{7}$/,
-    },
-    state: {
-        type: String,
-        trim: true
-    },
-    volunteerNo: {
-        type: Number,
-        match: /^\d{10}$/
-    },
-    city: {
-        type: String,
-        trim: true,
-    },
-    country: {
-        type: String,
-        trim: true
     },
     referedBy: {
         type: String,
@@ -103,8 +89,8 @@ recipientSchema.statics.getRecipientsByReferedBy = function (referedBy,callback)
     })
 };
 
-recipientSchema.statics.getRecipientByEmail = function (email,callback) {
-    this.find({ email: email }, projectionsDefaults).lean().exec(function (err, Recipients) {
+recipientSchema.statics.getRecipientById = function (Id,callback) {
+    this.find({ recipient_id: Id }, projectionsDefaults).lean().exec(function (err, Recipients) {
         if (err) {;
             return callback(err);
         }

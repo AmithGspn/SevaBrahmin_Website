@@ -26,25 +26,22 @@ router.get('/getRecipientsByReferedBy', async function (req, res, next) {
     return res.status(200).json(user);
 })
 
-router.get('/getRecipientByEmail', async function (req, res, next) {
-    let email= req.body['email'] || req.query['email']
+router.get('/getRecipientById', async function (req, res, next) {
+    let Id= req.body['recipient_id'] || req.query['recipient_id']
     let user = await new Promise((resolve, reject) =>
-    recipientModel.getRecipientByEmail(email, (err, docs) => err ? reject(err) : resolve(docs)));
+    recipientModel.getRecipientById(Id, (err, docs) => err ? reject(err) : resolve(docs)));
     return res.status(200).json(user);
 })
 
 router.post('/', async function (req, res, next) {
     data = {
-        email: req.body.email,
         firstName: req.body.firstName,
         familyName: req.body.familyName,
-        referedBy: req.body.referedBy,
+        email: req.body.email,
+        contact: req.body.contact,
+        recipient_id: req.body.recipient_id,
         bankAccountNumber: req.body.bankAccountNumber,
         IFSC: req.body.IFSC,
-        state: req.body.state,
-        city: req.body.city,
-        country: req.body.country,
-        volunteerNo: req.body.volunteerNo || " ",
         referedBy: req.body.referedBy
     };
 
@@ -68,6 +65,24 @@ router.get('/',async function (req, res, next) {
     let recipients = await new Promise((resolve, reject) =>
     recipientModel.getAllRecipients( (err, docs) => err ? reject(err) : resolve(docs)));
     return res.status(200).json(recipients);
+});
+
+router.delete('/', async function (req, res, next) {
+    let recipientId = req.query['recipient_id'] || req.body['recipient_id'];
+    try {
+        let delDoc = await recipientModel.findOneAndRemove({ recipient_id: recipientId });
+        if (!delDoc) {
+            e = new Error();
+            e.status = 404;
+            e.message = 'user not found';
+
+            return next(e);
+        } else {
+            return res.status(200).json({ recipient_id: recipientId, "deleted": true });
+        }
+    } catch (err) {
+        return next(err);
+    }
 });
 
 module.exports = router;

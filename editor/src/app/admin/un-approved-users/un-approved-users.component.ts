@@ -14,8 +14,11 @@ export class UnApprovedUsersComponent implements OnInit {
   city: any = "";
   country: any = "";
   state: any = "";
-
-
+  pinCode: any = "";
+  address: any = "";
+  checkedUsers: any = [];
+  flag: any = false;
+  clickedSelectAll: any = false;
   constructor(private appService: AppService, private router: Router, private navbarService: NavbarService) { }
 
   ngOnInit() {
@@ -31,6 +34,7 @@ export class UnApprovedUsersComponent implements OnInit {
       }
       console.log(this.unApprovedUsers)
     })
+    this.checkedUsers = [];
   } 
 
   loginAdmin() {
@@ -39,47 +43,38 @@ export class UnApprovedUsersComponent implements OnInit {
     this.role = 'admin/unapprovedusers';
   }
 
-  extractVolunteer(email) {
-    this.appService.getVolunteerByEmail(email).subscribe((data:any) => {
-      for(let volunteer of data) {
-        this.city = volunteer.city;
-        this.country = volunteer.country;
-        this.state = volunteer.state;
-      }
-    });
+  details(user) {
+    this.address = user.address;
+    this.pinCode = user.pincode;
+    document.querySelector('.popup-model').setAttribute("style","display:flex;");
   }
 
-  extractRecipient(email) {
-    this.appService.getRecipientByEmail(email).subscribe((data:any) => {
-      for(let recipient of data) {
-        this.city = recipient.city;
-        this.country = recipient.country;
-        this.state = recipient.state;
-      }
-    });
+  checkboxClicked(user) {
+    this.checkedUsers.push(user.user_id);
+    console.log(this.checkedUsers);
   }
 
-  extractDonor(email) {
-    this.appService.getDonorByEmail(email).subscribe((data:any) => {
-      for(let donor of data) {  
-        this.city = donor.city;
-        console.log(this.city)
-        this.country = donor.country;
-        this.state = donor.state;
+  extractUser(Id) {
+    this.appService.getUserById(Id).subscribe((data:any) => {
+      for(let user of data) {
+        this.city = user.city;
+        this.country = user.country;
+        this.state = user.state;
       }
-    });
+    })
   }
 
   viewDetails(detail) {
     console.log(detail)
-    if (detail.userType === "Volunteer") {
-      console.log(detail.email)
-      this.extractVolunteer(detail.email);
-    } else if (detail.userType === "Recipient") {
-      this.extractRecipient(detail.email);
-    } else {
-      this.extractDonor(detail.email);
-    }
+    // if (detail.userType === "Volunteer") {
+    //   console.log(detail.email)
+    //   this.extractVolunteer(detail.email);
+    // } else if (detail.userType === "Recipient") {
+    //   this.extractRecipient(detail.email);
+    // } else {
+    //   this.extractDonor(detail.email);
+    // }
+    this.extractUser(detail.user_id);
     document.querySelector('.popup-model').setAttribute("style","display:flex;");
   }
 
@@ -87,22 +82,93 @@ export class UnApprovedUsersComponent implements OnInit {
     document.querySelector('.popup-model').setAttribute("style","display:none;");
   }
 
-  selectCheckBox(user) {
-    console.log(user)
-    if (user.userType == 'Volunteer') {
-      this.appService.getVolunteerByEmail(user.email).subscribe((data:any) => {
-        console.log(data)
-        data[0].approved = true;
-        console.log(data);
-        this.appService.putVolunteer(data[0]).subscribe((data) => {
-            window.location.reload();
-            console.log(data);
-        })
+  postvolunteer(user) {
+    this.appService.getVolunteerById(user.user_id).subscribe((data:any) => {
+      data[0].approved = true;
+      this.appService.putVolunteer(data[0]).subscribe((data:any) => {
       })
-    }
-    user.approved = true;
-    this.appService.putUser(user).subscribe((data) => {
-      window.location.reload();
     })
   }
+
+  selectCheckBox() {
+    if(this.clickedSelectAll) {
+      this.appService.getUsers().subscribe((data:any) => {
+        for(let user of data) {
+          if(user.userType === "Volunteer") {
+            this.postvolunteer(user);
+          }
+          user.approved = true;
+          this.appService.putUser(user).subscribe((data:any) => {
+            window.location.reload();
+          })
+        }
+      })
+    }
+    else {
+      for(let i=0;i<this.checkedUsers.length;i++) {
+        let userId = this.checkedUsers[i];
+        this.appService.getUserById(userId).subscribe((data:any) => {
+          console.log(data);
+          if (data[0].userType == 'Volunteer') {
+            this.appService.getVolunteerById(data[0].user_id).subscribe((data:any) => {
+              console.log(data)
+              data[0].approved = true;
+              console.log(data);
+              this.appService.putVolunteer(data[0]).subscribe((data) => {
+                  console.log(data);
+              })
+            })
+          }
+          data[0].approved = true;
+          console.log(data);
+          this.appService.putUser(data[0]).subscribe((data) => {
+            console.log(data)
+            window.location.reload();
+          })
+        })
+      }
+    }
+  }
+
+  rejectApprovals() {
+    for(let i=0;i<this.checkedUsers.length;i++) {
+      let userId = this.checkedUsers[i];
+      let userType = "";
+      this.appService.getUserById(userId).subscribe((data:any) => {
+        userType = data[0].userType;
+        if(userType == 'Volunteer') {
+          this.appService.deleteVolunteer(userId).subscribe((data:any) => {
+          })
+        } else if(userType == 'Recipient') {
+          this.appService.deleteRecipient(userId).subscribe((data:any) => {
+          })
+        } else if(userType == 'Donor') {
+          this.appService.deleteDonor(userId).subscribe((data:any) => {
+          })
+        }
+      })
+      this.appService.deleteUser(userId).subscribe((data:any) => {
+      })
+    }
+  }
+
+  selectAllCheckBoxes() {
+    this.clickedSelectAll = true;
+    let Table = document.getElementById("myTable");
+    let checkBoxes = Table.getElementsByTagName("input");
+    this.flag=false;
+    for(let i=0;i<checkBoxes.length;i++) {
+      checkBoxes[i].checked = true;
+    }
+  }
+
+  clearCheckBoxes() {
+    let Table = document.getElementById("myTable");
+    let checkBoxes = Table.getElementsByTagName("input");
+    this.flag=false;
+    for(let i=0;i<checkBoxes.length;i++) {
+      checkBoxes[i].checked = false;
+    }
+  }
+
 }

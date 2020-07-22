@@ -15,13 +15,14 @@ export const apiUrls = {
   loginManager: apiServer + 'loginManager',
   donorManager: apiServer + 'donorManager',
   requestManager: apiServer + 'requestManager',
-  getUserByEmail: apiServer + 'userRegisterationManager/getUserByEmail',
-  getRequestsByEmail: apiServer + 'requestManager/getRequestsByEmail',
-  getVolunteerByEmail: apiServer + 'volunteerManager/getVolunteerByEmail',
+  getUserById: apiServer + 'userRegisterationManager/getUserById',
+  getRequestsById: apiServer + 'requestManager/getRequestsById',
+  getVolunteerById: apiServer + 'volunteerManager/getVolunteerById',
   getRequestsByHandledBy: apiServer + 'requestManager/getRequestsByHandledBy',
+  getUserByReferedBy: apiServer + 'userRegisterationManager/getUserByReferedBy',
   getRecipientsByReferedBy: apiServer + 'recipientManager/getRecipientsByReferedBy',
-  getRecipientsByEmail: apiServer + 'recipientManager/getRecipientByEmail',
-  getDonorbyEmail: apiServer + 'donorManager/getDonorByEmail'
+  getRecipientsById: apiServer + 'recipientManager/getRecipientById',
+  getDonorbyId: apiServer + 'donorManager/getDonorById'
 };
 
 /*

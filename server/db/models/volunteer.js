@@ -7,10 +7,20 @@ let recipientModel = require('./recipient');
 let async = require('async')
 const projectionsDefaults = { _id: 0, __v: 0 };
 
+let requestSchema = Schema({
+    _id: false,
+    requestType: {
+        type: String,
+        required: [true, "required"]
+    },
+    request_id: {
+        type: String
+    }
+})
+
 let volunteerSchema = Schema({
     email: {
         type: String,
-        required: true,
         unique: true,
         required: [true, "required"]
     },
@@ -28,26 +38,30 @@ let volunteerSchema = Schema({
         type: String,
         trim: true
     },
-    state: {
+    country: {
         type: String,
         trim: true
     },
-    approved: {
-        type: Boolean
+    state: {
+        type: String,
+        trim: true
     },
     city: {
         type: String,
         trim: true,
     },
-    country: {
-        type: String,
-        trim: true
+    approved: {
+        type: Boolean
     },
-    requestType: {
-        type: String,
-        // enum: ['None','food', 'clothes', 'education', 'medicines', 'finance'],
-        required: [true, "required"]
+    requests: [requestSchema],
+    volunteer_id: {
+        type: String
     },
+    // requestType: {
+    //     type: Str,
+    //     // enum: ['None','food', 'clothes', 'education', 'medicines', 'finance'],
+    //     required: [true, "required"]
+    // },
     requests_handled: {
         type: Number
     }
@@ -128,8 +142,8 @@ volunteerSchema.statics.getAllVolunteers = function (callback) {
     })
 };
 
-volunteerSchema.statics.getVolunteerByEmail = function (email, callback) {
-    this.find({ email: email }, projectionsDefaults).lean().exec(function (err, volunteer) {
+volunteerSchema.statics.getVolunteerById = function (Id, callback) {
+    this.find({ volunteer_id: Id }, projectionsDefaults).lean().exec(function (err, volunteer) {
         if (err) {
             return callback(err);
         }

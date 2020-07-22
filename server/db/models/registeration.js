@@ -5,7 +5,7 @@ let Schema = mongoose.Schema;
 const projectionsDefaults = { _id: 0, __v: 0 };
 
 const UserSchema = Schema({
-    name: {
+    firstName: {
         type: String,
         trim: true,
     },
@@ -44,13 +44,6 @@ const UserSchema = Schema({
         type: String,
         trim: true
     }, 
-    age: {
-        type: Number,
-    },
-    gender: {
-        type: String,
-        enum: ['male', 'female'],
-    },
     pincode: {
         type: String,
         trim: true
@@ -58,6 +51,24 @@ const UserSchema = Schema({
     familyName: {
         type: String,
         trim: true
+    },
+    user_id: {
+        type: String
+    },
+    country: {
+        type: String,
+        trim: true
+    },
+    city: {
+        type: String,
+        trim: true,
+    },
+    state: {
+        type: String,
+        trim: true
+    },
+    referedBy: {
+        type: String
     }
 }, {
     collection: config.collections.registerations
@@ -94,8 +105,8 @@ UserSchema.statics.getAllUsers = function (callback) {
     })
 };
 
-UserSchema.statics.getUserByEmail = function (email, callback) {
-    this.find({ email: email }, projectionsDefaults).lean().exec(function (err, User) {
+UserSchema.statics.getUserById = function (Id, callback) {
+    this.find({ user_id: Id }, projectionsDefaults).lean().exec(function (err, User) {
         if (err) {
             return callback(err);
         }
@@ -105,4 +116,14 @@ UserSchema.statics.getUserByEmail = function (email, callback) {
     })
 }
 
+UserSchema.statics.getUserByReferedBy = function (referedBy, callback) {
+    this.find({ referedBy: referedBy }, projectionsDefaults).lean().exec(function (err, User) {
+        if (err) {
+            return callback(err);
+        }
+        if (User) {
+            return callback(null, User);
+        }
+    })
+}
 module.exports = db.model('user', UserSchema);

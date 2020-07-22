@@ -12,6 +12,11 @@ let donorSchema = Schema({
         unique: true,
         required: [true, "required"]
     },
+    contact: {
+        type: String,
+        unique: true,
+        required: [true, "required"],
+    },
     firstName: {
         type: String,
         trim: true,
@@ -22,19 +27,20 @@ let donorSchema = Schema({
         trim: true,
         required: [true, "required"]
     },
-    state: {
-        type: String,
-        trim: true,
-        // required: [true, "required"]
+    donor_id: {
+        type: String
     },
-    city: {
-        type: String,
-        trim: true,
-    },
-    country: {
-        type: String,
-        trim: true
+    fund_donated: {
+        type: String
     }
+    // city: {
+    //     type: String,
+    //     trim: true,
+    // },
+    // country: {
+    //     type: String,
+    //     trim: true
+    // }
 }, {
     collection: config.collections.donor
 });
@@ -123,8 +129,8 @@ donorSchema.statics.getAllDonors = function (callback) {
     })
 };
 
-donorSchema.statics.getDonorByEmail = function (email,callback) {
-    this.find({ email: email }, projectionsDefaults).lean().exec(function (err, Donors) {
+donorSchema.statics.getDonorById = function (Id,callback) {
+    this.find({ donor_id: Id }, projectionsDefaults).lean().exec(function (err, Donors) {
         if (err) {;
             return callback(err);
         }

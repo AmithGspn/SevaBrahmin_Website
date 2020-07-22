@@ -5,20 +5,22 @@ let registerationModel = require('../db/models/registeration');
 
 router.post('/', async function (req, res, next) {
     data = {
+        country: req.body.country,
         state: req.body.state,
+        city: req.body.city,
         email: req.body.email,
-        name: req.body.name,
+        firstName: req.body.firstName,
         userType: req.body.userType,
         password: req.body.password,
         age: req.body.age,
         gender: req.body.gender,
-        approved: false,
+        approved: false || req.body.approved,
         contact: req.body.contact,
-        age: req.body.age,
-        gender: req.body.gender,
         address: req.body.address,
         pincode: req.body.pincode,
-        familyName: req.body.familyName
+        user_id: req.body.user_id,
+        familyName: req.body.familyName,
+        referedBy: req.body.referedBy
     };
 
     try {
@@ -60,20 +62,22 @@ router.get('/', async function (req, res, next) {
 
 router.put('/', async function (req, res, next) {
     data = {
+        country: req.body.country,
         state: req.body.state,
+        city: req.body.city,
         email: req.body.email,
-        name: req.body.name,
+        firstName: req.body.firstName,
         userType: req.body.userType,
         password: req.body.password,
         age: req.body.age,
         gender: req.body.gender,
         approved: req.body.approved,
         contact: req.body.contact,
-        age: req.body.age,
-        gender: req.body.gender,
         address: req.body.address,
         pincode: req.body.pincode,
-        familyName: req.body.familyName
+        user_id: req.body.user_id,
+        familyName: req.body.familyName,
+        referedBy: req.body.referedBy
     };
 
     try {
@@ -104,10 +108,36 @@ router.put('/', async function (req, res, next) {
     }
 });
 
-router.get('/getUserByEmail', async function (req, res, next) {
-    let email= req.body['emailId'] || req.query['emailId']
+router.get('/getUserById', async function (req, res, next) {
+    let Id= req.body['user_id'] || req.query['user_id']
     let user = await new Promise((resolve, reject) =>
-    registerationModel.getUserByEmail(email, (err, docs) => err ? reject(err) : resolve(docs)));
+    registerationModel.getUserById(Id, (err, docs) => err ? reject(err) : resolve(docs)));
+    return res.status(200).json(user);
+})
+
+router.delete('/', async function (req, res, next) {
+    let userId = req.query['user_id'] || req.body['user_id'];
+    console.log(userId);
+    try {
+        let delDoc = await registerationModel.findOneAndRemove({ user_id: userId });
+        if (!delDoc) {
+            e = new Error();
+            e.status = 404;
+            e.message = 'user not found';
+
+            return next(e);
+        } else {
+            return res.status(200).json({ user_id: userId, "deleted": true });
+        }
+    } catch (err) {
+        return next(err);
+    }
+});
+
+router.get('/getUserByReferedBy', async function (req, res, next) {
+    let referedBy= req.body['referedBy'] || req.query['referedBy']
+    let user = await new Promise((resolve, reject) =>
+    registerationModel.getUserByReferedBy(referedBy, (err, docs) => err ? reject(err) : resolve(docs)));
     return res.status(200).json(user);
 })
 

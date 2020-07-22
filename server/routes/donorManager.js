@@ -19,10 +19,10 @@ function verifyToken(req, res, next) {
     next()
 }
 
-router.get('/getDonorByEmail', async function (req, res, next) {
-    let email= req.body['email'] || req.query['email']
+router.get('/getDonorById', async function (req, res, next) {
+    let Id= req.body['donor_id'] || req.query['donor_id']
     let user = await new Promise((resolve, reject) =>
-    donorModel.getDonorByEmail(email, (err, docs) => err ? reject(err) : resolve(docs)));
+    donorModel.getDonorByEmail(Id, (err, docs) => err ? reject(err) : resolve(docs)));
     return res.status(200).json(user);
 })
 
@@ -30,14 +30,11 @@ router.post('/', async function (req, res, next) {
     try {
         data = {
             email: req.body.email,
+            contact: req.body.contact,
             firstName: req.body.firstName,
             familyName: req.body.familyName,
-            gothram: req.body.gothram,
-            state: req.body.state,
-            city: req.body.city,
-            country: req.body.country,
-            address: req.body.address,
-            postalCode: req.body.postalCode
+            donor_id: req.body.donor_id,
+            fund_donated: req.body.fund_donated
         };
 
         let newDoc = await donorModel.create(data);
@@ -69,6 +66,24 @@ router.get('/', async function (req, res, next) {
             return next(e);
         }
 
+        return next(err);
+    }
+});
+
+router.delete('/', async function (req, res, next) {
+    let donorId = req.query['donor_id'] || req.body['donor_id'];
+    try {
+        let delDoc = await donorModel.findOneAndRemove({ donor_id: donorId });
+        if (!delDoc) {
+            e = new Error();
+            e.status = 404;
+            e.message = 'user not found';
+
+            return next(e);
+        } else {
+            return res.status(200).json({ donor_id: donorId, "deleted": true });
+        }
+    } catch (err) {
         return next(err);
     }
 });

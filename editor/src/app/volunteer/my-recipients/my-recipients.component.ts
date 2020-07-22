@@ -12,26 +12,33 @@ import { async } from '@angular/core/testing';
 
 export class MyRecipientsComponent implements OnInit {
   role: any = "";
-  email: any = "";
+  // email: any = "";
+  Id:any = "";
   addedRecipients = [];
   requests = [];
-  recipientEmail: any = "";
+  recipientId: any = "";
+  recipientCountry: any = "";
+  recipientState: any = "";
+  recipientCity: any = "";
   recipientContact: any = "";
   constructor(private appService: AppService,private router: Router, private navbarService: NavbarService) { }
 
   ngOnInit() {
     this.loginMyRecipient()
     this.router.navigateByUrl('/volunteer/myrecipients');
-    this.email = localStorage.getItem('email')
-    console.log(this.email)
-    this.appService.getRecipientsByReferedBy(this.email).subscribe(async(data:any) => {
+    this.Id = localStorage.getItem('Id')
+    console.log(this.Id)
+    this.appService.getUserByReferedBy(this.Id).subscribe(async(data:any) => {
       console.log(data);
       for(let recipient of data) {
-        this.recipientEmail = recipient.email;
+        this.recipientId = recipient.recipient_id;
         await this.addedRecipients.push(recipient);
-        this.appService.getUserByEmail(this.recipientEmail).subscribe(async(data:any) => {
-          this.recipientContact = data[0].contact;
-        })
+        // this.appService.getUserById(this.recipientId).subscribe(async(data:any) => {
+        //   this.recipientContact = data[0].contact;
+        //   this.recipientCountry = data[0].country;
+        //   this.recipientState = data[0].state;
+        //   this.recipientCity = data[0].city;
+        // })
       }
     })
     console.log(this.addedRecipients);
@@ -43,18 +50,18 @@ export class MyRecipientsComponent implements OnInit {
     this.role = 'volunteer/myrecipients'; 
   }
 
-  showRequestsButton(recipient) {
-    this.requests = [];
-    console.log(recipient)
-    this.appService.getRequestsByEmail(recipient.email).subscribe((data:any) => {
-      for(let request of data) {
-        if(request.email === recipient.email && request.handledBy === this.email) {
-          this.requests.push(request);
-        }
-      }
-    })
-    console.log(this.requests);
-  }
+  // showRequestsButton(recipient) {
+  //   this.requests = [];
+  //   console.log(recipient)
+  //   this.appService.getRequestsById(recipient.recipient_id).subscribe((data:any) => {
+  //     for(let request of data) {
+  //       if(request.email === recipient.email && request.handledBy === this.email) {
+  //         this.requests.push(request);
+  //       }
+  //     }
+  //   })
+  //   console.log(this.requests);
+  // }
 
 
 }

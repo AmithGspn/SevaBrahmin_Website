@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import { Router } from '@angular/router';
+import {v4 as uuid} from 'uuid';
 
 @Component({
     selector: 'app-sign-up',
@@ -22,7 +23,7 @@ export class SignUpComponent implements OnInit {
     gothram: any = "";
     address1: any={disabled: false, value: ""};
     address2: any={disabled: false, value: ""};
-    pinCode: any={disabled: false, value: ""};
+    pincode: any={disabled: false, value: ""};
     gender:any="male";
     state: any = "";
     district: any = "";
@@ -34,6 +35,11 @@ export class SignUpComponent implements OnInit {
     country: any={disabled: false, value: ""};
     bankDetails: any = "";
     ifsc: any = "";
+    user_id: any = uuid();
+    requests: any = {
+        requestType: "None",
+        request_id: "None"
+    }
     checkedValue1: any = false;
     checkedvalue2: any = false;
     checkedvalue3: any = false;
@@ -129,9 +135,9 @@ export class SignUpComponent implements OnInit {
     }
     onPinChange(event){
         if(event == ''){
-            this.pinCode = {value: '',disabled: true}
+            this.pincode = {value: '',disabled: true}
         }else{
-            this.pinCode = {value: event,disabled: false}
+            this.pincode = {value: event,disabled: false}
         }
     }
     // onDistrictChange(event) {
@@ -229,17 +235,6 @@ export class SignUpComponent implements OnInit {
         }
     }
 
-    // onChecked(event){
-    //     this.filled=false;
-    // }
-// modified thing
-    // disbale(){
-    //     if (this.emailAddress !== "") {
-    //         console.log('rr')
-    //         this.filled =false
-    //     }
-    // }
-
     selectCheckBox1(event) {
         this.checkedValue1 = false
         this.checkedValue1 = event;
@@ -260,28 +255,34 @@ export class SignUpComponent implements OnInit {
 
     signup() {
         let formData = {
-            state: this.state.value,
-            email: this.emailAddress.value,
-            contact: this.countrycode + " " + this.contact.value,
-            password: this.password.value,
-            userType: this.checkedValue,
-            name: this.firstName.value,
-            age: this.age.value,
-            gender: this.gender,
-            address: this.address1.value + this.address2.value,
-            pinCode: this.pinCode.value,
-            familyName: this.familyName.value
-        }
-        
-        let volunteerData = {
-            email: this.emailAddress.value,
             firstName: this.firstName.value,
             familyName: this.familyName.value,
-            contact: this.countrycode + " " + this.contact.value,
-            city: this.city,
+            email: this.emailAddress.value,
+            contact: '+' + this.countrycode + " " + this.contact.value,
+            userType: this.checkedValue,
             country: this.country.value,
             state: this.state,
-            requestType: "None",
+            city: this.city,
+            approved: false,
+            password: this.password.value,
+            address: this.address1.value + this.address2.value,
+            age: this.age.value,
+            gender: this.gender,
+            user_id: this.user_id,
+            pincode: this.pincode.value,
+            referedBy: "None"
+        }
+        console.log(formData);
+        let volunteerData = {
+            firstName: this.firstName.value,
+            familyName: this.familyName.value,
+            requests: this.requests,
+            volunteer_id: this.user_id,
+            country: this.country.value,
+            state: this.state,
+            city: this.city,
+            contact:'+' + this.countrycode + " " + this.contact.value,
+            email: this.emailAddress.value,
             requests_handled: 0
         };
 
@@ -303,13 +304,15 @@ export class SignUpComponent implements OnInit {
         }
 
         let donorData = {
-            email: this.emailAddress.value,
             firstName: this.firstName.value,
             familyName: this.familyName.value,
-            contact: this.countrycode + " " + this.contact.value,
-            city: this.city,
-            country: this.country.value,
-            state: this.state
+            donor_id: this.user_id,
+            fund_donated: 0,
+            email: this.emailAddress.value,
+            contact:'+' + this.countrycode + " " + this.contact.value,
+            // city: this.city,
+            // country: this.country.value,
+            // state: this.state
         }
 
         console.log(this.checkedvalue3)
@@ -336,12 +339,14 @@ export class SignUpComponent implements OnInit {
             firstName: this.firstName.value,
             familyName: this.familyName.value,
             email: this.emailAddress.value,
-            city: this.city,
-            country: this.country.value,
-            state: this.state,
+            contact:'+' + this.countrycode + " " + this.contact.value,
+            recipient_id: this.user_id,
             bankAccountNumber: this.bankDetails,
             IFSC: this.ifsc,
             referedBy: "None"
+            // country: this.country.value,
+            // state: this.state,
+            // city: this.city,
         }
 
         console.log(recipientData)

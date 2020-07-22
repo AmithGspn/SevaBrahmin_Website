@@ -49,7 +49,24 @@ td{
     overflow: hidden;
 }
 
-label {
-    text-align: center;
-    margin-left: auto;
+label{
+    text-align: left;
+    margin-left: 0.8rem;
+    width: 35vh;
+    overflow-wrap: break-word;
+}
+.align-start{
+    text-align: start;
+}
+
+/* .align{
+    justify-content: center;
+} */
+.left{
+    margin-left: 5%;  
+}
+
+.right{
+    margin-left: 70%;
+    margin-right: 3vh;
 }

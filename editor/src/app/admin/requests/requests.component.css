@@ -1,5 +1,5 @@
 .form-control:not(select) {
-    padding: 1.5rem 0.5rem;
+    padding: 1 rem 0.5rem;
 }
 
 select.form-control {
@@ -62,8 +62,7 @@ select.form-control {
 .header{
     /* margin-left: 0.5rem;
     text-align: left; */
-    text-align: left;
-    margin-left: 1rem;
+    text-align: center;
     margin-top: 0.7rem;
     font-family: Arial, Helvetica;
 }
@@ -154,4 +153,30 @@ label{
     /* display: flex; */
     justify-content: center;
     margin-top: 2vh;
+}
+
+.align-start{
+    text-align: start;
+}
+
+/* input[type=text] {
+    width:10%;
+    margin-right: auto;
+    border-radius: 4px;
+    padding: 5px;
+    border-color:; */
+    /* outline:none; */
+    /* padding: 0;
+    height: 30px;
+    position: relative;
+    left: 0;
+    outline: none;
+    border: 1px solid #cdcdcd;
+    border-color: rgba(0, 0, 0, .15);
+    background-color: white;
+    font-size: 16px; */
+  /* } */
+
+.textbox-width{
+    width: fit-content;
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavbarService } from '../services/navbar.service';
 import { AppService } from '../app.service';
@@ -8,7 +8,7 @@ import { AppService } from '../app.service';
   templateUrl: './donor.component.html',
   styleUrls: ['./donor.component.css']
 })
-export class DonorComponent implements OnInit {
+export class DonorComponent implements OnInit,AfterViewInit {
   role = '';
   volunteersList:any = [];
   requestList:any = [];
@@ -17,29 +17,43 @@ export class DonorComponent implements OnInit {
   error_class = false;
   state:any = "State";
   type:any = "Request Type";
-  email:any = "";
+  // email:any = "";
+  Id:any = "";
+  rowIndex: number = 0;
   result: any = "";
   description: any = "";
-  types: any = ['SwayamPakam','Medicines','Education','Finance'];
+  types: any = ['SwayamPakam','Medicines','Education','Finance','None'];
   constructor(private appService: AppService, private router: Router, private navbarService: NavbarService) { }
 
   ngOnInit() {
       this.loginDonor();
       this.router.navigateByUrl('/donor');
-      this.email = localStorage.getItem('email')
-      console.log(this.email)
-      this.appService.getUserByEmail(this.email).subscribe((data:any) => {
+      this.Id = localStorage.getItem('Id')
+      console.log(this.Id)
+      this.appService.getUserById(this.Id).subscribe((data:any) => {
         this.loginData = [];
         this.loginData = data
-        this.appService.getVolunteer().subscribe(async(data:any) => {
-            for(let volunteer of data) {
-                if (volunteer.approved == true) {
-                  await this.volunteersList.push(volunteer);
-                }
+      })
+  }
+
+  ngAfterViewInit() {
+    this.appService.getVolunteer().subscribe((data:any) => {
+      console.log(data)
+        for(let volunteer of data) {
+            if (volunteer.approved === true) {
+              if (volunteer.requests_handled > 0) {
+                console.log(volunteer);  
+                this.volunteersList.push(volunteer);
+              }
             }
-        })
+        }
+        // this.volunteersList = data.filter(volunteer => volunteer.approved === true)
     })
-    console.log(this.volunteersList)
+    // setTimeout(function(){
+      console.log(this.volunteersList);
+    // }, 10000);
+    // setTimeout(function(){ alert("Hello"); }, 3000);
+
   }
 
   loginDonor() {
@@ -56,15 +70,25 @@ export class DonorComponent implements OnInit {
       console.log(data);
       for (let request of data) {
         console.log(request)
-        this.requestList.push(request)
+        // if(request.requestType == this.type)
+          this.requestList.push(request)
         document.querySelector('.popup-model').setAttribute("style","display:flex;");
       }
     })
     console.log(this.requestList);
   }
 
+  viewDescription(request,i) {
+    this.rowIndex = i;
+    let Table = document.getElementById("myTable");
+    let rows = Table.getElementsByTagName("tr");
+    rows[i+1].setAttribute("style","background-color:  black; color: white");
+    this.description = request.description;
+    document.querySelector('.popup-descriptionModel').setAttribute("style","display:flex;");
+  }
+
   donate(request) {
-    request.donor = this.loginData[0].email
+    request.donor = this.loginData[0].firstName + " " + this.loginData[0].familyName
     this.appService.putRequests(request).subscribe((data:any) => {
       window.location.reload()
     })
@@ -92,7 +116,7 @@ export class DonorComponent implements OnInit {
       // this.error_class = true;
       await this.appService.getVolunteer().subscribe((data:any) => {
         for(let volunteer of data) {
-          if(this.volunteersList.length < 3 && volunteer.approved === true) {
+          if(this.volunteersList.length < 3 && volunteer.approved === true && volunteer.requests_handled > 0) {
             this.volunteersList.push(volunteer)
             this.Validation()
           }
@@ -103,13 +127,29 @@ export class DonorComponent implements OnInit {
       await this.appService.getVolunteer().subscribe(async(data:any) => {
         console.log(data)
         data.forEach(async volunteer => {
+          console.log(this.type);
           if(this.type === "Others") {
-            if(volunteer.state === this.state && !(this.types.includes(volunteer.requestType))  && volunteer.approved === true) {
-              await this.volunteersList.push(volunteer);
-              this.Validation()
-          }} 
+            // for(l/et rec of volunteer.requests) {
+              // !(this.types.includes(rec.requestType))
+              // let flag = volunteer.requests.some(el => this.types.includes(el.requestType) === false)
+            // } 
+            console.log("aa");
+            for(let i=0;i<volunteer.requests.length;i++) {
+              console.log("aaa");
+              if(!(this.types.includes(volunteer.requests[i].requestType)) && volunteer.state === this.state) {
+                this.volunteersList.push(volunteer);
+              }
+            }
+            this.Validation();
+            // console.log(flag)
+            // if(volunteer.state === this.state && flag && volunteer.approved === true) {
+              // await this.volunteersList.push(volunteer);
+              // this.Validation()
+            // }
+          } 
           else {
-             if(volunteer.state === this.state && volunteer.requestType === this.type && volunteer.approved === true) {
+            let found = volunteer.requests.some(el => el.requestType === this.type)
+             if(volunteer.state === this.state && found && volunteer.approved === true) {
               await this.volunteersList.push(volunteer);
               this.Validation()
             }    
@@ -139,6 +179,9 @@ export class DonorComponent implements OnInit {
   }
 
   onDescriptionClose() {
+    let Table = document.getElementById("myTable");
+    let rows = Table.getElementsByTagName("tr");
+    rows[this.rowIndex+1].setAttribute("style","background-color: none; color: none");
     document.querySelector('.popup-descriptionModel').setAttribute("style","display:none;")
   }
 
